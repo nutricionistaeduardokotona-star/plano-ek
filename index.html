@@ -3,1741 +3,592 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Plano EK — 90kg | 12% BF</title>
+<title>EK · Life in Peace</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #0a0a0a;
-    --surface: #111111;
-    --surface2: #181818;
-    --border: #222222;
-    --accent: #e8ff00;
-    --accent2: #ff4d00;
-    --text: #f0f0f0;
-    --muted: #666666;
-    --red: #ff3b30;
-    --blue: #0a84ff;
-    --purple: #bf5af2;
-    --green: #30d158;
-    --orange: #ff9f0a;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 15px;
-    line-height: 1.6;
-    min-height: 100vh;
-  }
-
-  /* ── HEADER ── */
-  .header {
-    background: var(--bg);
-    border-bottom: 1px solid var(--border);
-    padding: 24px 20px 20px;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-  .header-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 16px;
-  }
-  .logo {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 28px;
-    letter-spacing: 2px;
-    color: var(--accent);
-    line-height: 1;
-  }
-  .logo span { color: var(--muted); }
-  .badge {
-    background: var(--accent);
-    color: #000;
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    font-weight: 500;
-    padding: 4px 10px;
-    border-radius: 2px;
-    letter-spacing: 1px;
-  }
-
-  /* ── STATS BAR ── */
-  .stats-bar {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-  }
-  .stat-item {
-    text-align: center;
-  }
-  .stat-val {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 22px;
-    color: var(--accent);
-    line-height: 1;
-  }
-  .stat-label {
-    font-size: 10px;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-top: 2px;
-  }
-
-  /* ── NAV TABS ── */
-  .nav {
-    display: flex;
-    gap: 4px;
-    padding: 12px 20px;
-    background: var(--bg);
-    border-bottom: 1px solid var(--border);
-    overflow-x: auto;
-    scrollbar-width: none;
-  }
-  .nav::-webkit-scrollbar { display: none; }
-  .nav-btn {
-    background: transparent;
-    border: 1px solid var(--border);
-    color: var(--muted);
-    padding: 8px 14px;
-    border-radius: 4px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 12px;
-    font-weight: 500;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: all 0.2s;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-  .nav-btn.active {
-    background: var(--accent);
-    border-color: var(--accent);
-    color: #000;
-    font-weight: 600;
-  }
-
-  /* ── SECTIONS ── */
-  .section { display: none; padding: 20px; }
-  .section.active { display: block; }
-
-  /* ── CARDS ── */
-  .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 18px;
-    margin-bottom: 14px;
-  }
-  .card-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 20px;
-    letter-spacing: 1px;
-    margin-bottom: 14px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .card-title .dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-
-  /* ── TRAINING DAY ── */
-  .day-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 16px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid var(--border);
-  }
-  .day-tag {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 30px;
-    line-height: 1;
-  }
-  .day-info h3 {
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 600;
-    font-size: 13px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-  .day-info p {
-    font-size: 12px;
-    color: var(--muted);
-  }
-
-  /* ── EXERCISE TABLE ── */
-  .muscle-group {
-    margin-bottom: 18px;
-  }
-  .muscle-label {
-    font-size: 10px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    color: var(--muted);
-    margin-bottom: 8px;
-    padding-left: 4px;
-  }
-  .exercise-row {
-    display: grid;
-    grid-template-columns: 1fr auto auto;
-    gap: 8px;
-    align-items: center;
-    padding: 10px 12px;
-    background: var(--surface2);
-    border-radius: 6px;
-    margin-bottom: 6px;
-    border-left: 3px solid transparent;
-  }
-  .exercise-row.priority { border-left-color: var(--accent); }
-  .exercise-name {
-    font-size: 13px;
-    font-weight: 500;
-  }
-  .exercise-sets {
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    color: var(--accent);
-    font-weight: 500;
-    white-space: nowrap;
-  }
-  .exercise-reps {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    color: var(--muted);
-    white-space: nowrap;
-  }
-  .tip-box {
-    background: #1a1a00;
-    border: 1px solid #333300;
-    border-radius: 6px;
-    padding: 10px 12px;
-    font-size: 12px;
-    color: #cccc00;
-    margin-top: 12px;
-    display: flex;
-    gap: 8px;
-  }
-  .removed-tag {
-    display: inline-block;
-    background: #1a0a0a;
-    border: 1px solid var(--red);
-    color: var(--red);
-    font-size: 10px;
-    padding: 2px 6px;
-    border-radius: 3px;
-    font-family: 'DM Mono', monospace;
-    margin-left: 6px;
-    text-decoration: line-through;
-    opacity: 0.6;
-  }
-  .added-tag {
-    display: inline-block;
-    background: #0a1a0a;
-    border: 1px solid var(--green);
-    color: var(--green);
-    font-size: 10px;
-    padding: 2px 6px;
-    border-radius: 3px;
-    font-family: 'DM Mono', monospace;
-    margin-left: 6px;
-  }
-
-  /* ── MEAL PLAN ── */
-  .meal-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    margin-bottom: 12px;
-    overflow: hidden;
-  }
-  .meal-header {
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    align-items: center;
-    gap: 12px;
-    padding: 14px 16px;
-    cursor: pointer;
-  }
-  .meal-time {
-    font-family: 'DM Mono', monospace;
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--accent);
-    white-space: nowrap;
-  }
-  .meal-name {
-    font-weight: 600;
-    font-size: 14px;
-  }
-  .meal-kcal {
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    color: var(--muted);
-  }
-  .meal-body {
-    padding: 0 16px 14px;
-    border-top: 1px solid var(--border);
-  }
-  .food-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 7px 0;
-    border-bottom: 1px solid #1a1a1a;
-  }
-  .food-item:last-child { border-bottom: none; }
-  .food-name { font-size: 13px; }
-  .food-qty {
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    color: var(--accent);
-  }
-
-  /* ── PROJECTION TABLE ── */
-  .proj-row {
-    display: grid;
-    grid-template-columns: 50px 1fr 1fr 1fr;
-    gap: 8px;
-    padding: 10px 12px;
-    background: var(--surface2);
-    border-radius: 6px;
-    margin-bottom: 6px;
-    align-items: center;
-    font-size: 13px;
-  }
-  .proj-month {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 18px;
-    color: var(--accent);
-  }
-  .proj-bar-wrap {
-    grid-column: 1/-1;
-    height: 3px;
-    background: var(--border);
-    border-radius: 2px;
-    margin-top: 8px;
-  }
-  .proj-bar {
-    height: 100%;
-    border-radius: 2px;
-    background: linear-gradient(90deg, var(--accent2), var(--accent));
-    transition: width 1s ease;
-  }
-
-  /* ── PROTOCOL ── */
-  .proto-item {
-    display: flex;
-    gap: 14px;
-    padding: 14px;
-    background: var(--surface2);
-    border-radius: 8px;
-    margin-bottom: 10px;
-  }
-  .proto-icon {
-    font-size: 24px;
-    flex-shrink: 0;
-  }
-  .proto-title {
-    font-weight: 600;
-    font-size: 14px;
-    margin-bottom: 4px;
-  }
-  .proto-text {
-    font-size: 12px;
-    color: var(--muted);
-    line-height: 1.6;
-  }
-  .proto-highlight {
-    color: var(--accent);
-    font-family: 'DM Mono', monospace;
-  }
-  .warn-box {
-    background: #1a0800;
-    border: 1px solid #ff4d0044;
-    border-radius: 8px;
-    padding: 12px 14px;
-    font-size: 12px;
-    color: #ff9966;
-    margin-top: 12px;
-    display: flex;
-    gap: 10px;
-  }
-
-  /* ── PROGRESS BAR ── */
-  .macros-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 10px;
-    margin-bottom: 16px;
-  }
-  .macro-box {
-    background: var(--surface2);
-    border-radius: 6px;
-    padding: 12px;
-    text-align: center;
-  }
-  .macro-val {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 26px;
-    color: var(--accent);
-    line-height: 1;
-  }
-  .macro-unit { font-size: 12px; color: var(--muted); }
-  .macro-name { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; color: var(--text); }
-
-  /* ── CHECKLIST ── */
-  .check-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    padding: 12px 0;
-    border-bottom: 1px solid var(--border);
-  }
-  .check-item:last-child { border-bottom: none; }
-  .check-num {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 22px;
-    color: var(--accent);
-    line-height: 1;
-    flex-shrink: 0;
-    width: 28px;
-  }
-  .check-text { font-size: 13px; }
-  .check-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
-
-  /* ── DIVIDER ── */
-  .divider {
-    height: 1px;
-    background: var(--border);
-    margin: 16px 0;
-  }
-
-  /* ── FOOTER ── */
-  .footer {
-    padding: 20px;
-    text-align: center;
-    font-size: 11px;
-    color: var(--muted);
-    border-top: 1px solid var(--border);
-  }
-
-  /* ── RESPONSIVE ── */
-  @media (max-width: 380px) {
-    .stats-bar { grid-template-columns: repeat(2, 1fr); }
-  }
-
-  /* ── ANIMATION ── */
-  .section.active .card { animation: fadeUp 0.3s ease forwards; }
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(8px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
+:root{--bg:#0a0a0a;--surface:#111;--surface2:#181818;--border:#222;--accent:#e8ff00;--accent2:#ff4d00;--text:#f0f0f0;--muted:#555;--red:#ff3b30;--blue:#0a84ff;--purple:#bf5af2;--green:#30d158;--orange:#ff9f0a;--teal:#40e0d0;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.6;min-height:100vh;}
+.header{background:var(--bg);border-bottom:1px solid var(--border);padding:18px 20px 14px;position:sticky;top:0;z-index:100;}
+.header-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:2px;color:var(--accent);line-height:1;}
+.logo span{color:var(--muted);}
+.logo-sub{font-size:10px;color:var(--muted);font-family:'DM Mono',monospace;margin-top:2px;}
+.badge{background:var(--accent);color:#000;font-family:'DM Mono',monospace;font-size:10px;font-weight:600;padding:3px 9px;border-radius:2px;letter-spacing:1px;}
+.stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;}
+.stat-item{text-align:center;}
+.stat-val{font-family:'Bebas Neue',sans-serif;font-size:19px;color:var(--accent);line-height:1;}
+.stat-label{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-top:1px;}
+.nav{display:flex;gap:3px;padding:8px 16px;background:var(--bg);border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none;}
+.nav::-webkit-scrollbar{display:none;}
+.nav-btn{background:transparent;border:1px solid var(--border);color:var(--muted);padding:6px 12px;border-radius:4px;font-family:'DM Sans',sans-serif;font-size:10px;font-weight:500;cursor:pointer;white-space:nowrap;transition:all 0.2s;text-transform:uppercase;letter-spacing:0.5px;}
+.nav-btn.active{background:var(--accent);border-color:var(--accent);color:#000;font-weight:700;}
+.section{display:none;padding:14px;}
+.section.active{display:block;}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:15px;margin-bottom:11px;}
+.card-title{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:1px;margin-bottom:11px;display:flex;align-items:center;gap:9px;}
+.card-title .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.day-header{display:flex;align-items:center;gap:11px;margin-bottom:13px;padding-bottom:11px;border-bottom:1px solid var(--border);}
+.day-tag{font-family:'Bebas Neue',sans-serif;font-size:26px;line-height:1;}
+.day-info h3{font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:1px;}
+.day-info p{font-size:11px;color:var(--muted);}
+.muscle-group{margin-bottom:14px;}
+.muscle-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:6px;padding-left:3px;}
+.exercise-row{display:grid;grid-template-columns:1fr auto auto;gap:7px;align-items:center;padding:8px 10px;background:var(--surface2);border-radius:5px;margin-bottom:4px;border-left:3px solid transparent;}
+.exercise-row.priority{border-left-color:var(--accent);}
+.exercise-row.optional{border-left-color:var(--orange);opacity:0.7;}
+.exercise-name{font-size:12px;font-weight:500;}
+.exercise-sets{font-family:'DM Mono',monospace;font-size:11px;color:var(--accent);font-weight:500;white-space:nowrap;}
+.exercise-reps{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);white-space:nowrap;}
+.tip-box{background:#1a1a00;border:1px solid #333300;border-radius:6px;padding:9px 11px;font-size:11px;color:#cccc00;margin-top:9px;display:flex;gap:7px;}
+.warn-box{background:#1a0800;border:1px solid #ff4d0044;border-radius:6px;padding:10px 12px;font-size:11px;color:#ff9966;margin-top:9px;display:flex;gap:8px;}
+.optional-tag{display:inline-block;background:#1a1000;border:1px solid var(--orange);color:var(--orange);font-size:9px;padding:1px 5px;border-radius:3px;font-family:'DM Mono',monospace;margin-left:5px;}
+.meal-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;margin-bottom:9px;overflow:hidden;}
+.meal-header{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px;padding:11px 14px;}
+.meal-time{font-family:'DM Mono',monospace;font-size:12px;font-weight:500;color:var(--accent);}
+.meal-name{font-weight:600;font-size:13px;}
+.meal-kcal{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);}
+.meal-body{padding:0 14px 12px;border-top:1px solid var(--border);}
+.food-item{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #1a1a1a;font-size:12px;}
+.food-item:last-child{border-bottom:none;}
+.food-qty{font-family:'DM Mono',monospace;font-size:11px;color:var(--accent);}
+.macros-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px;}
+.macro-box{background:var(--surface2);border-radius:6px;padding:10px;text-align:center;}
+.macro-val{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--accent);line-height:1;}
+.macro-unit{font-size:10px;color:var(--muted);}
+.macro-name{font-size:9px;text-transform:uppercase;letter-spacing:0.5px;margin-top:2px;}
+.proj-row{display:grid;grid-template-columns:42px 1fr 1fr 1fr;gap:7px;padding:9px 11px;background:var(--surface2);border-radius:6px;margin-bottom:5px;align-items:center;font-size:12px;}
+.proj-month{font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--accent);}
+.proj-bar-wrap{grid-column:1/-1;height:3px;background:var(--border);border-radius:2px;margin-top:5px;}
+.proj-bar{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--accent2),var(--accent));}
+.proto-item{display:flex;gap:12px;padding:11px;background:var(--surface2);border-radius:7px;margin-bottom:8px;}
+.proto-icon{font-size:20px;flex-shrink:0;}
+.proto-title{font-weight:600;font-size:13px;margin-bottom:3px;}
+.proto-text{font-size:11px;color:var(--muted);line-height:1.6;}
+.proto-highlight{color:var(--accent);font-family:'DM Mono',monospace;}
+.divider{height:1px;background:var(--border);margin:12px 0;}
+.track-task{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);}
+.track-task:last-child{border-bottom:none;}
+.task-left{display:flex;align-items:center;gap:10px;}
+.task-icon{font-size:18px;width:24px;text-align:center;}
+.task-name{font-size:13px;font-weight:500;}
+.task-pts{font-size:10px;color:var(--muted);font-family:'DM Mono',monospace;}
+.task-btn{background:var(--surface2);border:1px solid var(--border);color:var(--muted);width:38px;height:38px;border-radius:7px;font-size:15px;cursor:pointer;transition:all 0.15s;display:flex;align-items:center;justify-content:center;}
+.task-btn.done{background:var(--accent);border-color:var(--accent);color:#000;font-weight:700;}
+.track-task.done-row{opacity:0.5;}
+.date-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.date-nav-btn{background:var(--surface2);border:1px solid var(--border);color:var(--text);width:36px;height:36px;border-radius:7px;font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.date-nav-btn:disabled{opacity:0.25;cursor:default;}
+.date-display{text-align:center;}
+.date-display .date-main{font-family:'Bebas Neue',sans-serif;font-size:19px;color:var(--accent);}
+.date-display .date-sub{font-size:10px;color:var(--muted);}
+.routine-block{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);}
+.routine-block:last-child{border-bottom:none;}
+.routine-time{font-family:'DM Mono',monospace;font-size:12px;color:var(--accent);white-space:nowrap;width:46px;padding-top:2px;}
+.routine-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:5px;}
+.routine-content{flex:1;}
+.routine-title{font-size:13px;font-weight:600;}
+.routine-sub{font-size:11px;color:var(--muted);}
+.routine-tag{display:inline-block;font-size:9px;padding:1px 6px;border-radius:3px;font-family:'DM Mono',monospace;margin-right:4px;margin-top:3px;}
+.footer{padding:18px;text-align:center;font-size:10px;color:var(--muted);border-top:1px solid var(--border);}
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <div class="header">
   <div class="header-top">
-    <div>
-      <div class="logo">EK<span>·</span>PLANO</div>
-      <div style="font-size:11px;color:var(--muted);margin-top:2px;font-family:'DM Mono',monospace;">META: 90KG | 12% BF | 5–6 MESES</div>
-    </div>
-    <div class="badge">26/04/2026</div>
+    <div><div class="logo">EK<span>·</span>LIFE</div><div class="logo-sub">LIFE IN PEACE PROJECT · MAI/2026</div></div>
+    <div class="badge">107,5 KG</div>
   </div>
   <div class="stats-bar">
-    <div class="stat-item">
-      <div class="stat-val">107,5</div>
-      <div class="stat-label">Peso (kg)</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-val" style="color:#ff4d00;">~26%</div>
-      <div class="stat-label">BF Est.</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-val">90</div>
-      <div class="stat-label">Meta (kg)</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-val" style="color:#30d158;">12%</div>
-      <div class="stat-label">Meta BF</div>
-    </div>
+    <div class="stat-item"><div class="stat-val">107,5</div><div class="stat-label">Peso</div></div>
+    <div class="stat-item"><div class="stat-val" style="color:#ff4d00;">~26%</div><div class="stat-label">BF Est.</div></div>
+    <div class="stat-item"><div class="stat-val">90kg</div><div class="stat-label">Meta corpo</div></div>
+    <div class="stat-item"><div class="stat-val" style="color:var(--teal);">SET</div><div class="stat-label">10km Floripa</div></div>
   </div>
 </div>
 
-<!-- NAV -->
 <div class="nav">
-  <button class="nav-btn active" onclick="show('treino')">🏋️ Treino</button>
-  <button class="nav-btn" onclick="show('dieta')">🍽️ Dieta</button>
-  <button class="nav-btn" onclick="show('protocolo')">💉 Protocolo</button>
-  <button class="nav-btn" onclick="show('projecao')">📈 Projeção</button>
-  <button class="nav-btn" onclick="show('acoes')">✅ Ações</button>
-  <button class="nav-btn" onclick="show('track')">📊 Track</button>
+  <button class="nav-btn active" onclick="show('vida',this)">🕊️ Vida</button>
+  <button class="nav-btn" onclick="show('track',this)">📊 Track</button>
+  <button class="nav-btn" onclick="show('treino',this)">🏋️ Treino</button>
+  <button class="nav-btn" onclick="show('dieta',this)">🍽️ Dieta</button>
+  <button class="nav-btn" onclick="show('protocolo',this)">💉 Protocolo</button>
+  <button class="nav-btn" onclick="show('projecao',this)">📈 Projeção</button>
 </div>
 
-<!-- ════════ TREINO ════════ -->
-<div id="treino" class="section active">
-
-  <!-- ESTRUTURA GERAL -->
-  <div class="card">
-    <div class="card-title"><div class="dot" style="background:var(--accent)"></div>Estrutura Semanal</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;">
-      <div style="background:var(--surface2);border-radius:6px;padding:12px;text-align:center;">
-        <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;">Cardio</div>
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--accent);margin-top:4px;">06:00h</div>
-        <div style="font-size:11px;color:var(--muted);">Em jejum · Zona 2</div>
-      </div>
-      <div style="background:var(--surface2);border-radius:6px;padding:12px;text-align:center;">
-        <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;">Musculação</div>
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--accent);margin-top:4px;">20:00h</div>
-        <div style="font-size:11px;color:var(--muted);">Fixo · Sem negociar</div>
-      </div>
-    </div>
-    <div class="tip-box">⚡ <span>Cardio pós-treino noturno <strong>REMOVIDO</strong> — você já faz de manhã. Cardio à noite compromete o sono e a recuperação.</span></div>
-  </div>
-
-  <!-- 2ª FEIRA -->
-  <div class="card">
-    <div class="day-header">
-      <div class="day-tag" style="color:var(--red);">SEG</div>
-      <div class="day-info">
-        <h3>Peito · Tríceps · Abdômen</h3>
-        <p>Empurrar horizontal — foco em força</p>
-      </div>
-    </div>
-    <div class="muscle-group">
-      <div class="muscle-label">Peito</div>
-      <div class="exercise-row priority">
-        <span class="exercise-name">Supino Reto Barra</span>
-        <span class="exercise-sets">4×</span>
-        <span class="exercise-reps">6–8 reps</span>
-      </div>
-      <div class="exercise-row">
-        <span class="exercise-name">Supino Inclinado Halteres</span>
-        <span class="exercise-sets">3×</span>
-        <span class="exercise-reps">8–10 reps</span>
-      </div>
-      <div class="exercise-row">
-        <span class="exercise-name">Crossover (controle total)</span>
-        <span class="exercise-sets">3×</span>
-        <span class="exercise-reps">12–15 reps</span>
-      </div>
-    </div>
-    <div class="muscle-group">
-      <div class="muscle-label">Tríceps</div>
-      <div class="exercise-row">
-        <span class="exercise-name">Tríceps Corda</span>
-        <span class="exercise-sets">3×</span>
-        <span class="exercise-reps">10–12 reps</span>
-      </div>
-      <div class="exercise-row">
-        <span class="exercise-name">Tríceps Testa</span>
-        <span class="exercise-sets">3×</span>
-        <span class="exercise-reps">8–10 reps</span>
-      </div>
-    </div>
-    <div class="muscle-group">
-      <div class="muscle-label">Abdômen</div>
-      <div class="exercise-row">
-        <span class="exercise-name">Abdominal Máquina</span>
-        <span class="exercise-sets">3×</span>
-        <span class="exercise-reps">10–12 reps</span>
-      </div>
-      <div class="exercise-row">
-        <span class="exercise-name">Crunch com Carga</span>
-        <span class="exercise-sets">3×</span>
-        <span class="exercise-reps">12 reps</span>
-      </div>
+<!-- VIDA -->
+<div id="vida" class="section active">
+  <div class="card" style="background:linear-gradient(135deg,#111 0%,#0d1a0d 100%);border-color:#1a2e1a;">
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--accent);letter-spacing:2px;margin-bottom:6px;">Life in Peace Project</div>
+    <div style="font-size:12px;color:var(--muted);line-height:1.8;">Você construiu tudo sozinho. Carro, consultório, método, pacientes.<br>O que falta não é mais esforço — é <span style="color:var(--accent);">paz para existir enquanto constrói.</span></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px;">
+      <div style="background:#0a1a0a;border:1px solid #1a3a1a;border-radius:6px;padding:10px;text-align:center;"><div style="font-family:'Bebas Neue',sans-serif;font-size:17px;color:var(--green);">Eduardo Novo</div><div style="font-size:10px;color:var(--muted);">Pouco todo dia ✓</div></div>
+      <div style="background:#1a0a0a;border:1px solid #3a1a1a;border-radius:6px;padding:10px;text-align:center;"><div style="font-family:'Bebas Neue',sans-serif;font-size:17px;color:var(--red);opacity:0.5;text-decoration:line-through;">Eduardo Antigo</div><div style="font-size:10px;color:var(--muted);">Tudo ou nada ✗</div></div>
     </div>
   </div>
 
-  <!-- 3ª FEIRA -->
   <div class="card">
-    <div class="day-header">
-      <div class="day-tag" style="color:var(--blue);">TER</div>
-      <div class="day-info">
-        <h3>Pernas — Anterior</h3>
-        <p>Quadríceps dominante · volume moderado</p>
-      </div>
-    </div>
-    <div class="muscle-group">
-      <div class="exercise-row priority">
-        <span class="exercise-name">Agachamento Livre</span>
-        <span class="exercise-sets">4×</span>
-        <span class="exercise-reps">6–8 reps</span>
-      </div>
-      <div class="exercise-row">
-        <span class="exercise-name">Leg Press 45°</span>
-        <span class="exercise-sets">3×</span>
-        <span class="exercise-reps">10 reps</span>
-      </div>
-      <div class="exercise-row">
-        <span class="exercise-name">Cadeira Extensora</span>
-        <span class="exercise-sets">3×</span>
-        <span class="exercise-reps">12 reps</span>
-      </div>
-      <div class="exercise-row">
-        <span class="exercise-name">Mesa Flexora</span>
-        <span class="exercise-sets">3×</span>
-        <span class="exercise-reps">10–12 reps</span>
-      </div>
-      <div class="exercise-row">
-        <span class="exercise-name">Panturrilha em Pé</span>
-        <span class="exercise-sets">4×</span>
-        <span class="exercise-reps">12–15 reps</span>
-      </div>
-    </div>
-    <div class="tip-box">⚡ <span>Cardio leve pós-treino apenas se recuperação estiver boa. Priorize recuperação na semana de adaptação.</span></div>
+    <div class="card-title"><div class="dot" style="background:var(--teal)"></div>Rotina de Paz — Dias Úteis</div>
+    <div class="routine-block"><div class="routine-time">05:00</div><div class="routine-dot" style="background:var(--accent)"></div><div class="routine-content"><div class="routine-title">Acorda + Gatos + Café</div><div class="routine-sub">Sem celular. Sem WhatsApp. Água, café, alimentar os gatos.</div><span class="routine-tag" style="background:#1a1a00;color:var(--accent);border:1px solid #333300;">🐱 paz</span></div></div>
+    <div class="routine-block"><div class="routine-time">05:30</div><div class="routine-dot" style="background:var(--green)"></div><div class="routine-content"><div class="routine-title">Treino / Cardio</div><div class="routine-sub">Conforme o dia da semana. Sem negociar horário.</div><span class="routine-tag" style="background:#0a1a0a;color:var(--green);border:1px solid #1a3a1a;">🏋️ corpo</span></div></div>
+    <div class="routine-block"><div class="routine-time">07:30</div><div class="routine-dot" style="background:var(--orange)"></div><div class="routine-content"><div class="routine-title">Café da manhã + Suplementos</div><div class="routine-sub">Plano Dietbox. Selênio, Zinco, Vit C, B12.</div><span class="routine-tag" style="background:#1a0e00;color:var(--orange);border:1px solid #3a2a00;">🍽️ nutri</span></div></div>
+    <div class="routine-block"><div class="routine-time">08:00</div><div class="routine-dot" style="background:var(--blue)"></div><div class="routine-content"><div class="routine-title">Estudo · Leitura · Inglês (alternando)</div><div class="routine-sub">30–40 min. Seg/Qui: nutrição · Ter/Sex: Duolingo 🦜 · Qua/Dom: leitura</div><span class="routine-tag" style="background:#00101a;color:var(--blue);border:1px solid #003040;">📚 crescimento</span><span class="routine-tag" style="background:#0a1a00;color:#58cc02;border:1px solid #1a3a00;">🦜 inglês</span></div></div>
+    <div class="routine-block"><div class="routine-time">09:00</div><div class="routine-dot" style="background:var(--purple)"></div><div class="routine-content"><div class="routine-title">Bloco de Trabalho</div><div class="routine-sub">WhatsApp + Check-ins + Dietas. 1h máximo. Foco total.</div><span class="routine-tag" style="background:#12001a;color:var(--purple);border:1px solid #2a003a;">💼 foco</span></div></div>
+    <div class="routine-block"><div class="routine-time">10:20</div><div class="routine-dot" style="background:var(--teal)"></div><div class="routine-content"><div class="routine-title">🎻 Violino — Consultório</div><div class="routine-sub">Desce 40min antes do primeiro paciente. Mesmo 10min vale.</div><span class="routine-tag" style="background:#001a1a;color:var(--teal);border:1px solid #003a3a;">🎻 alma</span></div></div>
+    <div class="routine-block"><div class="routine-time">11:00</div><div class="routine-dot" style="background:var(--accent2)"></div><div class="routine-content"><div class="routine-title">Primeiro Paciente</div><div class="routine-sub">Atendimentos até 19h. Sem agenda às 10h — limite mantido.</div><span class="routine-tag" style="background:#1a0800;color:var(--accent2);border:1px solid #3a1500;">👨‍⚕️ clínica</span></div></div>
+    <div class="routine-block"><div class="routine-time">19:00</div><div class="routine-dot" style="background:var(--green)"></div><div class="routine-content"><div class="routine-title">Jantar + Família + Gatos</div><div class="routine-sub">WhatsApp mãe e irmãos. Sem trabalho. Presença real.</div><span class="routine-tag" style="background:#0a1a0a;color:var(--green);border:1px solid #1a3a1a;">🐱 presença</span></div></div>
+    <div class="routine-block"><div class="routine-time">20:00</div><div class="routine-dot" style="background:var(--muted)"></div><div class="routine-content"><div class="routine-title">Leitura / Série / Descanso Real</div><div class="routine-sub">Não é tempo morto. É recarga. Você merece isso.</div><span class="routine-tag" style="background:#1a1a1a;color:var(--muted);border:1px solid #333;">🌙 recarrega</span></div></div>
+    <div class="routine-block"><div class="routine-time">22:00</div><div class="routine-dot" style="background:var(--accent)"></div><div class="routine-content"><div class="routine-title">Dorme</div><div class="routine-sub">Sem tela. Sem culpa. O dia foi suficiente.</div><span class="routine-tag" style="background:#1a1a00;color:var(--accent);border:1px solid #333300;">😴 22h</span></div></div>
   </div>
 
-  <!-- 4ª FEIRA -->
   <div class="card">
-    <div class="day-header">
-      <div class="day-tag" style="color:var(--purple);">QUA</div>
-      <div class="day-info">
-        <h3>Costas · Bíceps · Deltoide Posterior</h3>
-        <p>Puxar — foco em espessura + postura</p>
-      </div>
-    </div>
-    <div class="muscle-group">
-      <div class="muscle-label">Costas</div>
-      <div class="exercise-row priority">
-        <span class="exercise-name">Remada Curvada Barra</span>
-        <span class="exercise-sets">4×</span>
-        <span class="exercise-reps">6–8 reps</span>
-      </div>
-      <div class="exercise-row">
-        <span class="exercise-name">Puxada Alta Frente</span>
-        <span class="exercise-sets">3×</span>
-        <span class="exercise-reps">8–10 reps</span>
-      </div>
-      <div class="exercise-row">
-        <span class="exercise-name">Remada Baixa (cabo)</span>
-        <span class="exercise-sets">3×</span>
-        <span class="exercise-reps">10–12 reps</span>
-      </div>
-    </div>
-    <div class="muscle-group">
-      <div class="muscle-label">Posterior Ombro</div>
-      <div class="exercise-row">
-        <span class="exercise-name">Crucifixo Inverso</span>
-        <span class="exercise-sets">3×</span>
-        <span class="exercise-reps">12–15 reps</span>
-      </div>
-      <div class="exercise-row">
-        <span class="exercise-name">Face Pull (cabo)</span>
-        <span class="exercise-sets">3×</span>
-        <span class="exercise-reps">12–15 reps</span>
-      </div>
-    </div>
-    <div class="muscle-group">
-      <div class="muscle-label">Bíceps</div>
-      <div class="exercise-row">
-        <span class="exercise-name">Rosca Direta Barra</span>
-        <span class="exercise-sets">3×</span>
-        <span class="exercise-reps">8–10 reps</span>
-      </div>
-      <div class="exercise-row">
-        <span class="exercise-name">Rosca Alternada Halteres</span>
-        <span class="exercise-sets">3×</span>
-        <span class="exercise-reps">10–12 reps</span>
-      </div>
-    </div>
+    <div class="card-title"><div class="dot" style="background:var(--orange)"></div>Sábado — Dia de Paz Real</div>
+    <div style="background:#1a0e00;border:1px solid #3a2000;border-radius:6px;padding:11px;margin-bottom:10px;font-size:12px;color:var(--orange);">Sábado não é dia de recuperar o que atrasou. É dia de recarregar para a próxima semana ser melhor.</div>
+    <div class="routine-block"><div class="routine-time">05:00</div><div class="routine-dot" style="background:var(--accent)"></div><div class="routine-content"><div class="routine-title">Acorda + Gatos</div><div class="routine-sub">Sem alarme se possível.</div></div></div>
+    <div class="routine-block"><div class="routine-time">05:30</div><div class="routine-dot" style="background:var(--green)"></div><div class="routine-content"><div class="routine-title">Cardio leve + Bônus opcional</div><div class="routine-sub">Só se o corpo pedir. Sem culpa se não fizer o bônus.</div></div></div>
+    <div class="routine-block"><div class="routine-time">08:00</div><div class="routine-dot" style="background:var(--teal)"></div><div class="routine-content"><div class="routine-title">🎻 Violino sem pressa</div><div class="routine-sub">Melhor dia para praticar mais. Sem obrigação.</div></div></div>
+    <div class="routine-block"><div class="routine-time">10:00</div><div class="routine-dot" style="background:var(--muted)"></div><div class="routine-content"><div class="routine-title">Livre — sem agenda</div><div class="routine-sub">Passear, ler, descansar. Isso não é perda de tempo.</div></div></div>
   </div>
 
-  <!-- 5ª FEIRA -->
   <div class="card">
-    <div class="day-header">
-      <div class="day-tag" style="color:var(--green);">QUI</div>
-      <div class="day-info">
-        <h3>Pernas — Posterior + Glúteo</h3>
-        <p>Cadeia posterior · força real</p>
-      </div>
-    </div>
-    <div class="muscle-group">
-      <div class="exercise-row priority">
-        <span class="exercise-name">
-          Levantamento Terra Convencional
-          <span class="added-tag">NOVO</span>
-        </span>
-        <span class="exercise-sets">4×</span>
-        <span class="exercise-reps">5–6 reps</span>
-      </div>
-      <div class="exercise-row">
-        <span class="exercise-name">Afundo com Halteres</span>
-        <span class="exercise-sets">3×</span>
-        <span class="exercise-reps">10 reps</span>
-      </div>
-      <div class="exercise-row">
-        <span class="exercise-name">Cadeira Flexora</span>
-        <span class="exercise-sets">3×</span>
-        <span class="exercise-reps">12 reps</span>
-      </div>
-      <div class="exercise-row">
-        <span class="exercise-name">
-          Hip Thrust
-          <span class="removed-tag">movido</span>
-        </span>
-        <span class="exercise-sets">—</span>
-        <span class="exercise-reps">substituído</span>
-      </div>
-      <div class="exercise-row">
-        <span class="exercise-name">Panturrilha Sentado</span>
-        <span class="exercise-sets">4×</span>
-        <span class="exercise-reps">15 reps</span>
-      </div>
-    </div>
-    <div class="tip-box">⚡ <span>Terra convencional maximiza resposta hormonal com testosterona exógena. Mais retorno sistêmico que hip thrust nesse contexto.</span></div>
-  </div>
-
-  <!-- 6ª FEIRA -->
-  <div class="card">
-    <div class="day-header">
-      <div class="day-tag" style="color:var(--orange);">SEX</div>
-      <div class="day-info">
-        <h3>Ombro Lateral · Braços · Abdômen</h3>
-        <p>Estética — volume controlado</p>
-      </div>
-    </div>
-    <div class="muscle-group">
-      <div class="muscle-label">Ombro (lateral dominante)</div>
-      <div class="exercise-row priority">
-        <span class="exercise-name">Desenvolvimento Halteres</span>
-        <span class="exercise-sets">3×</span>
-        <span class="exercise-reps">8–10 reps</span>
-      </div>
-      <div class="exercise-row">
-        <span class="exercise-name">Elevação Lateral</span>
-        <span class="exercise-sets">4×</span>
-        <span class="exercise-reps">12–15 reps</span>
-      </div>
-      <div class="exercise-row">
-        <span class="exercise-name">Elevação Lateral Unilateral (lenta)</span>
-        <span class="exercise-sets">3×</span>
-        <span class="exercise-reps">12 reps</span>
-      </div>
-    </div>
-    <div class="muscle-group">
-      <div class="muscle-label">Bíceps + Tríceps</div>
-      <div class="exercise-row">
-        <span class="exercise-name">Rosca Barra</span>
-        <span class="exercise-sets">3×</span>
-        <span class="exercise-reps">8–10 reps</span>
-      </div>
-      <div class="exercise-row">
-        <span class="exercise-name">
-          Tríceps na Polia (corda)
-          <span class="added-tag">TROCADO</span>
-        </span>
-        <span class="exercise-sets">3×</span>
-        <span class="exercise-reps">10–12 reps</span>
-      </div>
-    </div>
-    <div class="muscle-group">
-      <div class="muscle-label">Abdômen</div>
-      <div class="exercise-row">
-        <span class="exercise-name">Elevação de Pernas</span>
-        <span class="exercise-sets">3×</span>
-        <span class="exercise-reps">12–15 reps</span>
-      </div>
-      <div class="exercise-row">
-        <span class="exercise-name">Oblíquo no Cabo (leve)</span>
-        <span class="exercise-sets">3×</span>
-        <span class="exercise-reps">12 reps</span>
-      </div>
-    </div>
-    <div class="tip-box">⚡ <span>Paralelas removidas — cotovelo e ombro já foram exigidos na segunda. Tríceps na polia é mais seguro e eficiente aqui.</span></div>
-  </div>
-
-  <!-- CARDIO -->
-  <div class="card">
-    <div class="card-title"><div class="dot" style="background:var(--blue)"></div>Cardio Matinal — Protocolo</div>
-    <div class="exercise-row">
-      <span class="exercise-name">Corrida / Caminhada Rápida</span>
-      <span class="exercise-sets">Zona 2</span>
-      <span class="exercise-reps">25–30 min</span>
-    </div>
-    <div style="margin-top:10px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
-      <div style="background:var(--surface2);border-radius:6px;padding:10px;text-align:center;">
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--blue);">06:00</div>
-        <div style="font-size:10px;color:var(--muted);">Horário</div>
-      </div>
-      <div style="background:var(--surface2);border-radius:6px;padding:10px;text-align:center;">
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--blue);">115–130</div>
-        <div style="font-size:10px;color:var(--muted);">BPM alvo</div>
-      </div>
-      <div style="background:var(--surface2);border-radius:6px;padding:10px;text-align:center;">
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--blue);">5×</div>
-        <div style="font-size:10px;color:var(--muted);">Freq/semana</div>
-      </div>
+    <div class="card-title"><div class="dot" style="background:var(--green)"></div>Regras de Paz</div>
+    <div style="font-size:13px;line-height:2.2;color:var(--muted);">
+      ✓ <span style="color:var(--text);">Fazer pouco todo dia vale mais que tudo em nenhum</span><br>
+      ✓ <span style="color:var(--text);">10min de violino conta. Sempre.</span><br>
+      ✓ <span style="color:var(--text);">Descanso não é preguiça — é parte do sistema</span><br>
+      ✓ <span style="color:var(--text);">WhatsApp tem horário. Pode esperar.</span><br>
+      ✓ <span style="color:var(--text);">Sábado é seu. Não é do trabalho atrasado.</span><br>
+      ✗ <span style="color:var(--red);">Tentar fazer tudo em um dia só</span><br>
+      ✗ <span style="color:var(--red);">Se culpar por não ter completado a lista</span><br>
+      ✗ <span style="color:var(--red);">Dormir tarde porque "tem coisa pra fazer"</span><br>
+      ✗ <span style="color:var(--red);">Trabalhar no domingo pra recuperar atraso</span>
     </div>
   </div>
-
 </div>
 
-<!-- ════════ DIETA ════════ -->
-<div id="dieta" class="section">
-
-  <div class="card">
-    <div class="card-title"><div class="dot" style="background:var(--accent)"></div>Macros Diários</div>
-    <div class="macros-grid">
-      <div class="macro-box">
-        <div class="macro-val">2.450</div>
-        <div class="macro-unit">kcal/dia</div>
-        <div class="macro-name">Calorias</div>
-      </div>
-      <div class="macro-box">
-        <div class="macro-val" style="color:#0a84ff;">190g</div>
-        <div class="macro-unit">proteína</div>
-        <div class="macro-name">Proteína</div>
-      </div>
-      <div class="macro-box">
-        <div class="macro-val" style="color:#ff9f0a;">~500</div>
-        <div class="macro-unit">kcal déficit</div>
-        <div class="macro-name">Déficit</div>
-      </div>
-    </div>
-    <div class="tip-box">⚡ <span>Proteína é <strong>prioridade absoluta</strong>. Com testosterona exógena + déficit, proteína alta preserva cada grama de massa muscular.</span></div>
-  </div>
-
-  <!-- REFEIÇÕES -->
-  <div class="meal-card">
-    <div class="meal-header">
-      <div class="meal-time">06:00</div>
-      <div class="meal-name">Cardio em Jejum</div>
-      <div class="meal-kcal">0 kcal</div>
-    </div>
-    <div class="meal-body" style="padding-top:10px;">
-      <div style="font-size:12px;color:var(--muted);">Apenas água + cafeína opcional (café preto sem açúcar ou pré-treino sem carboidrato)</div>
-    </div>
-  </div>
-
-  <div class="meal-card">
-    <div class="meal-header">
-      <div class="meal-time">07:00</div>
-      <div class="meal-name">Café da Manhã — Pós Cardio</div>
-      <div class="meal-kcal">~530 kcal</div>
-    </div>
-    <div class="meal-body">
-      <div class="food-item"><span class="food-name">Ovos inteiros</span><span class="food-qty">3 unid</span></div>
-      <div class="food-item"><span class="food-name">Claras de ovo</span><span class="food-qty">3 unid</span></div>
-      <div class="food-item"><span class="food-name">Aveia em flocos</span><span class="food-qty">50g</span></div>
-      <div class="food-item"><span class="food-name">Fruta (mamão/banana/kiwi)</span><span class="food-qty">1 porção</span></div>
-      <div class="food-item"><span class="food-name">Café preto ou c/ leite desnatado</span><span class="food-qty">livre</span></div>
-      <div style="font-size:11px;color:var(--muted);margin-top:8px;">Alto em proteína + fibra → saciedade prolongada, sem pico glicêmico</div>
-    </div>
-  </div>
-
-  <div class="meal-card">
-    <div class="meal-header">
-      <div class="meal-time">12:30</div>
-      <div class="meal-name">Almoço</div>
-      <div class="meal-kcal">~680 kcal</div>
-    </div>
-    <div class="meal-body">
-      <div class="food-item"><span class="food-name">Proteína (frango/carne/peixe)</span><span class="food-qty">200g</span></div>
-      <div class="food-item"><span class="food-name">Arroz branco ou batata-doce</span><span class="food-qty">100g cozido</span></div>
-      <div class="food-item"><span class="food-name">Feijão ou lentilha</span><span class="food-qty">100g cozido</span></div>
-      <div class="food-item"><span class="food-name">Legumes variados</span><span class="food-qty">200g</span></div>
-      <div class="food-item"><span class="food-name">Azeite</span><span class="food-qty">1 fio</span></div>
-      <div class="tip-box" style="margin-top:10px;">⚡ <span><strong>Anti-sonolência:</strong> coma proteína + legumes primeiro. Carboidrato por último. Isso reduz o pico glicêmico e o sono pós-almoço.</span></div>
-    </div>
-  </div>
-
-  <div class="meal-card">
-    <div class="meal-header">
-      <div class="meal-time">15:30</div>
-      <div class="meal-name">Shake Âncora — Controle Noturno</div>
-      <div class="meal-kcal">~380 kcal</div>
-    </div>
-    <div class="meal-body">
-      <div class="food-item"><span class="food-name">Whey protein</span><span class="food-qty">40g (2 scoops)</span></div>
-      <div class="food-item"><span class="food-name">Aveia em flocos</span><span class="food-qty">40g</span></div>
-      <div class="food-item"><span class="food-name">Banana</span><span class="food-qty">1 média</span></div>
-      <div class="food-item"><span class="food-name">Leite desnatado ou água</span><span class="food-qty">300ml</span></div>
-      <div style="font-size:11px;color:var(--accent);margin-top:8px;">Esta refeição é sua âncora. Você já percebeu que ela elimina a compulsão das 18h. NUNCA pule.</div>
-    </div>
-  </div>
-
-  <div class="meal-card">
-    <div class="meal-header">
-      <div class="meal-time">19:30</div>
-      <div class="meal-name">Pré-Treino Leve</div>
-      <div class="meal-kcal">~150 kcal</div>
-    </div>
-    <div class="meal-body">
-      <div class="food-item"><span class="food-name">Banana pequena</span><span class="food-qty">1 unid</span></div>
-      <div class="food-item"><span class="food-name">Café preto</span><span class="food-qty">1 xícara</span></div>
-      <div style="font-size:11px;color:var(--muted);margin-top:8px;">Alternativa: 1 fatia pão integral + pasta de amendoim</div>
-    </div>
-  </div>
-
-  <div class="meal-card">
-    <div class="meal-header">
-      <div class="meal-time">21:30</div>
-      <div class="meal-name">Pós-Treino / Jantar</div>
-      <div class="meal-kcal">~530 kcal</div>
-    </div>
-    <div class="meal-body">
-      <div class="food-item"><span class="food-name">Whey protein</span><span class="food-qty">40g</span></div>
-      <div class="food-item"><span class="food-name">Batata-doce ou arroz</span><span class="food-qty">100g</span></div>
-      <div class="food-item"><span class="food-name">Legumes refogados</span><span class="food-qty">150g</span></div>
-      <div class="food-item"><span class="food-name">Ovos mexidos</span><span class="food-qty">2 unid</span></div>
-    </div>
-  </div>
-
-  <div class="meal-card">
-    <div class="meal-header">
-      <div class="meal-time">23:30</div>
-      <div class="meal-name">Ceia Anticatabólica</div>
-      <div class="meal-kcal">~180 kcal</div>
-    </div>
-    <div class="meal-body">
-      <div class="food-item"><span class="food-name">Iogurte grego natural</span><span class="food-qty">200g</span></div>
-      <div class="food-item"><span class="food-name">Pasta de amendoim</span><span class="food-qty">1 col. sopa</span></div>
-      <div style="font-size:11px;color:var(--accent);margin-top:8px;">Elimina compulsão por doce antes de dormir. Proteína lenta (caseína do iogurte) → anticatabolismo noturno.</div>
-    </div>
-  </div>
-
-</div>
-
-<!-- ════════ PROTOCOLO ════════ -->
-<div id="protocolo" class="section">
-
-  <div class="card">
-    <div class="card-title"><div class="dot" style="background:var(--purple)"></div>Testosterona — Transição de Protocolo</div>
-
-    <div class="proto-item">
-      <div class="proto-icon">💉</div>
-      <div>
-        <div class="proto-title">Protocolo Atual</div>
-        <div class="proto-text">Durateston <span class="proto-highlight">100mg/semana</span> — ésteres múltiplos com picos e vales mais pronunciados</div>
-      </div>
-    </div>
-
-    <div class="proto-item">
-      <div class="proto-icon">🎯</div>
-      <div>
-        <div class="proto-title">Protocolo Alvo (após acabar Durateston)</div>
-        <div class="proto-text">Enantato de Testosterona <span class="proto-highlight">75mg a cada 4 dias</span> via subcutânea<br>= ~131mg/semana · meia-vida ~4,5 dias · picos e vales mínimos</div>
-      </div>
-    </div>
-
-    <div class="proto-item">
-      <div class="proto-icon">✅</div>
-      <div>
-        <div class="proto-title">Por que Subcutânea é Melhor para Você</div>
-        <div class="proto-text">Absorção mais lenta e gradual → níveis mais estáveis · menos dor · autoaplicação facilitada · ideal para doses menores ≤100mg</div>
-      </div>
-    </div>
-
-    <div class="divider"></div>
-
-    <div style="font-size:12px;color:var(--muted);margin-bottom:10px;text-transform:uppercase;letter-spacing:0.5px;">Exames de monitoramento — a cada 60–90 dias</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-      <div style="background:var(--surface2);border-radius:6px;padding:10px;font-size:12px;">🩸 Hematócrito</div>
-      <div style="background:var(--surface2);border-radius:6px;padding:10px;font-size:12px;">⚗️ Estradiol (E2)</div>
-      <div style="background:var(--surface2);border-radius:6px;padding:10px;font-size:12px;">🔬 SHBG</div>
-      <div style="background:var(--surface2);border-radius:6px;padding:10px;font-size:12px;">🧪 Testosterona Total/Livre</div>
-      <div style="background:var(--surface2);border-radius:6px;padding:10px;font-size:12px;">❤️ Perfil Lipídico</div>
-      <div style="background:var(--surface2);border-radius:6px;padding:10px;font-size:12px;">🫀 PA (pressão arterial)</div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-title"><div class="dot" style="background:var(--orange)"></div>Naltrexona 8mg + Bupropiona 90mg</div>
-
-    <div class="proto-item">
-      <div class="proto-icon">🧠</div>
-      <div>
-        <div class="proto-title">Mecanismo para o seu caso</div>
-        <div class="proto-text">Naltrexona bloqueia o reforço prazeroso dos ciclos compulsivos (doce → recompensa → repetição). Bupropiona reduz fissura e aumenta foco dopaminérgico — reduz distração.</div>
-      </div>
-    </div>
-
-    <div class="proto-item">
-      <div class="proto-icon">📋</div>
-      <div>
-        <div class="proto-title">Como iniciar (se decidir usar)</div>
-        <div class="proto-text">• Comece com <span class="proto-highlight">metade do comprimido</span> de bupropiona nas primeiras 2 semanas<br>• Tome <span class="proto-highlight">pela manhã</span> — bupropiona é ativadora, nunca à noite<br>• Monitore pressão arterial nas primeiras semanas</div>
-      </div>
-    </div>
-
-    <div class="warn-box">
-      ⚠️ <span>Avalie com médico de confiança antes de iniciar, especialmente pela combinação com testosterona exógena. Não combine com álcool.</span>
-    </div>
-  </div>
-
-</div>
-
-<!-- ════════ PROJEÇÃO ════════ -->
-<div id="projecao" class="section">
-
-  <div class="card">
-    <div class="card-title"><div class="dot" style="background:var(--accent)"></div>Projeção 6 Meses</div>
-
-    <div class="proj-row">
-      <div class="proj-month">M1</div>
-      <div>
-        <div style="font-size:13px;font-weight:600;">104–105 kg</div>
-        <div style="font-size:11px;color:var(--muted);">BF ~24–25%</div>
-      </div>
-      <div style="font-size:12px;color:var(--muted);">Adaptação</div>
-      <div style="font-size:11px;color:var(--muted);">Construindo hábito</div>
-      <div class="proj-bar-wrap"><div class="proj-bar" style="width:15%"></div></div>
-    </div>
-
-    <div class="proj-row">
-      <div class="proj-month">M2</div>
-      <div>
-        <div style="font-size:13px;font-weight:600;">101–102 kg</div>
-        <div style="font-size:11px;color:var(--muted);">BF ~22–23%</div>
-      </div>
-      <div style="font-size:12px;color:var(--muted);">Ritmo</div>
-      <div style="font-size:11px;color:var(--muted);">Déficit confirmado</div>
-      <div class="proj-bar-wrap"><div class="proj-bar" style="width:30%"></div></div>
-    </div>
-
-    <div class="proj-row">
-      <div class="proj-month">M3</div>
-      <div>
-        <div style="font-size:13px;font-weight:600;">98–99 kg</div>
-        <div style="font-size:11px;color:var(--muted);">BF ~20–21%</div>
-      </div>
-      <div style="font-size:12px;color:var(--muted);">Definição</div>
-      <div style="font-size:11px;color:var(--muted);">Primeiros sinais</div>
-      <div class="proj-bar-wrap"><div class="proj-bar" style="width:47%"></div></div>
-    </div>
-
-    <div class="proj-row">
-      <div class="proj-month">M4</div>
-      <div>
-        <div style="font-size:13px;font-weight:600;">95–96 kg</div>
-        <div style="font-size:11px;color:var(--muted);">BF ~17–18%</div>
-      </div>
-      <div style="font-size:12px;color:var(--muted);">Visível</div>
-      <div style="font-size:11px;color:var(--muted);">Músculos aparecem</div>
-      <div class="proj-bar-wrap"><div class="proj-bar" style="width:63%"></div></div>
-    </div>
-
-    <div class="proj-row">
-      <div class="proj-month">M5</div>
-      <div>
-        <div style="font-size:13px;font-weight:600;">92–93 kg</div>
-        <div style="font-size:11px;color:var(--muted);">BF ~14–15%</div>
-      </div>
-      <div style="font-size:12px;color:var(--muted);">Vascularização</div>
-      <div style="font-size:11px;color:var(--muted);">Foco dobrado</div>
-      <div class="proj-bar-wrap"><div class="proj-bar" style="width:80%"></div></div>
-    </div>
-
-    <div class="proj-row" style="border:1px solid var(--accent);border-radius:6px;">
-      <div class="proj-month" style="color:var(--accent);">M6</div>
-      <div>
-        <div style="font-size:14px;font-weight:700;color:var(--accent);">89–91 kg ✓</div>
-        <div style="font-size:11px;color:var(--green);">BF ~11–13% ✓</div>
-      </div>
-      <div style="font-size:12px;color:var(--accent);font-weight:600;">META</div>
-      <div style="font-size:11px;color:var(--accent);">Abdômen definido</div>
-      <div class="proj-bar-wrap"><div class="proj-bar" style="width:100%"></div></div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-title"><div class="dot" style="background:var(--accent2)"></div>O Padrão de Sabotagem — Diagnóstico</div>
-    <div style="background:#1a0a00;border:1px solid #ff4d0033;border-radius:8px;padding:14px;margin-bottom:14px;">
-      <div style="font-size:12px;color:#ff9966;font-style:italic;line-height:1.7;">"Preciso treinar cedo → não consigo → vou à noite → me sabotar → zero treino"</div>
-    </div>
-    <div style="font-size:13px;margin-bottom:12px;">Isso não é falta de disciplina. É uma <strong>armadilha de tudo ou nada.</strong></div>
-    <div style="background:var(--surface2);border-left:3px solid var(--accent);padding:14px;border-radius:0 6px 6px 0;">
-      <div style="font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">Regra Única</div>
-      <div style="font-size:14px;font-weight:600;color:var(--accent);">Cardio é às 6h. Musculação é às 20h.</div>
-      <div style="font-size:12px;color:var(--muted);margin-top:4px;">Se não foi de manhã, não muda o de noite. Não existe negociação de horário.</div>
-    </div>
-  </div>
-
-</div>
-
-<!-- ════════ AÇÕES ════════ -->
-<div id="acoes" class="section">
-
-  <div class="card">
-    <div class="card-title"><div class="dot" style="background:var(--green)"></div>Checklist — Esta Semana</div>
-
-    <div class="check-item">
-      <div class="check-num">01</div>
-      <div>
-        <div class="check-text"><strong>Hoje:</strong> Ajustar café da manhã</div>
-        <div class="check-sub">3 ovos + 3 claras + 50g aveia + fruta + café</div>
-      </div>
-    </div>
-
-    <div class="check-item">
-      <div class="check-num">02</div>
-      <div>
-        <div class="check-text"><strong>Hoje:</strong> Confirmar horários fixos</div>
-        <div class="check-sub">Cardio 06:00h | Musculação 20:00h — sem negociação</div>
-      </div>
-    </div>
-
-    <div class="check-item">
-      <div class="check-num">03</div>
-      <div>
-        <div class="check-text"><strong>Amanhã:</strong> Iniciar o shake das 15:30h</div>
-        <div class="check-sub">Essa refeição é sua âncora anticompulsão — nunca pule</div>
-      </div>
-    </div>
-
-    <div class="check-item">
-      <div class="check-num">04</div>
-      <div>
-        <div class="check-text"><strong>Toda manhã:</strong> Registrar peso em jejum</div>
-        <div class="check-sub">Não para julgar — apenas para ter dado e ajustar</div>
-      </div>
-    </div>
-
-    <div class="check-item">
-      <div class="check-num">05</div>
-      <div>
-        <div class="check-text"><strong>Esta semana:</strong> Decidir sobre naltrexona/bupropiona</div>
-        <div class="check-sub">Avaliação médica antes de iniciar — interação com testosterona</div>
-      </div>
-    </div>
-
-    <div class="check-item">
-      <div class="check-num">06</div>
-      <div>
-        <div class="check-text"><strong>Quando acabar Durateston:</strong> Migrar para Enantato</div>
-        <div class="check-sub">75mg a cada 4 dias via subcutânea · marcar exames de monitoramento</div>
-      </div>
-    </div>
-
-    <div class="check-item">
-      <div class="check-num">07</div>
-      <div>
-        <div class="check-text"><strong>Fotos de progresso:</strong> Mesmas poses, mesmo local</div>
-        <div class="check-sub">Registrar a cada 4 semanas — mesmo ambiente, mesma luz</div>
-      </div>
-    </div>
-
-  </div>
-
-  <div class="card">
-    <div class="card-title"><div class="dot" style="background:var(--red)"></div>O que NÃO fazer</div>
-    <div style="font-size:13px;line-height:1.9;color:var(--muted);">
-      ✗ <span style="color:var(--text)">Negociar horário de treino</span><br>
-      ✗ <span style="color:var(--text)">Pular o shake das 15:30h</span><br>
-      ✗ <span style="color:var(--text)">Fazer cardio à noite depois da musculação</span><br>
-      ✗ <span style="color:var(--text)">Pesar com roupas ou em horários variados</span><br>
-      ✗ <span style="color:var(--text)">Aumentar volume na semana 1</span><br>
-      ✗ <span style="color:var(--text)">Tentar secar rápido cortando mais calorias</span>
-    </div>
-  </div>
-
-</div>
-
-<!-- ════════ TRACK ════════ -->
+<!-- TRACK -->
 <div id="track" class="section">
-
-  <!-- PONTOS HOJE -->
-  <div class="card" id="card-hoje">
-    <div class="card-title"><div class="dot" style="background:var(--accent)"></div><span id="hoje-label">Hoje</span></div>
-
-    <!-- Score display -->
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
-      <div>
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:52px;color:var(--accent);line-height:1;" id="pts-hoje">0</div>
-        <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;">pontos hoje</div>
-      </div>
-      <div style="text-align:right;">
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--text);line-height:1;" id="pts-semana">0</div>
-        <div style="font-size:11px;color:var(--muted);">esta semana</div>
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--muted);line-height:1;margin-top:4px;" id="pts-total">0</div>
-        <div style="font-size:10px;color:var(--muted);">total</div>
-      </div>
+  <div class="card">
+    <div class="date-nav">
+      <button class="date-nav-btn" id="btn-prev" onclick="changeDay(-1)">&#8249;</button>
+      <div class="date-display"><div class="date-main" id="track-date-main">&#8212;</div><div class="date-sub" id="track-date-sub">&#8212;</div></div>
+      <button class="date-nav-btn" id="btn-next" onclick="changeDay(1)">&#8250;</button>
     </div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding:11px;background:var(--surface2);border-radius:8px;">
+      <div><div style="font-family:'Bebas Neue',sans-serif;font-size:44px;color:var(--accent);line-height:1;" id="pts-hoje">0</div><div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;">pts hoje</div></div>
+      <div style="text-align:center;"><div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--text);line-height:1;" id="pts-semana">0</div><div style="font-size:9px;color:var(--muted);">semana</div></div>
+      <div style="text-align:right;"><div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--muted);line-height:1;" id="pts-total">0</div><div style="font-size:9px;color:var(--muted);">total</div><div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--green);margin-top:4px;" id="streak-label">&#128293; 0 dias</div></div>
+    </div>
+    <div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:9px;" id="tasks-label">Registrar</div>
 
-    <!-- Tarefas do dia -->
-    <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">Registrar agora</div>
+    <div class="track-task" id="task-sono"><div class="task-left"><div class="task-icon">&#128564;</div><div><div class="task-name">Dormiu &#224;s 22h</div><div class="task-pts">+3 pts</div></div></div><button class="task-btn" id="btn-sono" onclick="toggleTask('sono',3)">&#10003;</button></div>
+    <div class="track-task" id="task-acorda"><div class="task-left"><div class="task-icon">&#127749;</div><div><div class="task-name">Acordou &#224;s 5h</div><div class="task-pts">+2 pts</div></div></div><button class="task-btn" id="btn-acorda" onclick="toggleTask('acorda',2)">&#10003;</button></div>
 
     <div class="track-task" id="task-peso">
-      <div class="task-left">
-        <div class="task-icon">⚖️</div>
-        <div>
-          <div class="task-name">Peso em jejum</div>
-          <div class="task-pts">+3 pts</div>
-        </div>
-      </div>
-      <div style="display:flex;align-items:center;gap:8px;">
-        <input type="number" id="input-peso" placeholder="kg" step="0.1" min="80" max="130"
-          style="width:64px;background:var(--surface2);border:1px solid var(--border);color:var(--text);
-          padding:6px 8px;border-radius:6px;font-family:'DM Mono',monospace;font-size:13px;text-align:center;">
+      <div class="task-left"><div class="task-icon">&#9878;&#65039;</div><div><div class="task-name">Peso em jejum</div><div class="task-pts">+2 pts</div></div></div>
+      <div style="display:flex;align-items:center;gap:7px;">
+        <input type="number" id="input-peso" placeholder="kg" step="0.1" min="60" max="200" style="width:60px;background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:5px 7px;border-radius:6px;font-family:'DM Mono',monospace;font-size:12px;text-align:center;">
         <button class="task-btn" id="btn-peso" onclick="registrarPeso()">OK</button>
       </div>
     </div>
 
-    <div class="track-task" id="task-cardio">
-      <div class="task-left">
-        <div class="task-icon">🏃</div>
-        <div>
-          <div class="task-name">Cardio 06h</div>
-          <div class="task-pts">+2 pts</div>
-        </div>
-      </div>
-      <button class="task-btn" id="btn-cardio" onclick="toggleTask('cardio',2)">✓</button>
-    </div>
-
-    <div class="track-task" id="task-treino">
-      <div class="task-left">
-        <div class="task-icon">🏋️</div>
-        <div>
-          <div class="task-name">Musculação 20h</div>
-          <div class="task-pts">+3 pts</div>
-        </div>
-      </div>
-      <button class="task-btn" id="btn-treino" onclick="toggleTask('treino',3)">✓</button>
-    </div>
-
-    <div class="track-task" id="task-dieta">
-      <div class="task-left">
-        <div class="task-icon">🍽️</div>
-        <div>
-          <div class="task-name">Dieta no ponto</div>
-          <div class="task-pts">+2 pts</div>
-        </div>
-      </div>
-      <button class="task-btn" id="btn-dieta" onclick="toggleTask('dieta',2)">✓</button>
-    </div>
-
-    <!-- Aplicação testo (só seg/qui) -->
-    <div class="track-task" id="task-testo" style="display:none;">
-      <div class="task-left">
-        <div class="task-icon">💉</div>
-        <div>
-          <div class="task-name">Aplicação Testosterona</div>
-          <div class="task-pts">+2 pts · <span style="color:var(--accent)" id="testo-dia-label">SEG</span></div>
-        </div>
-      </div>
-      <button class="task-btn" id="btn-testo" onclick="toggleTask('testo',2)">✓</button>
-    </div>
-
+    <div class="track-task" id="task-treino"><div class="task-left"><div class="task-icon">&#127947;</div><div><div class="task-name" id="treino-label">Muscula&#231;&#227;o</div><div class="task-pts">+3 pts</div></div></div><button class="task-btn" id="btn-treino" onclick="toggleTask('treino',3)">&#10003;</button></div>
+    <div class="track-task" id="task-cardio"><div class="task-left"><div class="task-icon">&#127939;</div><div><div class="task-name" id="cardio-label">Cardio</div><div class="task-pts">+2 pts</div></div></div><button class="task-btn" id="btn-cardio" onclick="toggleTask('cardio',2)">&#10003;</button></div>
+    <div class="track-task" id="task-violino"><div class="task-left"><div class="task-icon">&#127931;</div><div><div class="task-name">Violino (m&#237;n. 10min)</div><div class="task-pts">+3 pts</div></div></div><button class="task-btn" id="btn-violino" onclick="toggleTask('violino',3)">&#10003;</button></div>
+    <div class="track-task" id="task-estudo"><div class="task-left"><div class="task-icon">&#128218;</div><div><div class="task-name">Estudo de Nutri&#231;&#227;o</div><div class="task-pts">+2 pts</div></div></div><button class="task-btn" id="btn-estudo" onclick="toggleTask('estudo',2)">&#10003;</button></div>
+    <div class="track-task" id="task-leitura"><div class="task-left"><div class="task-icon">&#128214;</div><div><div class="task-name">Leitura</div><div class="task-pts">+2 pts</div></div></div><button class="task-btn" id="btn-leitura" onclick="toggleTask('leitura',2)">&#10003;</button></div>
+    <div class="track-task" id="task-duolingo"><div class="task-left"><div class="task-icon">&#129436;</div><div><div class="task-name">Duolingo — Ingl&#234;s</div><div class="task-pts">+2 pts · 15–30min</div></div></div><button class="task-btn" id="btn-duolingo" onclick="toggleTask('duolingo',2)">&#10003;</button></div>
+    <div class="track-task" id="task-wpp"><div class="task-left"><div class="task-icon">&#128172;</div><div><div class="task-name">WhatsApp no bloco</div><div class="task-pts">+1 pt</div></div></div><button class="task-btn" id="btn-wpp" onclick="toggleTask('wpp',1)">&#10003;</button></div>
+    <div class="track-task" id="task-dieta"><div class="task-left"><div class="task-icon">&#127869;&#65039;</div><div><div class="task-name">Dieta no ponto</div><div class="task-pts">+2 pts</div></div></div><button class="task-btn" id="btn-dieta" onclick="toggleTask('dieta',2)">&#10003;</button></div>
+    <div class="track-task" id="task-naltrex"><div class="task-left"><div class="task-icon">&#128138;</div><div><div class="task-name">Naltrexona + Bupropiona</div><div class="task-pts">+2 pts</div></div></div><button class="task-btn" id="btn-naltrex" onclick="toggleTask('naltrex',2)">&#10003;</button></div>
+    <div class="track-task" id="task-testo" style="display:none;"><div class="task-left"><div class="task-icon">&#128137;</div><div><div class="task-name">Aplica&#231;&#227;o Testosterona</div><div class="task-pts">+2 pts &#183; <span style="color:var(--accent)" id="testo-dia-label">SEG</span></div></div></div><button class="task-btn" id="btn-testo" onclick="toggleTask('testo',2)">&#10003;</button></div>
   </div>
 
-  <!-- GRÁFICO PESO -->
   <div class="card">
-    <div class="card-title"><div class="dot" style="background:var(--blue)"></div>Evolução do Peso</div>
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
-      <div>
-        <span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);">META: 90kg</span>
-      </div>
-      <div id="peso-delta" style="font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);"></div>
+    <div class="card-title"><div class="dot" style="background:var(--accent)"></div>Dashboard &#8212; Eduardo Novo vs Antigo</div>
+    <div style="font-size:10px;color:var(--muted);margin-bottom:8px;">Constância diária vs tudo ou nada — últimos 28 dias</div>
+    <canvas id="chart-dash" height="140" style="width:100%;display:block;"></canvas>
+    <div style="display:flex;gap:14px;margin-top:8px;font-size:10px;color:var(--muted);">
+      <span><span style="display:inline-block;width:10px;height:3px;background:var(--accent);border-radius:2px;margin-right:4px;vertical-align:middle;"></span>Eduardo Novo</span>
+      <span><span style="display:inline-block;width:10px;height:3px;background:var(--red);border-radius:2px;margin-right:4px;vertical-align:middle;opacity:0.4;"></span>Tudo ou nada (potencial perdido)</span>
     </div>
-    <canvas id="chart-peso" height="160" style="width:100%;display:block;"></canvas>
-    <div style="font-size:11px;color:var(--muted);margin-top:10px;text-align:center;" id="peso-empty">Nenhum peso registrado ainda. Registre o primeiro acima ↑</div>
   </div>
 
-  <!-- FREQUÊNCIA TREINOS -->
   <div class="card">
-    <div class="card-title"><div class="dot" style="background:var(--green)"></div>Frequência de Treinos</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px;">
-      <div style="background:var(--surface2);border-radius:6px;padding:10px;text-align:center;">
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--green);" id="freq-semana">0</div>
-        <div style="font-size:10px;color:var(--muted);">Esta semana</div>
-      </div>
-      <div style="background:var(--surface2);border-radius:6px;padding:10px;text-align:center;">
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--accent);" id="freq-total">0</div>
-        <div style="font-size:10px;color:var(--muted);">Total treinos</div>
-      </div>
-      <div style="background:var(--surface2);border-radius:6px;padding:10px;text-align:center;">
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--orange);" id="freq-streak">0</div>
-        <div style="font-size:10px;color:var(--muted);">Streak dias</div>
-      </div>
-    </div>
-    <!-- Calendário 30 dias -->
-    <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">Últimos 28 dias</div>
-    <div id="cal-treino" style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;"></div>
-    <div style="display:flex;gap:12px;margin-top:10px;font-size:11px;color:var(--muted);">
-      <span><span style="display:inline-block;width:10px;height:10px;background:var(--green);border-radius:2px;margin-right:4px;"></span>Treino</span>
-      <span><span style="display:inline-block;width:10px;height:10px;background:#1a1a1a;border:1px solid var(--border);border-radius:2px;margin-right:4px;"></span>Sem reg.</span>
-    </div>
+    <div class="card-title"><div class="dot" style="background:var(--blue)"></div>Evolu&#231;&#227;o do Peso</div>
+    <div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);">META: 90kg &#183; Floripa Set/26 &#127880;</span><span id="peso-delta" style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);"></span></div>
+    <canvas id="chart-peso" height="140" style="width:100%;display:block;"></canvas>
+    <div style="font-size:10px;color:var(--muted);margin-top:8px;text-align:center;" id="peso-empty">Nenhum peso registrado ainda.</div>
   </div>
 
-  <!-- APLICAÇÕES TESTO -->
   <div class="card">
-    <div class="card-title"><div class="dot" style="background:var(--purple)"></div>Aplicações de Testosterona</div>
-    <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">Últimas 8 semanas — Seg / Qui</div>
-    <div id="cal-testo" style="display:grid;grid-template-columns:repeat(8,1fr);gap:4px;"></div>
-    <div style="display:flex;gap:12px;margin-top:10px;font-size:11px;color:var(--muted);">
-      <span><span style="display:inline-block;width:10px;height:10px;background:var(--purple);border-radius:2px;margin-right:4px;"></span>Aplicado</span>
-      <span><span style="display:inline-block;width:10px;height:10px;background:#1a1a1a;border:1px solid var(--border);border-radius:2px;margin-right:4px;"></span>Não registrado</span>
-    </div>
-    <div style="margin-top:12px;font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);">
-      Total aplicações: <span style="color:var(--purple)" id="testo-total">0</span>
-    </div>
+    <div class="card-title"><div class="dot" style="background:var(--teal)"></div>Frequência por Hábito — 28 dias</div>
+    <div id="habitos-grid"></div>
   </div>
 
-  <!-- RESET -->
-  <div style="text-align:center;padding:10px 0 20px;">
-    <button onclick="confirmarReset()" style="background:transparent;border:1px solid #333;color:var(--muted);padding:8px 20px;border-radius:6px;font-size:12px;cursor:pointer;">Resetar todos os dados</button>
+  <div class="card">
+    <div class="card-title"><div class="dot" style="background:var(--green)"></div>Treinos &#183; Streak &#183; Calendário</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px;">
+      <div style="background:var(--surface2);border-radius:6px;padding:9px;text-align:center;"><div style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--green);" id="freq-semana">0</div><div style="font-size:9px;color:var(--muted);">Esta semana</div></div>
+      <div style="background:var(--surface2);border-radius:6px;padding:9px;text-align:center;"><div style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--accent);" id="freq-total">0</div><div style="font-size:9px;color:var(--muted);">Total treinos</div></div>
+      <div style="background:var(--surface2);border-radius:6px;padding:9px;text-align:center;"><div style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--orange);" id="freq-streak">0</div><div style="font-size:9px;color:var(--muted);">Streak &#128293;</div></div>
+    </div>
+    <div id="cal-treino" style="display:grid;grid-template-columns:repeat(7,1fr);gap:3px;"></div>
   </div>
 
+  <div class="card">
+    <div class="card-title"><div class="dot" style="background:var(--purple)"></div>Aplica&#231;&#245;es Testosterona</div>
+    <div id="cal-testo" style="display:grid;grid-template-columns:repeat(8,1fr);gap:3px;margin-bottom:8px;"></div>
+    <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);">Total: <span style="color:var(--purple)" id="testo-total">0</span></div>
+  </div>
+
+  <div style="text-align:center;padding:6px 0 16px;"><button onclick="confirmarReset()" style="background:transparent;border:1px solid #333;color:var(--muted);padding:7px 18px;border-radius:6px;font-size:11px;cursor:pointer;">Resetar todos os dados</button></div>
 </div>
 
-<!-- FOOTER -->
-<div class="footer">
-  EK Nutrição Avançada · Plano gerado em 26/04/2026<br>
-  <span style="color:#333">Atualizar a cada 4 semanas conforme evolução</span>
+<!-- TREINO -->
+<div id="treino" class="section">
+  <div class="card">
+    <div class="card-title"><div class="dot" style="background:var(--accent)"></div>Estrutura Semanal</div>
+    <div style="display:flex;flex-direction:column;gap:4px;">
+      <div style="display:grid;grid-template-columns:42px 1fr;gap:7px;align-items:center;padding:7px 9px;background:var(--surface2);border-radius:5px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:var(--red);">SEG</div><div style="font-size:11px;">&#128170; Pernas posterior pesado + &#127939; Regenerativo Floripa &#127880;</div></div>
+      <div style="display:grid;grid-template-columns:42px 1fr;gap:7px;align-items:center;padding:7px 9px;background:var(--surface2);border-radius:5px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:var(--blue);">TER</div><div style="font-size:11px;">&#128170; Peito + Tríceps + Abdômen</div></div>
+      <div style="display:grid;grid-template-columns:42px 1fr;gap:7px;align-items:center;padding:7px 9px;background:var(--surface2);border-radius:5px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:var(--purple);">QUA</div><div style="font-size:11px;">&#127939; Cardio da Planilha &#127880; + &#129467; Pernas leve</div></div>
+      <div style="display:grid;grid-template-columns:42px 1fr;gap:7px;align-items:center;padding:7px 9px;background:var(--surface2);border-radius:5px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:var(--green);">QUI</div><div style="font-size:11px;">&#128170; Costas + Bíceps</div></div>
+      <div style="display:grid;grid-template-columns:42px 1fr;gap:7px;align-items:center;padding:7px 9px;background:var(--surface2);border-radius:5px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:var(--orange);">SEX</div><div style="font-size:11px;">&#127939; Cardio da Planilha &#127880; + &#128170; Ombro + Braços</div></div>
+      <div style="display:grid;grid-template-columns:42px 1fr;gap:7px;align-items:center;padding:7px 9px;background:var(--surface2);border-radius:5px;border-left:3px solid var(--orange);"><div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:var(--orange);">SÁB</div><div style="font-size:11px;">&#127939; Cardio leve &#127880; + &#128170; Bônus (opcional)</div></div>
+      <div style="display:grid;grid-template-columns:42px 1fr;gap:7px;align-items:center;padding:7px 9px;background:var(--surface2);border-radius:5px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:var(--muted);">DOM</div><div style="font-size:11px;">&#127939; Cardio da Planilha &#127880; · Corrida longa</div></div>
+    </div>
+  </div>
+  <div class="card"><div class="day-header"><div class="day-tag" style="color:var(--red);">SEG</div><div class="day-info"><h3>Pernas Posterior + Regenerativo</h3><p>Cadeia posterior pesada · cardio leve</p></div></div>
+    <div class="muscle-group"><div class="muscle-label">Pernas — Posterior Pesado</div>
+      <div class="exercise-row priority"><span class="exercise-name">Levantamento Terra Convencional</span><span class="exercise-sets">4×</span><span class="exercise-reps">5–6 reps</span></div>
+      <div class="exercise-row"><span class="exercise-name">Mesa Flexora</span><span class="exercise-sets">4×</span><span class="exercise-reps">10–12 reps</span></div>
+      <div class="exercise-row"><span class="exercise-name">Afundo com Halteres</span><span class="exercise-sets">3×</span><span class="exercise-reps">10 reps/lado</span></div>
+      <div class="exercise-row"><span class="exercise-name">Panturrilha em Pé</span><span class="exercise-sets">4×</span><span class="exercise-reps">15 reps</span></div>
+    </div>
+    <div class="muscle-group"><div class="muscle-label">Cardio da Planilha &#127880;</div><div class="exercise-row"><span class="exercise-name">Regenerativo · 10km Floripa</span><span class="exercise-sets">20–25'</span><span class="exercise-reps">&lt;115 bpm</span></div></div>
+  </div>
+  <div class="card"><div class="day-header"><div class="day-tag" style="color:var(--blue);">TER</div><div class="day-info"><h3>Peito · Tríceps · Abdômen</h3><p>Empurrar horizontal</p></div></div>
+    <div class="muscle-group"><div class="muscle-label">Peito</div>
+      <div class="exercise-row priority"><span class="exercise-name">Supino Reto Barra</span><span class="exercise-sets">4×</span><span class="exercise-reps">6–8 reps</span></div>
+      <div class="exercise-row"><span class="exercise-name">Supino Inclinado Halteres</span><span class="exercise-sets">3×</span><span class="exercise-reps">8–10 reps</span></div>
+      <div class="exercise-row"><span class="exercise-name">Crossover</span><span class="exercise-sets">3×</span><span class="exercise-reps">12–15 reps</span></div>
+    </div>
+    <div class="muscle-group"><div class="muscle-label">Tríceps</div>
+      <div class="exercise-row"><span class="exercise-name">Tríceps Corda</span><span class="exercise-sets">3×</span><span class="exercise-reps">10–12 reps</span></div>
+      <div class="exercise-row"><span class="exercise-name">Tríceps Testa</span><span class="exercise-sets">3×</span><span class="exercise-reps">8–10 reps</span></div>
+    </div>
+    <div class="muscle-group"><div class="muscle-label">Abdômen</div>
+      <div class="exercise-row"><span class="exercise-name">Abdominal Máquina</span><span class="exercise-sets">3×</span><span class="exercise-reps">10–12 reps</span></div>
+      <div class="exercise-row"><span class="exercise-name">Elevação de Pernas</span><span class="exercise-sets">3×</span><span class="exercise-reps">12–15 reps</span></div>
+    </div>
+  </div>
+  <div class="card"><div class="day-header"><div class="day-tag" style="color:var(--purple);">QUA</div><div class="day-info"><h3>Cardio da Planilha + Pernas Leve</h3><p>Cardio principal · posterior leve</p></div></div>
+    <div class="muscle-group"><div class="muscle-label">Cardio da Planilha &#127880;</div><div class="exercise-row priority"><span class="exercise-name">Corrida intervalada · 10km Floripa</span><span class="exercise-sets">—</span><span class="exercise-reps">Ver planilha</span></div></div>
+    <div class="muscle-group"><div class="muscle-label">Pernas Leve</div>
+      <div class="exercise-row"><span class="exercise-name">Mesa Flexora</span><span class="exercise-sets">3×</span><span class="exercise-reps">12 reps · leve</span></div>
+      <div class="exercise-row"><span class="exercise-name">Panturrilha Sentado</span><span class="exercise-sets">3×</span><span class="exercise-reps">15 reps</span></div>
+    </div>
+  </div>
+  <div class="card"><div class="day-header"><div class="day-tag" style="color:var(--green);">QUI</div><div class="day-info"><h3>Costas · Bíceps</h3><p>Puxar — espessura e largura</p></div></div>
+    <div class="muscle-group"><div class="muscle-label">Costas</div>
+      <div class="exercise-row priority"><span class="exercise-name">Remada Curvada Barra</span><span class="exercise-sets">4×</span><span class="exercise-reps">6–8 reps</span></div>
+      <div class="exercise-row"><span class="exercise-name">Puxada Alta Frente</span><span class="exercise-sets">3×</span><span class="exercise-reps">8–10 reps</span></div>
+      <div class="exercise-row"><span class="exercise-name">Remada Baixa (cabo)</span><span class="exercise-sets">3×</span><span class="exercise-reps">10–12 reps</span></div>
+      <div class="exercise-row"><span class="exercise-name">Face Pull</span><span class="exercise-sets">3×</span><span class="exercise-reps">12–15 reps</span></div>
+    </div>
+    <div class="muscle-group"><div class="muscle-label">Bíceps</div>
+      <div class="exercise-row"><span class="exercise-name">Rosca Direta Barra</span><span class="exercise-sets">3×</span><span class="exercise-reps">8–10 reps</span></div>
+      <div class="exercise-row"><span class="exercise-name">Rosca Alternada Halteres</span><span class="exercise-sets">3×</span><span class="exercise-reps">10–12 reps</span></div>
+    </div>
+  </div>
+  <div class="card"><div class="day-header"><div class="day-tag" style="color:var(--orange);">SEX</div><div class="day-info"><h3>Cardio + Ombro + Braços</h3><p>Fartlek · estética</p></div></div>
+    <div class="muscle-group"><div class="muscle-label">Cardio da Planilha &#127880;</div><div class="exercise-row priority"><span class="exercise-name">Corrida fartlek · 10km Floripa</span><span class="exercise-sets">—</span><span class="exercise-reps">Ver planilha</span></div></div>
+    <div class="muscle-group"><div class="muscle-label">Ombro</div>
+      <div class="exercise-row"><span class="exercise-name">Desenvolvimento Halteres</span><span class="exercise-sets">3×</span><span class="exercise-reps">8–10 reps</span></div>
+      <div class="exercise-row"><span class="exercise-name">Elevação Lateral</span><span class="exercise-sets">4×</span><span class="exercise-reps">12–15 reps</span></div>
+      <div class="exercise-row"><span class="exercise-name">Crucifixo Inverso</span><span class="exercise-sets">3×</span><span class="exercise-reps">12–15 reps</span></div>
+    </div>
+    <div class="muscle-group"><div class="muscle-label">Braços</div>
+      <div class="exercise-row"><span class="exercise-name">Rosca Barra</span><span class="exercise-sets">3×</span><span class="exercise-reps">8–10 reps</span></div>
+      <div class="exercise-row"><span class="exercise-name">Tríceps na Polia (corda)</span><span class="exercise-sets">3×</span><span class="exercise-reps">10–12 reps</span></div>
+    </div>
+  </div>
+  <div class="card"><div class="day-header"><div class="day-tag" style="color:var(--orange);">SÁB</div><div class="day-info"><h3>Cardio Leve + Bônus Opcional</h3><p>Só se sentir ótimo</p></div></div>
+    <div class="muscle-group"><div class="muscle-label">Cardio da Planilha &#127880;</div><div class="exercise-row"><span class="exercise-name">Cardio leve · 10km Floripa</span><span class="exercise-sets">25–30'</span><span class="exercise-reps">&lt;120 bpm</span></div></div>
+    <div class="muscle-group"><div class="muscle-label">Bônus — só se recuperação ótima</div>
+      <div class="exercise-row optional"><span class="exercise-name">Supino Reto <span class="optional-tag">OPCIONAL</span></span><span class="exercise-sets">3×</span><span class="exercise-reps">8 reps</span></div>
+      <div class="exercise-row optional"><span class="exercise-name">Remada Baixa <span class="optional-tag">OPCIONAL</span></span><span class="exercise-sets">3×</span><span class="exercise-reps">10 reps</span></div>
+      <div class="exercise-row optional"><span class="exercise-name">Desenvolvimento <span class="optional-tag">OPCIONAL</span></span><span class="exercise-sets">3×</span><span class="exercise-reps">10 reps</span></div>
+    </div>
+    <div class="warn-box">&#9888;&#65039; <span>Sábado é seu. O bônus só quando o corpo pede de verdade.</span></div>
+  </div>
+  <div class="card"><div class="day-header"><div class="day-tag" style="color:var(--muted);">DOM</div><div class="day-info"><h3>Corrida Longa</h3><p>Ritmo confortável · fechar semana</p></div></div>
+    <div class="muscle-group"><div class="muscle-label">Cardio da Planilha &#127880;</div><div class="exercise-row priority"><span class="exercise-name">Corrida longa · 10km Floripa</span><span class="exercise-sets">—</span><span class="exercise-reps">Ver planilha</span></div></div>
+    <div class="tip-box">&#9889; <span>Sem pressão de ritmo. Técnica e presença.</span></div>
+  </div>
 </div>
 
-<style>
-  /* ── TRACK STYLES ── */
-  .track-task {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 12px 0;
-    border-bottom: 1px solid var(--border);
-  }
-  .track-task:last-child { border-bottom: none; }
-  .task-left { display: flex; align-items: center; gap: 12px; }
-  .task-icon { font-size: 20px; width: 28px; text-align: center; }
-  .task-name { font-size: 14px; font-weight: 500; }
-  .task-pts { font-size: 11px; color: var(--muted); font-family: 'DM Mono', monospace; }
-  .task-btn {
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    color: var(--muted);
-    width: 40px; height: 40px;
-    border-radius: 8px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: all 0.15s;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .task-btn.done {
-    background: var(--accent);
-    border-color: var(--accent);
-    color: #000;
-    font-weight: 700;
-  }
-  .track-task.done-row { opacity: 0.6; }
-</style>
+<!-- DIETA -->
+<div id="dieta" class="section">
+  <div class="card">
+    <div class="card-title"><div class="dot" style="background:var(--accent)"></div>Plano Alimentar — Dietbox 01/05/2026</div>
+    <div class="macros-grid">
+      <div class="macro-box"><div class="macro-val">1.883</div><div class="macro-unit">kcal/dia</div><div class="macro-name">Calorias</div></div>
+      <div class="macro-box"><div class="macro-val" style="color:#0a84ff;">144g</div><div class="macro-unit">proteína</div><div class="macro-name">1,36g/kg</div></div>
+      <div class="macro-box"><div class="macro-val" style="color:var(--orange);">186g</div><div class="macro-unit">carboidrato</div><div class="macro-name">CHO</div></div>
+    </div>
+    <div class="warn-box">&#9888;&#65039; <span>Com 107kg + treino + testosterona, avaliar aumento para 180–200g de proteína. Naltrexona reduz apetite — monitorar ingestão total.</span></div>
+  </div>
+  <div class="meal-card"><div class="meal-header"><div class="meal-time">07:00</div><div class="meal-name">Café da Manhã</div><div class="meal-kcal">Pós treino</div></div>
+    <div class="meal-body">
+      <div class="food-item"><span>Pão de forma</span><span class="food-qty">2 fatias</span></div>
+      <div class="food-item"><span>Queijo mussarela ou recheio</span><span class="food-qty">1 fatia</span></div>
+      <div class="food-item"><span>Ovos mexidos / Carne moída / Patê de frango</span><span class="food-qty">2 ovos / 80g</span></div>
+      <div class="food-item"><span>Fruta (banana/mamão/lista)</span><span class="food-qty">1 unid</span></div>
+      <div style="font-size:10px;color:var(--muted);margin-top:6px;">Sub 1: Tapiovo + Fruta · Sub 2: Crepioca recheada + Fruta</div>
+    </div>
+  </div>
+  <div class="meal-card"><div class="meal-header"><div class="meal-time">08:30</div><div class="meal-name">Suplementos</div><div class="meal-kcal">Pós-café</div></div>
+    <div class="meal-body">
+      <div class="food-item"><span>Selênio</span><span class="food-qty">1 cápsula</span></div>
+      <div class="food-item"><span>Zinco</span><span class="food-qty">1 cápsula</span></div>
+      <div class="food-item"><span>Vitamina C</span><span class="food-qty">1 cápsula</span></div>
+      <div class="food-item"><span>B12</span><span class="food-qty">1 comprimido</span></div>
+      <div class="food-item"><span style="color:var(--orange);">Naltrexona + Bupropiona</span><span class="food-qty">conforme prescrição</span></div>
+    </div>
+  </div>
+  <div class="meal-card"><div class="meal-header"><div class="meal-time">12:00</div><div class="meal-name">Almoço</div><div class="meal-kcal">12h–13h</div></div>
+    <div class="meal-body">
+      <div class="food-item"><span>Proteína (frango/bife/peixe)</span><span class="food-qty">150g</span></div>
+      <div class="food-item"><span>Legumes / Salada crua</span><span class="food-qty">1/2 prato</span></div>
+      <div class="food-item"><span>Arroz branco cozido</span><span class="food-qty">200g</span></div>
+      <div class="food-item"><span>Doce de leite cremoso</span><span class="food-qty">25g</span></div>
+      <div style="font-size:10px;color:var(--accent);margin-top:6px;">Come proteína + vegetais primeiro. Carbo por último.</div>
+    </div>
+  </div>
+  <div class="meal-card"><div class="meal-header"><div class="meal-time">12:30</div><div class="meal-name">Vitamina D + K</div><div class="meal-kcal">Seg · Qua · Sex</div></div>
+    <div class="meal-body"><div class="food-item"><span>Vitamina D + K</span><span class="food-qty">1 cápsula</span></div></div>
+  </div>
+  <div class="meal-card"><div class="meal-header"><div class="meal-time">15:00</div><div class="meal-name">Shake Âncora</div><div class="meal-kcal">Anticompulsão</div></div>
+    <div class="meal-body">
+      <div class="food-item"><span>Whey protein</span><span class="food-qty">20g</span></div>
+      <div class="food-item"><span>Leite desnatado em pó</span><span class="food-qty">20g</span></div>
+      <div class="food-item"><span>Água</span><span class="food-qty">200–300ml</span></div>
+      <div style="font-size:10px;color:var(--accent);margin-top:6px;">NUNCA pule. Âncora do controle noturno.</div>
+    </div>
+  </div>
+  <div class="meal-card"><div class="meal-header"><div class="meal-time">16:00</div><div class="meal-name">Café da Tarde</div><div class="meal-kcal">16h–18h</div></div>
+    <div class="meal-body">
+      <div class="food-item"><span>Café ou Chá</span><span class="food-qty">1 caneca</span></div>
+      <div class="food-item"><span>Crepioca / Pão / Tapiovo</span><span class="food-qty">1 porção</span></div>
+      <div class="food-item"><span>Fruta (laranja/maçã/pêra/mamão)</span><span class="food-qty">1 unid</span></div>
+    </div>
+  </div>
+  <div class="meal-card"><div class="meal-header"><div class="meal-time">20:00</div><div class="meal-name">Jantar</div><div class="meal-kcal">20h–22h</div></div>
+    <div class="meal-body">
+      <div class="food-item"><span>Shake: Leite + Água + Abacate + Whey</span><span class="food-qty">base</span></div>
+      <div style="font-size:10px;color:var(--muted);margin-top:6px;">Sub 1: Arroz+Feijão+Proteína · Sub 2: Purê+Proteína · Sub 3: Wrap Rap10 · Sub 4: Hambúrguer caseiro · Sub 5: Bolinho proteico</div>
+    </div>
+  </div>
+</div>
+
+<!-- PROTOCOLO -->
+<div id="protocolo" class="section">
+  <div class="card">
+    <div class="card-title"><div class="dot" style="background:var(--purple)"></div>Testosterona</div>
+    <div class="proto-item"><div class="proto-icon">&#128137;</div><div><div class="proto-title">Atual</div><div class="proto-text">Durateston <span class="proto-highlight">100mg/semana</span></div></div></div>
+    <div class="proto-item"><div class="proto-icon">&#127919;</div><div><div class="proto-title">Alvo (após Durateston acabar)</div><div class="proto-text">Enantato <span class="proto-highlight">75mg a cada 4 dias</span> subcutânea · Seg + Qui</div></div></div>
+    <div class="divider"></div>
+    <div style="font-size:10px;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;">Exames — 60–90 dias</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+      <div style="background:var(--surface2);border-radius:5px;padding:8px;font-size:11px;">&#129656; Hematócrito</div>
+      <div style="background:var(--surface2);border-radius:5px;padding:8px;font-size:11px;">&#9879;&#65039; Estradiol E2</div>
+      <div style="background:var(--surface2);border-radius:5px;padding:8px;font-size:11px;">&#128300; SHBG</div>
+      <div style="background:var(--surface2);border-radius:5px;padding:8px;font-size:11px;">&#129514; Testosterona Total</div>
+      <div style="background:var(--surface2);border-radius:5px;padding:8px;font-size:11px;">&#10084;&#65039; Perfil Lipídico</div>
+      <div style="background:var(--surface2);border-radius:5px;padding:8px;font-size:11px;">&#129752; Pressão Arterial</div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title"><div class="dot" style="background:var(--orange)"></div>Naltrexona 8mg + Bupropiona 90mg</div>
+    <div class="proto-item"><div class="proto-icon">&#129504;</div><div><div class="proto-title">Iniciado em 01/05/2026</div><div class="proto-text">Primeiro dia: redução notada da fome e compulsividade. Bloqueia reforço compulsivo + reduz fissura.</div></div></div>
+    <div class="proto-item"><div class="proto-icon">&#128203;</div><div><div class="proto-title">Protocolo</div><div class="proto-text">• Tomar <span class="proto-highlight">pela manhã</span> com o café<br>• Iniciar com metade da dose de bupropiona<br>• Monitorar pressão arterial</div></div></div>
+    <div class="warn-box">&#9888;&#65039; <span>Não combinar com álcool. Monitorar com médico de confiança.</span></div>
+  </div>
+</div>
+
+<!-- PROJEÇÃO -->
+<div id="projecao" class="section">
+  <div class="card">
+    <div class="card-title"><div class="dot" style="background:var(--accent)"></div>Projeção Corpo — 6 Meses</div>
+    <div class="proj-row"><div class="proj-month">M1</div><div><div style="font-size:12px;font-weight:600;">104–105 kg</div><div style="font-size:10px;color:var(--muted);">BF ~24–25%</div></div><div style="font-size:11px;color:var(--muted);">Adaptação</div><div style="font-size:10px;color:var(--muted);">Hábito</div><div class="proj-bar-wrap"><div class="proj-bar" style="width:15%"></div></div></div>
+    <div class="proj-row"><div class="proj-month">M2</div><div><div style="font-size:12px;font-weight:600;">101–102 kg</div><div style="font-size:10px;color:var(--muted);">BF ~22–23%</div></div><div style="font-size:11px;color:var(--muted);">Ritmo</div><div style="font-size:10px;color:var(--muted);">Déficit</div><div class="proj-bar-wrap"><div class="proj-bar" style="width:30%"></div></div></div>
+    <div class="proj-row"><div class="proj-month">M3</div><div><div style="font-size:12px;font-weight:600;">98–99 kg</div><div style="font-size:10px;color:var(--muted);">BF ~20–21%</div></div><div style="font-size:11px;color:var(--muted);">Definição</div><div style="font-size:10px;color:var(--muted);">Sinais</div><div class="proj-bar-wrap"><div class="proj-bar" style="width:47%"></div></div></div>
+    <div class="proj-row"><div class="proj-month">M4</div><div><div style="font-size:12px;font-weight:600;">95–96 kg</div><div style="font-size:10px;color:var(--muted);">BF ~17–18%</div></div><div style="font-size:11px;color:var(--muted);">Visível</div><div style="font-size:10px;color:var(--muted);">Músculos</div><div class="proj-bar-wrap"><div class="proj-bar" style="width:63%"></div></div></div>
+    <div class="proj-row"><div class="proj-month">M5</div><div><div style="font-size:12px;font-weight:600;">92–93 kg</div><div style="font-size:10px;color:var(--muted);">BF ~14–15%</div></div><div style="font-size:11px;color:var(--muted);">Vascular</div><div style="font-size:10px;color:var(--muted);">Foco</div><div class="proj-bar-wrap"><div class="proj-bar" style="width:80%"></div></div></div>
+    <div class="proj-row" style="border:1px solid var(--accent);"><div class="proj-month" style="color:var(--accent);">M6</div><div><div style="font-size:13px;font-weight:700;color:var(--accent);">89–91 kg ✓</div><div style="font-size:10px;color:var(--green);">BF ~11–13% ✓</div></div><div style="font-size:11px;color:var(--accent);font-weight:600;">META</div><div style="font-size:10px;color:var(--accent);">Abdômen</div><div class="proj-bar-wrap"><div class="proj-bar" style="width:100%"></div></div></div>
+  </div>
+  <div class="card">
+    <div class="card-title"><div class="dot" style="background:var(--teal)"></div>Projeção Corrida — 10km Floripa &#127880;</div>
+    <div class="proj-row"><div class="proj-month" style="color:var(--teal);">M1</div><div><div style="font-size:12px;font-weight:600;">Base aeróbica</div></div><div style="font-size:11px;color:var(--muted);">Zona 2</div><div style="font-size:10px;color:var(--muted);">Consistência</div><div class="proj-bar-wrap"><div class="proj-bar" style="width:20%;background:var(--teal)"></div></div></div>
+    <div class="proj-row"><div class="proj-month" style="color:var(--teal);">M2</div><div><div style="font-size:12px;font-weight:600;">Fartlek fácil</div></div><div style="font-size:11px;color:var(--muted);">Intervalos</div><div style="font-size:10px;color:var(--muted);">Velocidade</div><div class="proj-bar-wrap"><div class="proj-bar" style="width:40%;background:var(--teal)"></div></div></div>
+    <div class="proj-row"><div class="proj-month" style="color:var(--teal);">M3</div><div><div style="font-size:12px;font-weight:600;">7km contínuos</div></div><div style="font-size:11px;color:var(--muted);">Endurance</div><div style="font-size:10px;color:var(--muted);">Ritmo</div><div class="proj-bar-wrap"><div class="proj-bar" style="width:60%;background:var(--teal)"></div></div></div>
+    <div class="proj-row"><div class="proj-month" style="color:var(--teal);">M4</div><div><div style="font-size:12px;font-weight:600;">8–9km</div></div><div style="font-size:11px;color:var(--muted);">Pré-prova</div><div style="font-size:10px;color:var(--muted);">Polimento</div><div class="proj-bar-wrap"><div class="proj-bar" style="width:80%;background:var(--teal)"></div></div></div>
+    <div class="proj-row" style="border:1px solid var(--teal);"><div class="proj-month" style="color:var(--teal);">SET</div><div><div style="font-size:13px;font-weight:700;color:var(--teal);">10km ✓ &#127880;</div><div style="font-size:10px;color:var(--green);">Floripa</div></div><div style="font-size:11px;color:var(--teal);font-weight:600;">META</div><div style="font-size:10px;color:var(--teal);">RD</div><div class="proj-bar-wrap"><div class="proj-bar" style="width:100%;background:var(--teal)"></div></div></div>
+  </div>
+</div>
+
+<div class="footer">EK · Life in Peace Project · v3 Mai/2026<br><span style="color:#222">Pouco todo dia. Sempre.</span></div>
 
 <script>
-  // ── NAV ──
-  function show(id) {
-    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-    event.target.classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    if (id === 'track') renderTrack();
-  }
+function show(id,btn){document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));document.getElementById(id).classList.add('active');btn.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});if(id==='track')renderTrack();}
+const KEY='ek_life_v3';
+function loadData(){try{return JSON.parse(localStorage.getItem(KEY))||{pesos:{},tasks:{},pontos:{}};}catch(e){return{pesos:{},tasks:{},pontos:{}};}}
+function saveData(d){localStorage.setItem(KEY,JSON.stringify(d));}
+let currentDay=todayStr();
+function todayStr(){return new Date().toISOString().slice(0,10);}
+function addDays(s,n){const d=new Date(s+'T12:00:00');d.setDate(d.getDate()+n);return d.toISOString().slice(0,10);}
+function subDays(s,n){return addDays(s,-n);}
+function dowNum(s){return new Date(s+'T12:00:00').getDay();}
+function isTestoDay(s){const d=dowNum(s);return d===1||d===4;}
+function weekStart(s){const d=new Date(s+'T12:00:00');const diff=d.getDate()-d.getDay()+(d.getDay()===0?-6:1);return new Date(d.setDate(diff)).toISOString().slice(0,10);}
+function fmtDate(s){const[y,m,dy]=s.split('-');return dy+'/'+m;}
+function fmtLong(s){const dias=['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];const meses=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];const d=new Date(s+'T12:00:00');return{main:dias[d.getDay()]+', '+d.getDate()+' '+meses[d.getMonth()],isToday:s===todayStr()};}
+function getDayLabels(s){const dow=dowNum(s);const map={1:{treino:'💪 Pernas + Regenerativo',cardio:'🏃 Regenerativo Floripa 🎈'},2:{treino:'💪 Peito + Tríceps + Abs',cardio:null},3:{treino:null,cardio:'🏃 Corrida Intervalado 🎈'},4:{treino:'💪 Costas + Bíceps',cardio:null},5:{treino:'💪 Ombro + Braços',cardio:'🏃 Corrida Fartlek 🎈'},6:{treino:'💪 Bônus (opcional)',cardio:'🏃 Cardio Leve 🎈'},0:{treino:null,cardio:'🏃 Corrida Longa 🎈'}};return map[dow]||{treino:'💪 Musculação',cardio:'🏃 Cardio'};}
+function changeDay(n){const next=addDays(currentDay,n);if(next>todayStr())return;currentDay=next;renderTrack();}
 
-  // ── STORAGE HELPERS ──
-  const KEY = 'ek_plano_v1';
-  function loadData() {
-    try { return JSON.parse(localStorage.getItem(KEY)) || { pesos: {}, tasks: {}, pontos: {} }; }
-    catch(e) { return { pesos: {}, tasks: {}, pontos: {} }; }
-  }
-  function saveData(d) { localStorage.setItem(KEY, JSON.stringify(d)); }
-
-  // ── DATE HELPERS ──
-  function today() {
-    const d = new Date();
-    return d.toISOString().slice(0,10);
-  }
-  function getWeekStart(dateStr) {
-    const d = new Date(dateStr + 'T12:00:00');
-    const day = d.getDay(); // 0=Sun
-    const diff = d.getDate() - day + (day === 0 ? -6 : 1);
-    const mon = new Date(d.setDate(diff));
-    return mon.toISOString().slice(0,10);
-  }
-  function dayOfWeek(dateStr) {
-    return new Date(dateStr + 'T12:00:00').getDay(); // 0=Sun,1=Mon...
-  }
-  function isTestoDay(dateStr) {
-    const d = dayOfWeek(dateStr);
-    return d === 1 || d === 4; // Mon or Thu
-  }
-  function formatDate(dateStr) {
-    const [y,m,dy] = dateStr.split('-');
-    return `${dy}/${m}`;
-  }
-  function addDays(dateStr, n) {
-    const d = new Date(dateStr + 'T12:00:00');
-    d.setDate(d.getDate() + n);
-    return d.toISOString().slice(0,10);
-  }
-  function subtractDays(dateStr, n) { return addDays(dateStr, -n); }
-
-  // ── RENDER TRACK ──
-  function renderTrack() {
-    const t = today();
-    const data = loadData();
-
-    // Label hoje
-    const dias = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
-    const meses = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
-    const td = new Date(t + 'T12:00:00');
-    document.getElementById('hoje-label').textContent = `${dias[td.getDay()]}, ${td.getDate()} ${meses[td.getMonth()]}`;
-
-    // Mostrar testo só se for seg/qui
-    const testoDiv = document.getElementById('task-testo');
-    if (isTestoDay(t)) {
-      testoDiv.style.display = 'flex';
-      document.getElementById('testo-dia-label').textContent = dayOfWeek(t) === 1 ? 'SEG' : 'QUI';
-    } else {
-      testoDiv.style.display = 'none';
-    }
-
-    // Restaurar estado dos botões
-    const todayTasks = data.tasks[t] || {};
-    ['cardio','treino','dieta','testo'].forEach(k => {
-      const btn = document.getElementById('btn-' + k);
-      if (!btn) return;
-      const row = document.getElementById('task-' + k);
-      if (todayTasks[k]) {
-        btn.classList.add('done');
-        btn.textContent = '✓';
-        row.classList.add('done-row');
-      } else {
-        btn.classList.remove('done');
-        btn.textContent = '✓';
-        row.classList.remove('done-row');
-      }
-    });
-
-    // Restaurar peso
-    if (data.pesos[t]) {
-      const inp = document.getElementById('input-peso');
-      inp.value = data.pesos[t];
-      document.getElementById('btn-peso').classList.add('done');
-      document.getElementById('btn-peso').textContent = '✓';
-    }
-
-    updatePontos();
-    renderChartPeso(data);
-    renderCalTreino(data);
-    renderCalTesto(data);
-    renderFreq(data);
-  }
-
-  // ── TOGGLE TASK ──
-  function toggleTask(key, pts) {
-    const t = today();
-    const data = loadData();
-    if (!data.tasks[t]) data.tasks[t] = {};
-    if (!data.pontos[t]) data.pontos[t] = 0;
-
-    const wasDone = data.tasks[t][key];
-    data.tasks[t][key] = !wasDone;
-    data.pontos[t] = (data.pontos[t] || 0) + (wasDone ? -pts : pts);
-    if (data.pontos[t] < 0) data.pontos[t] = 0;
-    saveData(data);
-
-    const btn = document.getElementById('btn-' + key);
-    const row = document.getElementById('task-' + key);
-    if (!wasDone) { btn.classList.add('done'); row.classList.add('done-row'); }
-    else { btn.classList.remove('done'); row.classList.remove('done-row'); }
-
-    updatePontos();
-    renderFreq(data);
-    renderCalTreino(data);
-  }
-
-  // ── REGISTRAR PESO ──
-  function registrarPeso() {
-    const val = parseFloat(document.getElementById('input-peso').value);
-    if (isNaN(val) || val < 60 || val > 200) { alert('Peso inválido'); return; }
-    const t = today();
-    const data = loadData();
-    const isNew = !data.pesos[t];
-    data.pesos[t] = val;
-    if (isNew) {
-      if (!data.pontos[t]) data.pontos[t] = 0;
-      data.pontos[t] += 3;
-    }
-    saveData(data);
-    document.getElementById('btn-peso').classList.add('done');
-    document.getElementById('btn-peso').textContent = '✓';
-    document.getElementById('task-peso').classList.add('done-row');
-    updatePontos();
-    renderChartPeso(data);
-  }
-
-  // ── UPDATE PONTOS ──
-  function updatePontos() {
-    const data = loadData();
-    const t = today();
-    const ws = getWeekStart(t);
-
-    const ptHoje = data.pontos[t] || 0;
-    document.getElementById('pts-hoje').textContent = ptHoje;
-
-    // Semana
-    let ptSem = 0;
-    for (let i = 0; i < 7; i++) {
-      const d = addDays(ws, i);
-      ptSem += data.pontos[d] || 0;
-    }
-    document.getElementById('pts-semana').textContent = ptSem;
-
-    // Total
-    const ptTotal = Object.values(data.pontos).reduce((a,b)=>a+(b||0),0);
-    document.getElementById('pts-total').textContent = ptTotal;
-  }
-
-  // ── GRÁFICO PESO (canvas puro) ──
-  function renderChartPeso(data) {
-    const canvas = document.getElementById('chart-peso');
-    const emptyMsg = document.getElementById('peso-empty');
-    const entries = Object.entries(data.pesos).sort((a,b)=>a[0].localeCompare(b[0]));
-
-    if (entries.length === 0) {
-      canvas.style.display = 'none';
-      emptyMsg.style.display = 'block';
-      document.getElementById('peso-delta').textContent = '';
-      return;
-    }
-    canvas.style.display = 'block';
-    emptyMsg.style.display = 'none';
-
-    // Mostrar delta
-    if (entries.length >= 2) {
-      const first = entries[0][1];
-      const last = entries[entries.length-1][1];
-      const delta = (last - first).toFixed(1);
-      const col = delta <= 0 ? '#30d158' : '#ff3b30';
-      document.getElementById('peso-delta').innerHTML =
-        `<span style="color:${col}">${delta > 0 ? '+' : ''}${delta} kg</span> desde início`;
-    } else {
-      document.getElementById('peso-delta').textContent = entries[0][1] + ' kg';
-    }
-
-    // Draw
-    const dpr = window.devicePixelRatio || 1;
-    const W = canvas.offsetWidth || 300;
-    const H = 160;
-    canvas.width = W * dpr;
-    canvas.height = H * dpr;
-    canvas.style.width = W + 'px';
-    canvas.style.height = H + 'px';
-    const ctx = canvas.getContext('2d');
-    ctx.scale(dpr, dpr);
-
-    const vals = entries.map(e => e[1]);
-    const labels = entries.map(e => formatDate(e[0]));
-    const minV = Math.min(...vals, 90) - 1;
-    const maxV = Math.max(...vals, 108) + 1;
-    const pad = { t: 16, r: 8, b: 30, l: 36 };
-    const cW = W - pad.l - pad.r;
-    const cH = H - pad.t - pad.b;
-
-    const xScale = i => pad.l + (i / Math.max(vals.length - 1, 1)) * cW;
-    const yScale = v => pad.t + cH - ((v - minV) / (maxV - minV)) * cH;
-
-    // Grid lines
-    ctx.strokeStyle = '#1e1e1e';
-    ctx.lineWidth = 1;
-    for (let g = 0; g <= 4; g++) {
-      const y = pad.t + (g / 4) * cH;
-      ctx.beginPath(); ctx.moveTo(pad.l, y); ctx.lineTo(pad.l + cW, y); ctx.stroke();
-      const gVal = (maxV - (g / 4) * (maxV - minV)).toFixed(0);
-      ctx.fillStyle = '#444';
-      ctx.font = '10px DM Mono, monospace';
-      ctx.textAlign = 'right';
-      ctx.fillText(gVal, pad.l - 4, y + 4);
-    }
-
-    // Meta line 90kg
-    const yMeta = yScale(90);
-    ctx.strokeStyle = '#e8ff0044';
-    ctx.setLineDash([4, 4]);
-    ctx.lineWidth = 1;
-    ctx.beginPath(); ctx.moveTo(pad.l, yMeta); ctx.lineTo(pad.l + cW, yMeta); ctx.stroke();
-    ctx.setLineDash([]);
-    ctx.fillStyle = '#e8ff0088';
-    ctx.font = '9px DM Mono, monospace';
-    ctx.textAlign = 'left';
-    ctx.fillText('90kg', pad.l + 2, yMeta - 3);
-
-    if (vals.length === 1) {
-      // Single dot
-      ctx.fillStyle = '#e8ff00';
-      ctx.beginPath();
-      ctx.arc(xScale(0), yScale(vals[0]), 5, 0, Math.PI*2);
-      ctx.fill();
-    } else {
-      // Gradient fill
-      const grad = ctx.createLinearGradient(0, pad.t, 0, pad.t + cH);
-      grad.addColorStop(0, '#e8ff0033');
-      grad.addColorStop(1, '#e8ff0000');
-      ctx.beginPath();
-      ctx.moveTo(xScale(0), yScale(vals[0]));
-      for (let i = 1; i < vals.length; i++) {
-        const x0 = xScale(i-1), y0 = yScale(vals[i-1]);
-        const x1 = xScale(i),   y1 = yScale(vals[i]);
-        const cpx = (x0+x1)/2;
-        ctx.bezierCurveTo(cpx, y0, cpx, y1, x1, y1);
-      }
-      ctx.lineTo(xScale(vals.length-1), pad.t+cH);
-      ctx.lineTo(xScale(0), pad.t+cH);
-      ctx.closePath();
-      ctx.fillStyle = grad;
-      ctx.fill();
-
-      // Line
-      ctx.beginPath();
-      ctx.moveTo(xScale(0), yScale(vals[0]));
-      for (let i = 1; i < vals.length; i++) {
-        const x0 = xScale(i-1), y0 = yScale(vals[i-1]);
-        const x1 = xScale(i),   y1 = yScale(vals[i]);
-        const cpx = (x0+x1)/2;
-        ctx.bezierCurveTo(cpx, y0, cpx, y1, x1, y1);
-      }
-      ctx.strokeStyle = '#e8ff00';
-      ctx.lineWidth = 2;
-      ctx.stroke();
-    }
-
-    // Dots + labels (only first, last, and spaced ones)
-    const showIdx = new Set([0, vals.length-1]);
-    if (vals.length > 4) {
-      const step = Math.ceil(vals.length / 4);
-      for (let i = step; i < vals.length - 1; i += step) showIdx.add(i);
-    } else {
-      for (let i = 0; i < vals.length; i++) showIdx.add(i);
-    }
-
-    showIdx.forEach(i => {
-      ctx.fillStyle = '#e8ff00';
-      ctx.beginPath();
-      ctx.arc(xScale(i), yScale(vals[i]), 3.5, 0, Math.PI*2);
-      ctx.fill();
-
-      ctx.fillStyle = '#888';
-      ctx.font = '9px DM Mono, monospace';
-      ctx.textAlign = 'center';
-      ctx.fillText(labels[i], xScale(i), H - pad.b + 14);
-    });
-  }
-
-  // ── CALENDÁRIO TREINOS ──
-  function renderCalTreino(data) {
-    const t = today();
-    const el = document.getElementById('cal-treino');
-    el.innerHTML = '';
-    for (let i = 27; i >= 0; i--) {
-      const d = subtractDays(t, i);
-      const done = data.tasks[d] && data.tasks[d].treino;
-      const isToday = d === t;
-      const cell = document.createElement('div');
-      cell.style.cssText = `
-        height:28px;border-radius:4px;
-        background:${done ? 'var(--green)' : '#1a1a1a'};
-        border:1px solid ${isToday ? 'var(--accent)' : 'var(--border)'};
-        position:relative;
-        title:'${formatDate(d)}';
-      `;
-      if (isToday) {
-        cell.style.boxShadow = '0 0 0 1px var(--accent)';
-      }
-      cell.title = formatDate(d);
-      el.appendChild(cell);
-    }
-  }
-
-  // ── CALENDÁRIO TESTO ──
-  function renderCalTesto(data) {
-    const t = today();
-    const el = document.getElementById('cal-testo');
-    el.innerHTML = '';
-    // Últimas 8 semanas de seg/qui = 16 células
-    const testoSlots = [];
-    for (let i = 55; i >= 0; i--) {
-      const d = subtractDays(t, i);
-      if (isTestoDay(d)) testoSlots.push(d);
-    }
-
-    let total = 0;
-    testoSlots.forEach(d => {
-      const done = data.tasks[d] && data.tasks[d].testo;
-      if (done) total++;
-      const isToday = d === t;
-      const cell = document.createElement('div');
-      const dow = dayOfWeek(d);
-      cell.style.cssText = `
-        padding:4px 2px;border-radius:4px;text-align:center;
-        background:${done ? 'var(--purple)' : '#1a1a1a'};
-        border:1px solid ${isToday ? 'var(--accent)' : 'var(--border)'};
-        font-size:9px;color:${done ? '#fff' : 'var(--muted)'};
-        font-family:'DM Mono',monospace;
-      `;
-      cell.textContent = dow === 1 ? 'S' : 'Q';
-      cell.title = formatDate(d);
-      el.appendChild(cell);
-    });
-
-    document.getElementById('testo-total').textContent = total;
-  }
-
-  // ── FREQUÊNCIA ──
-  function renderFreq(data) {
-    const t = today();
-    const ws = getWeekStart(t);
-
-    let freqSem = 0;
-    for (let i = 0; i < 7; i++) {
-      const d = addDays(ws, i);
-      if (data.tasks[d] && data.tasks[d].treino) freqSem++;
-    }
-    document.getElementById('freq-semana').textContent = freqSem;
-
-    let freqTotal = 0;
-    Object.values(data.tasks).forEach(v => { if (v.treino) freqTotal++; });
-    document.getElementById('freq-total').textContent = freqTotal;
-
-    // Streak
-    let streak = 0;
-    let cur = t;
-    while (true) {
-      if (data.tasks[cur] && data.tasks[cur].treino) {
-        streak++;
-        cur = subtractDays(cur, 1);
-      } else break;
-    }
-    document.getElementById('freq-streak').textContent = streak;
-  }
-
-  // ── RESET ──
-  function confirmarReset() {
-    if (confirm('Apagar todos os registros? Isso não pode ser desfeito.')) {
-      localStorage.removeItem(KEY);
-      renderTrack();
-    }
-  }
-
-  // ── INIT ──
-  window.addEventListener('resize', () => {
-    if (document.getElementById('track').classList.contains('active')) {
-      renderChartPeso(loadData());
-    }
+function renderTrack(){
+  const data=loadData();const s=currentDay;const t=todayStr();
+  const{main,isToday}=fmtLong(s);
+  document.getElementById('track-date-main').textContent=isToday?'Hoje':main;
+  document.getElementById('track-date-sub').textContent=isToday?main:fmtDate(s);
+  document.getElementById('tasks-label').textContent=isToday?'Registrar agora':'Editando: '+main;
+  document.getElementById('btn-prev').disabled=false;
+  document.getElementById('btn-next').disabled=s>=t;
+  const labels=getDayLabels(s);
+  const trT=document.getElementById('task-treino');const caT=document.getElementById('task-cardio');
+  if(labels.treino){trT.style.display='flex';document.getElementById('treino-label').textContent=labels.treino;}else trT.style.display='none';
+  if(labels.cardio){caT.style.display='flex';document.getElementById('cardio-label').textContent=labels.cardio;}else caT.style.display='none';
+  const testoDiv=document.getElementById('task-testo');
+  if(isTestoDay(s)){testoDiv.style.display='flex';document.getElementById('testo-dia-label').textContent=dowNum(s)===1?'SEG':'QUI';}else testoDiv.style.display='none';
+  const dt=data.tasks[s]||{};
+  ['sono','acorda','cardio','treino','dieta','testo','violino','estudo','leitura','duolingo','wpp','naltrex'].forEach(k=>{
+    const btn=document.getElementById('btn-'+k);const row=document.getElementById('task-'+k);
+    if(!btn||!row)return;
+    if(dt[k]){btn.classList.add('done');row.classList.add('done-row');}else{btn.classList.remove('done');row.classList.remove('done-row');}
   });
+  const inp=document.getElementById('input-peso');const btnP=document.getElementById('btn-peso');
+  if(data.pesos[s]){inp.value=data.pesos[s];btnP.classList.add('done');btnP.textContent='✓';document.getElementById('task-peso').classList.add('done-row');}
+  else{inp.value='';btnP.classList.remove('done');btnP.textContent='OK';document.getElementById('task-peso').classList.remove('done-row');}
+  updatePontos();renderChartDash(data);renderChartPeso(data);renderHabitosGrid(data);renderCalTreino(data);renderCalTesto(data);renderFreq(data);
+}
+
+function toggleTask(key,pts){
+  const s=currentDay;const data=loadData();
+  if(!data.tasks[s])data.tasks[s]={};if(!data.pontos[s])data.pontos[s]=0;
+  const was=!!data.tasks[s][key];data.tasks[s][key]=!was;data.pontos[s]+=was?-pts:pts;if(data.pontos[s]<0)data.pontos[s]=0;
+  saveData(data);
+  const btn=document.getElementById('btn-'+key);const row=document.getElementById('task-'+key);
+  if(!was){btn.classList.add('done');row.classList.add('done-row');}else{btn.classList.remove('done');row.classList.remove('done-row');}
+  updatePontos();renderCalTreino(data);renderChartDash(data);renderHabitosGrid(data);renderFreq(data);
+}
+
+function registrarPeso(){
+  const val=parseFloat(document.getElementById('input-peso').value);
+  if(isNaN(val)||val<60||val>200){alert('Peso inválido');return;}
+  const s=currentDay;const data=loadData();const isNew=!data.pesos[s];data.pesos[s]=val;
+  if(isNew){if(!data.pontos[s])data.pontos[s]=0;data.pontos[s]+=2;}
+  saveData(data);document.getElementById('btn-peso').classList.add('done');document.getElementById('btn-peso').textContent='✓';document.getElementById('task-peso').classList.add('done-row');
+  updatePontos();renderChartPeso(data);
+}
+
+function updatePontos(){
+  const data=loadData();const s=currentDay;const t=todayStr();const ws=weekStart(t);
+  document.getElementById('pts-hoje').textContent=data.pontos[s]||0;
+  let ps=0;for(let i=0;i<7;i++)ps+=data.pontos[addDays(ws,i)]||0;document.getElementById('pts-semana').textContent=ps;
+  document.getElementById('pts-total').textContent=Object.values(data.pontos).reduce((a,b)=>a+(b||0),0);
+  let streak=0,cur=t;while(true){if((data.pontos[cur]||0)>0){streak++;cur=subDays(cur,1);}else break;}
+  document.getElementById('streak-label').textContent='🔥 '+streak+' dia'+(streak!==1?'s':'');
+}
+
+function renderChartDash(data){
+  const canvas=document.getElementById('chart-dash');if(!canvas)return;
+  const MAX=22;const days=28;const t=todayStr();const dpr=window.devicePixelRatio||1;
+  const W=canvas.offsetWidth||300;const H=140;canvas.width=W*dpr;canvas.height=H*dpr;canvas.style.width=W+'px';canvas.style.height=H+'px';
+  const ctx=canvas.getContext('2d');ctx.scale(dpr,dpr);
+  const novo=[];const antigo=[];const dates=[];
+  for(let i=days-1;i>=0;i--){const d=subDays(t,i);dates.push(fmtDate(d));const pts=Math.min(data.pontos[d]||0,MAX);novo.push(pts);const tasks=data.tasks[d]||{};antigo.push(Object.values(tasks).filter(Boolean).length>0?MAX:0);}
+  const pad={t:10,r:8,b:26,l:28};const cW=W-pad.l-pad.r;const cH=H-pad.t-pad.b;
+  const xS=i=>pad.l+(i/(days-1))*cW;const yS=v=>pad.t+cH-(v/MAX)*cH;
+  ctx.strokeStyle='#1e1e1e';ctx.lineWidth=1;for(let g=0;g<=4;g++){const y=pad.t+(g/4)*cH;ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(pad.l+cW,y);ctx.stroke();}
+  // antigo
+  ctx.beginPath();ctx.moveTo(xS(0),yS(antigo[0]));for(let i=1;i<days;i++)ctx.lineTo(xS(i),yS(antigo[i]));ctx.lineTo(xS(days-1),pad.t+cH);ctx.lineTo(xS(0),pad.t+cH);ctx.closePath();ctx.fillStyle='rgba(255,59,48,0.06)';ctx.fill();
+  ctx.beginPath();ctx.moveTo(xS(0),yS(antigo[0]));for(let i=1;i<days;i++)ctx.lineTo(xS(i),yS(antigo[i]));ctx.strokeStyle='rgba(255,59,48,0.25)';ctx.lineWidth=1;ctx.setLineDash([3,3]);ctx.stroke();ctx.setLineDash([]);
+  // novo
+  const gr=ctx.createLinearGradient(0,pad.t,0,pad.t+cH);gr.addColorStop(0,'rgba(232,255,0,0.2)');gr.addColorStop(1,'rgba(232,255,0,0)');
+  ctx.beginPath();ctx.moveTo(xS(0),yS(novo[0]));for(let i=1;i<days;i++){const x0=xS(i-1),y0=yS(novo[i-1]),x1=xS(i),y1=yS(novo[i]),cx=(x0+x1)/2;ctx.bezierCurveTo(cx,y0,cx,y1,x1,y1);}ctx.lineTo(xS(days-1),pad.t+cH);ctx.lineTo(xS(0),pad.t+cH);ctx.closePath();ctx.fillStyle=gr;ctx.fill();
+  ctx.beginPath();ctx.moveTo(xS(0),yS(novo[0]));for(let i=1;i<days;i++){const x0=xS(i-1),y0=yS(novo[i-1]),x1=xS(i),y1=yS(novo[i]),cx=(x0+x1)/2;ctx.bezierCurveTo(cx,y0,cx,y1,x1,y1);}ctx.strokeStyle='#e8ff00';ctx.lineWidth=2;ctx.stroke();
+  ctx.fillStyle='#444';ctx.font='8px DM Mono,monospace';ctx.textAlign='center';[0,6,13,20,27].forEach(i=>{if(i<days)ctx.fillText(dates[i],xS(i),H-pad.b+11);});
+}
+
+function renderChartPeso(data){
+  const canvas=document.getElementById('chart-peso');const emptyMsg=document.getElementById('peso-empty');
+  const entries=Object.entries(data.pesos).sort((a,b)=>a[0].localeCompare(b[0]));
+  if(!entries.length){canvas.style.display='none';emptyMsg.style.display='block';document.getElementById('peso-delta').textContent='';return;}
+  canvas.style.display='block';emptyMsg.style.display='none';
+  if(entries.length>=2){const delta=(entries[entries.length-1][1]-entries[0][1]).toFixed(1);const col=delta<=0?'#30d158':'#ff3b30';document.getElementById('peso-delta').innerHTML='<span style="color:'+col+'">'+(delta>0?'+':'')+delta+'kg</span>';}
+  else document.getElementById('peso-delta').textContent=entries[0][1]+'kg';
+  const dpr=window.devicePixelRatio||1;const W=canvas.offsetWidth||300;const H=140;
+  canvas.width=W*dpr;canvas.height=H*dpr;canvas.style.width=W+'px';canvas.style.height=H+'px';
+  const ctx=canvas.getContext('2d');ctx.scale(dpr,dpr);
+  const vals=entries.map(e=>e[1]);const labels=entries.map(e=>fmtDate(e[0]));
+  const minV=Math.min(...vals,90)-1;const maxV=Math.max(...vals,108)+1;
+  const pad={t:10,r:8,b:26,l:32};const cW=W-pad.l-pad.r;const cH=H-pad.t-pad.b;
+  const xS=i=>pad.l+(i/Math.max(vals.length-1,1))*cW;const yS=v=>pad.t+cH-((v-minV)/(maxV-minV))*cH;
+  ctx.strokeStyle='#1e1e1e';ctx.lineWidth=1;for(let g=0;g<=4;g++){const y=pad.t+(g/4)*cH;ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(pad.l+cW,y);ctx.stroke();ctx.fillStyle='#444';ctx.font='9px DM Mono,monospace';ctx.textAlign='right';ctx.fillText((maxV-(g/4)*(maxV-minV)).toFixed(0),pad.l-3,y+3);}
+  const yM=yS(90);ctx.strokeStyle='#e8ff0044';ctx.setLineDash([4,4]);ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(pad.l,yM);ctx.lineTo(pad.l+cW,yM);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle='#e8ff0088';ctx.font='8px DM Mono,monospace';ctx.textAlign='left';ctx.fillText('90kg',pad.l+2,yM-2);
+  if(vals.length===1){ctx.fillStyle='#e8ff00';ctx.beginPath();ctx.arc(xS(0),yS(vals[0]),4,0,Math.PI*2);ctx.fill();}
+  else{const gr=ctx.createLinearGradient(0,pad.t,0,pad.t+cH);gr.addColorStop(0,'#e8ff0030');gr.addColorStop(1,'#e8ff0000');
+    ctx.beginPath();ctx.moveTo(xS(0),yS(vals[0]));for(let i=1;i<vals.length;i++){const x0=xS(i-1),y0=yS(vals[i-1]),x1=xS(i),y1=yS(vals[i]),cx=(x0+x1)/2;ctx.bezierCurveTo(cx,y0,cx,y1,x1,y1);}ctx.lineTo(xS(vals.length-1),pad.t+cH);ctx.lineTo(xS(0),pad.t+cH);ctx.closePath();ctx.fillStyle=gr;ctx.fill();
+    ctx.beginPath();ctx.moveTo(xS(0),yS(vals[0]));for(let i=1;i<vals.length;i++){const x0=xS(i-1),y0=yS(vals[i-1]),x1=xS(i),y1=yS(vals[i]),cx=(x0+x1)/2;ctx.bezierCurveTo(cx,y0,cx,y1,x1,y1);}ctx.strokeStyle='#e8ff00';ctx.lineWidth=2;ctx.stroke();}
+  const si=new Set([0,vals.length-1]);if(vals.length>4){const st=Math.ceil(vals.length/4);for(let i=st;i<vals.length-1;i+=st)si.add(i);}else for(let i=0;i<vals.length;i++)si.add(i);
+  si.forEach(i=>{ctx.fillStyle='#e8ff00';ctx.beginPath();ctx.arc(xS(i),yS(vals[i]),3,0,Math.PI*2);ctx.fill();ctx.fillStyle='#888';ctx.font='8px DM Mono,monospace';ctx.textAlign='center';ctx.fillText(labels[i],xS(i),H-pad.b+10);});
+}
+
+const HABITOS=[{key:'sono',label:'😴 Sono 22h',color:'#40e0d0'},{key:'acorda',label:'🌅 Acorda 5h',color:'#40e0d0'},{key:'treino',label:'🏋️ Treino',color:'#30d158'},{key:'cardio',label:'🏃 Cardio',color:'#30d158'},{key:'violino',label:'🎻 Violino',color:'#bf5af2'},{key:'estudo',label:'📚 Nutrição',color:'#0a84ff'},{key:'leitura',label:'📖 Leitura',color:'#0a84ff'},{key:'duolingo',label:'🦜 Inglês',color:'#58cc02'},{key:'dieta',label:'🍽️ Dieta',color:'#ff9f0a'},{key:'naltrex',label:'💊 Medicação',color:'#ff9f0a'},{key:'wpp',label:'💬 WhatsApp',color:'#555'}];
+function renderHabitosGrid(data){
+  const t=todayStr();const el=document.getElementById('habitos-grid');el.innerHTML='';
+  HABITOS.forEach(h=>{
+    let count=0;for(let i=0;i<28;i++){const d=subDays(t,i);if(data.tasks[d]&&data.tasks[d][h.key])count++;}
+    const pct=Math.round((count/28)*100);
+    const row=document.createElement('div');row.style.cssText='display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid #1a1a1a;';
+    row.innerHTML='<div style="font-size:11px;width:110px;flex-shrink:0;">'+h.label+'</div><div style="flex:1;height:6px;background:#1a1a1a;border-radius:3px;overflow:hidden;"><div style="height:100%;width:'+pct+'%;background:'+h.color+';border-radius:3px;"></div></div><div style="font-family:DM Mono,monospace;font-size:10px;color:'+h.color+';width:30px;text-align:right;">'+pct+'%</div>';
+    el.appendChild(row);
+  });
+}
+
+function renderCalTreino(data){
+  const t=todayStr();const el=document.getElementById('cal-treino');el.innerHTML='';
+  for(let i=27;i>=0;i--){const d=subDays(t,i);const done=data.tasks[d]&&data.tasks[d].treino;const isActive=d===currentDay;const cell=document.createElement('div');cell.style.cssText='height:24px;border-radius:4px;background:'+(done?'var(--green)':'#1a1a1a')+';border:1px solid '+(isActive?'var(--accent)':'var(--border)')+';';cell.title=fmtDate(d);el.appendChild(cell);}
+}
+
+function renderCalTesto(data){
+  const t=todayStr();const el=document.getElementById('cal-testo');el.innerHTML='';
+  const slots=[];for(let i=55;i>=0;i--){const d=subDays(t,i);if(isTestoDay(d))slots.push(d);}
+  let total=0;slots.forEach(d=>{const done=data.tasks[d]&&data.tasks[d].testo;if(done)total++;const isActive=d===currentDay;const cell=document.createElement('div');cell.style.cssText='padding:3px 2px;border-radius:4px;text-align:center;background:'+(done?'var(--purple)':'#1a1a1a')+';border:1px solid '+(isActive?'var(--accent)':'var(--border)')+';font-size:8px;color:'+(done?'#fff':'var(--muted)')+';font-family:DM Mono,monospace;';cell.textContent=dowNum(d)===1?'S':'Q';cell.title=fmtDate(d);el.appendChild(cell);});
+  document.getElementById('testo-total').textContent=total;
+}
+
+function renderFreq(data){
+  const t=todayStr();const ws=weekStart(t);let sem=0;for(let i=0;i<7;i++){const d=addDays(ws,i);if(data.tasks[d]&&data.tasks[d].treino)sem++;}document.getElementById('freq-semana').textContent=sem;
+  let total=0;Object.values(data.tasks).forEach(v=>{if(v.treino)total++;});document.getElementById('freq-total').textContent=total;
+  let streak=0,cur=t;while(data.tasks[cur]&&data.tasks[cur].treino){streak++;cur=subDays(cur,1);}document.getElementById('freq-streak').textContent=streak;
+}
+
+function confirmarReset(){if(confirm('Apagar todos os dados? Não pode ser desfeito.')){localStorage.removeItem(KEY);currentDay=todayStr();renderTrack();}}
+window.addEventListener('resize',()=>{if(document.getElementById('track').classList.contains('active')){const d=loadData();renderChartPeso(d);renderChartDash(d);}});
 </script>
 </body>
 </html>
