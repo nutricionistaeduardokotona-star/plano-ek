@@ -19,7 +19,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
 .stat-item{text-align:center;}
 .stat-val{font-family:'Bebas Neue',sans-serif;font-size:19px;color:var(--accent);line-height:1;}
 .stat-label{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-top:1px;}
-.nav{display:flex;gap:3px;padding:8px 16px;background:var(--bg);border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none;}
+.nav{display:flex;gap:3px;padding:8px 16px;background:var(--bg);border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none;position:sticky;top:var(--header-h,90px);z-index:99;}
 .nav::-webkit-scrollbar{display:none;}
 .nav-btn{background:transparent;border:1px solid var(--border);color:var(--muted);padding:6px 12px;border-radius:4px;font-family:'DM Sans',sans-serif;font-size:10px;font-weight:500;cursor:pointer;white-space:nowrap;transition:all 0.2s;text-transform:uppercase;letter-spacing:0.5px;}
 .nav-btn.active{background:var(--accent);border-color:var(--accent);color:#000;font-weight:700;}
@@ -588,7 +588,9 @@ function renderFreq(data){
 }
 
 function confirmarReset(){if(confirm('Apagar todos os dados? Não pode ser desfeito.')){localStorage.removeItem(KEY);currentDay=todayStr();renderTrack();}}
-window.addEventListener('resize',()=>{if(document.getElementById('track').classList.contains('active')){const d=loadData();renderChartPeso(d);renderChartDash(d);}});
+function setHeaderH(){const h=document.querySelector('.header');if(h)document.documentElement.style.setProperty('--header-h',h.offsetHeight+'px');}
+window.addEventListener('resize',()=>{setHeaderH();if(document.getElementById('track').classList.contains('active')){const d=loadData();renderChartPeso(d);renderChartDash(d);}});
+document.addEventListener('DOMContentLoaded',()=>{setHeaderH();setTimeout(setHeaderH,400);});
 </script>
 </body>
 </html>
