@@ -216,10 +216,24 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
   </div>
 
   <div class="card">
-    <div class="card-title"><div class="dot" style="background:var(--blue)"></div>Evolu&#231;&#227;o do Peso</div>
-    <div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);">META: 90kg &#183; Floripa Set/26 &#127880;</span><span id="peso-delta" style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);"></span></div>
-    <canvas id="chart-peso" height="140" style="width:100%;display:block;"></canvas>
+    <div class="card-title"><div class="dot" style="background:var(--blue)"></div>Evolução do Peso</div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+      <span style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);">META: 90kg · Floripa Set/26 🎈</span>
+      <span id="peso-delta" style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);"></span>
+    </div>
+    <div style="position:relative;">
+      <canvas id="chart-peso" height="160" style="width:100%;display:block;cursor:crosshair;"></canvas>
+      <div id="peso-tooltip" style="display:none;position:absolute;background:#1a1a1a;border:1px solid var(--accent);border-radius:6px;padding:6px 10px;font-family:'DM Mono',monospace;font-size:11px;color:var(--accent);pointer-events:none;white-space:nowrap;z-index:10;"></div>
+    </div>
     <div style="font-size:10px;color:var(--muted);margin-top:8px;text-align:center;" id="peso-empty">Nenhum peso registrado ainda.</div>
+    <!-- Tabela histórico -->
+    <div id="peso-tabela-wrap" style="display:none;margin-top:12px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <span style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;">Histórico completo</span>
+        <button onclick="toggleTabela()" style="background:transparent;border:1px solid var(--border);color:var(--muted);font-size:10px;padding:3px 8px;border-radius:4px;cursor:pointer;" id="btn-tabela">▼ ver tabela</button>
+      </div>
+      <div id="peso-tabela" style="display:none;"></div>
+    </div>
   </div>
 
   <div class="card">
@@ -251,23 +265,21 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
   <div class="card">
     <div class="card-title"><div class="dot" style="background:var(--accent)"></div>Estrutura Semanal</div>
     <div style="display:flex;flex-direction:column;gap:4px;">
-      <div style="display:grid;grid-template-columns:42px 1fr;gap:7px;align-items:center;padding:7px 9px;background:var(--surface2);border-radius:5px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:var(--red);">SEG</div><div style="font-size:11px;">&#128170; Pernas posterior pesado + &#127939; Regenerativo Floripa &#127880;</div></div>
-      <div style="display:grid;grid-template-columns:42px 1fr;gap:7px;align-items:center;padding:7px 9px;background:var(--surface2);border-radius:5px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:var(--blue);">TER</div><div style="font-size:11px;">&#128170; Peito + Tríceps + Abdômen</div></div>
-      <div style="display:grid;grid-template-columns:42px 1fr;gap:7px;align-items:center;padding:7px 9px;background:var(--surface2);border-radius:5px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:var(--purple);">QUA</div><div style="font-size:11px;">&#127939; Cardio da Planilha &#127880; + &#129467; Pernas leve</div></div>
-      <div style="display:grid;grid-template-columns:42px 1fr;gap:7px;align-items:center;padding:7px 9px;background:var(--surface2);border-radius:5px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:var(--green);">QUI</div><div style="font-size:11px;">&#128170; Costas + Bíceps</div></div>
-      <div style="display:grid;grid-template-columns:42px 1fr;gap:7px;align-items:center;padding:7px 9px;background:var(--surface2);border-radius:5px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:var(--orange);">SEX</div><div style="font-size:11px;">&#127939; Cardio da Planilha &#127880; + &#128170; Ombro + Braços</div></div>
-      <div style="display:grid;grid-template-columns:42px 1fr;gap:7px;align-items:center;padding:7px 9px;background:var(--surface2);border-radius:5px;border-left:3px solid var(--orange);"><div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:var(--orange);">SÁB</div><div style="font-size:11px;">&#127939; Cardio leve &#127880; + &#128170; Bônus (opcional)</div></div>
-      <div style="display:grid;grid-template-columns:42px 1fr;gap:7px;align-items:center;padding:7px 9px;background:var(--surface2);border-radius:5px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:var(--muted);">DOM</div><div style="font-size:11px;">&#127939; Cardio da Planilha &#127880; · Corrida longa</div></div>
+      <div style="display:grid;grid-template-columns:42px 1fr;gap:7px;align-items:center;padding:7px 9px;background:var(--surface2);border-radius:5px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:var(--red);">SEG</div><div style="font-size:11px;">🏃 Cardio da Planilha 🎈 + 🦵 Pernas leve</div></div>
+      <div style="display:grid;grid-template-columns:42px 1fr;gap:7px;align-items:center;padding:7px 9px;background:var(--surface2);border-radius:5px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:var(--blue);">TER</div><div style="font-size:11px;">💪 Peito + Tríceps + Abdômen</div></div>
+      <div style="display:grid;grid-template-columns:42px 1fr;gap:7px;align-items:center;padding:7px 9px;background:var(--surface2);border-radius:5px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:var(--purple);">QUA</div><div style="font-size:11px;">💪 Pernas posterior pesado + 🏃 Cardio da Planilha 🎈</div></div>
+      <div style="display:grid;grid-template-columns:42px 1fr;gap:7px;align-items:center;padding:7px 9px;background:var(--surface2);border-radius:5px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:var(--green);">QUI</div><div style="font-size:11px;">💪 Costas + Bíceps</div></div>
+      <div style="display:grid;grid-template-columns:42px 1fr;gap:7px;align-items:center;padding:7px 9px;background:var(--surface2);border-radius:5px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:var(--orange);">SEX</div><div style="font-size:11px;">🏃 Cardio da Planilha 🎈 + 💪 Ombro + Braços</div></div>
+      <div style="display:grid;grid-template-columns:42px 1fr;gap:7px;align-items:center;padding:7px 9px;background:var(--surface2);border-radius:5px;border-left:3px solid var(--orange);"><div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:var(--orange);">SÁB</div><div style="font-size:11px;">🏃 Cardio da Planilha 🎈 + 💪 Bônus (opcional)</div></div>
+      <div style="display:grid;grid-template-columns:42px 1fr;gap:7px;align-items:center;padding:7px 9px;background:var(--surface2);border-radius:5px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:var(--muted);">DOM</div><div style="font-size:11px;">🏃 Cardio da Planilha 🎈 · Corrida longa</div></div>
     </div>
   </div>
-  <div class="card"><div class="day-header"><div class="day-tag" style="color:var(--red);">SEG</div><div class="day-info"><h3>Pernas Posterior + Regenerativo</h3><p>Cadeia posterior pesada · cardio leve</p></div></div>
-    <div class="muscle-group"><div class="muscle-label">Pernas — Posterior Pesado</div>
-      <div class="exercise-row priority"><span class="exercise-name">Levantamento Terra Convencional</span><span class="exercise-sets">4×</span><span class="exercise-reps">5–6 reps</span></div>
-      <div class="exercise-row"><span class="exercise-name">Mesa Flexora</span><span class="exercise-sets">4×</span><span class="exercise-reps">10–12 reps</span></div>
-      <div class="exercise-row"><span class="exercise-name">Afundo com Halteres</span><span class="exercise-sets">3×</span><span class="exercise-reps">10 reps/lado</span></div>
-      <div class="exercise-row"><span class="exercise-name">Panturrilha em Pé</span><span class="exercise-sets">4×</span><span class="exercise-reps">15 reps</span></div>
+  <div class="card"><div class="day-header"><div class="day-tag" style="color:var(--red);">SEG</div><div class="day-info"><h3>Cardio da Planilha + Pernas Leve</h3><p>Corrida · posterior leve</p></div></div>
+    <div class="muscle-group"><div class="muscle-label">Cardio da Planilha 🎈</div><div class="exercise-row priority"><span class="exercise-name">Cardio da Planilha · 10km Floripa</span><span class="exercise-sets">—</span><span class="exercise-reps">Ver planilha</span></div></div>
+    <div class="muscle-group"><div class="muscle-label">Pernas Leve</div>
+      <div class="exercise-row"><span class="exercise-name">Mesa Flexora</span><span class="exercise-sets">3×</span><span class="exercise-reps">12 reps · leve</span></div>
+      <div class="exercise-row"><span class="exercise-name">Panturrilha Sentado</span><span class="exercise-sets">3×</span><span class="exercise-reps">15 reps</span></div>
     </div>
-    <div class="muscle-group"><div class="muscle-label">Cardio da Planilha &#127880;</div><div class="exercise-row"><span class="exercise-name">Regenerativo · 10km Floripa</span><span class="exercise-sets">20–25'</span><span class="exercise-reps">&lt;115 bpm</span></div></div>
   </div>
   <div class="card"><div class="day-header"><div class="day-tag" style="color:var(--blue);">TER</div><div class="day-info"><h3>Peito · Tríceps · Abdômen</h3><p>Empurrar horizontal</p></div></div>
     <div class="muscle-group"><div class="muscle-label">Peito</div>
@@ -284,12 +296,14 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
       <div class="exercise-row"><span class="exercise-name">Elevação de Pernas</span><span class="exercise-sets">3×</span><span class="exercise-reps">12–15 reps</span></div>
     </div>
   </div>
-  <div class="card"><div class="day-header"><div class="day-tag" style="color:var(--purple);">QUA</div><div class="day-info"><h3>Cardio da Planilha + Pernas Leve</h3><p>Cardio principal · posterior leve</p></div></div>
-    <div class="muscle-group"><div class="muscle-label">Cardio da Planilha &#127880;</div><div class="exercise-row priority"><span class="exercise-name">Corrida intervalada · 10km Floripa</span><span class="exercise-sets">—</span><span class="exercise-reps">Ver planilha</span></div></div>
-    <div class="muscle-group"><div class="muscle-label">Pernas Leve</div>
-      <div class="exercise-row"><span class="exercise-name">Mesa Flexora</span><span class="exercise-sets">3×</span><span class="exercise-reps">12 reps · leve</span></div>
-      <div class="exercise-row"><span class="exercise-name">Panturrilha Sentado</span><span class="exercise-sets">3×</span><span class="exercise-reps">15 reps</span></div>
+  <div class="card"><div class="day-header"><div class="day-tag" style="color:var(--purple);">QUA</div><div class="day-info"><h3>Pernas (Posterior) + Regenerativo</h3><p>Cadeia posterior pesada · cardio leve</p></div></div>
+    <div class="muscle-group"><div class="muscle-label">Pernas — Posterior Pesado</div>
+      <div class="exercise-row priority"><span class="exercise-name">Levantamento Terra Convencional</span><span class="exercise-sets">4×</span><span class="exercise-reps">5–6 reps</span></div>
+      <div class="exercise-row"><span class="exercise-name">Mesa Flexora</span><span class="exercise-sets">4×</span><span class="exercise-reps">10–12 reps</span></div>
+      <div class="exercise-row"><span class="exercise-name">Afundo com Halteres</span><span class="exercise-sets">3×</span><span class="exercise-reps">10 reps/lado</span></div>
+      <div class="exercise-row"><span class="exercise-name">Panturrilha em Pé</span><span class="exercise-sets">4×</span><span class="exercise-reps">15 reps</span></div>
     </div>
+    <div class="muscle-group"><div class="muscle-label">Cardio da Planilha 🎈</div><div class="exercise-row"><span class="exercise-name">Cardio da Planilha · 10km Floripa</span><span class="exercise-sets">20–25'</span><span class="exercise-reps">&lt;115 bpm</span></div></div>
   </div>
   <div class="card"><div class="day-header"><div class="day-tag" style="color:var(--green);">QUI</div><div class="day-info"><h3>Costas · Bíceps</h3><p>Puxar — espessura e largura</p></div></div>
     <div class="muscle-group"><div class="muscle-label">Costas</div>
@@ -333,21 +347,22 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
 <!-- DIETA -->
 <div id="dieta" class="section">
   <div class="card">
-    <div class="card-title"><div class="dot" style="background:var(--accent)"></div>Plano Alimentar — Dietbox 01/05/2026</div>
+    <div class="card-title"><div class="dot" style="background:var(--accent)"></div>Plano Alimentar — Dietbox 10/05/2026</div>
     <div class="macros-grid">
-      <div class="macro-box"><div class="macro-val">1.883</div><div class="macro-unit">kcal/dia</div><div class="macro-name">Calorias</div></div>
-      <div class="macro-box"><div class="macro-val" style="color:#0a84ff;">144g</div><div class="macro-unit">proteína</div><div class="macro-name">1,36g/kg</div></div>
-      <div class="macro-box"><div class="macro-val" style="color:var(--orange);">186g</div><div class="macro-unit">carboidrato</div><div class="macro-name">CHO</div></div>
+      <div class="macro-box"><div class="macro-val">2.029</div><div class="macro-unit">kcal/dia</div><div class="macro-name">Calorias</div></div>
+      <div class="macro-box"><div class="macro-val" style="color:#0a84ff;">158g</div><div class="macro-unit">proteína</div><div class="macro-name">1,47g/kg</div></div>
+      <div class="macro-box"><div class="macro-val" style="color:var(--orange);">185g</div><div class="macro-unit">carboidrato</div><div class="macro-name">CHO</div></div>
     </div>
-    <div class="warn-box">&#9888;&#65039; <span>Com 107kg + treino + testosterona, avaliar aumento para 180–200g de proteína. Naltrexona reduz apetite — monitorar ingestão total.</span></div>
+    <div class="tip-box">⚡ <span>Proteína subiu de 144g → 158g. Meta ideal ainda é 170–190g com treino + testosterona.</span></div>
   </div>
   <div class="meal-card"><div class="meal-header"><div class="meal-time">07:00</div><div class="meal-name">Café da Manhã</div><div class="meal-kcal">Pós treino</div></div>
     <div class="meal-body">
+      <div class="food-item"><span>Café</span><span class="food-qty">1 caneca</span></div>
       <div class="food-item"><span>Pão de forma</span><span class="food-qty">2 fatias</span></div>
       <div class="food-item"><span>Queijo mussarela ou recheio</span><span class="food-qty">1 fatia</span></div>
-      <div class="food-item"><span>Ovos mexidos / Carne moída / Patê de frango</span><span class="food-qty">2 ovos / 80g</span></div>
-      <div class="food-item"><span>Fruta (banana/mamão/lista)</span><span class="food-qty">1 unid</span></div>
-      <div style="font-size:10px;color:var(--muted);margin-top:6px;">Sub 1: Tapiovo + Fruta · Sub 2: Crepioca recheada + Fruta</div>
+      <div class="food-item"><span>Ovos mexidos / Carne moída / Patê de frango</span><span class="food-qty">3 ovos / 80g</span></div>
+      <div class="food-item"><span>Fruta (banana/mamão/lista)</span><span class="food-qty">1 unid / 150g</span></div>
+      <div style="font-size:10px;color:var(--muted);margin-top:6px;">Sub 1: Tapiovo + Fruta com fibra · Sub 2: Crepioca recheada + Fruta com fibra</div>
     </div>
   </div>
   <div class="meal-card"><div class="meal-header"><div class="meal-time">08:30</div><div class="meal-name">Suplementos</div><div class="meal-kcal">Pós-café</div></div>
@@ -361,11 +376,12 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
   </div>
   <div class="meal-card"><div class="meal-header"><div class="meal-time">12:00</div><div class="meal-name">Almoço</div><div class="meal-kcal">12h–13h</div></div>
     <div class="meal-body">
-      <div class="food-item"><span>Proteína (frango/bife/peixe)</span><span class="food-qty">150g</span></div>
-      <div class="food-item"><span>Legumes / Salada crua</span><span class="food-qty">1/2 prato</span></div>
       <div class="food-item"><span>Arroz branco cozido</span><span class="food-qty">200g</span></div>
+      <div class="food-item"><span>Proteína (frango/bife/peixe/strogonoff fit)</span><span class="food-qty">150g</span></div>
+      <div class="food-item"><span>Legumes cozidos / Salada crua</span><span class="food-qty">1/2 prato</span></div>
       <div class="food-item"><span>Doce de leite cremoso</span><span class="food-qty">25g</span></div>
-      <div style="font-size:10px;color:var(--accent);margin-top:6px;">Come proteína + vegetais primeiro. Carbo por último.</div>
+      <div style="font-size:10px;color:var(--accent);margin-top:6px;">Come proteína + vegetais primeiro. Carboidrato por último.</div>
+      <div style="font-size:10px;color:var(--muted);margin-top:4px;">Sub 1: Purê batata/abóbora 150g + proteína + vegetais + sobremesa</div>
     </div>
   </div>
   <div class="meal-card"><div class="meal-header"><div class="meal-time">12:30</div><div class="meal-name">Vitamina D + K</div><div class="meal-kcal">Seg · Qua · Sex</div></div>
@@ -382,14 +398,17 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
   <div class="meal-card"><div class="meal-header"><div class="meal-time">16:00</div><div class="meal-name">Café da Tarde</div><div class="meal-kcal">16h–18h</div></div>
     <div class="meal-body">
       <div class="food-item"><span>Café ou Chá</span><span class="food-qty">1 caneca</span></div>
-      <div class="food-item"><span>Crepioca / Pão / Tapiovo</span><span class="food-qty">1 porção</span></div>
-      <div class="food-item"><span>Fruta (laranja/maçã/pêra/mamão)</span><span class="food-qty">1 unid</span></div>
+      <div class="food-item"><span>Pão de forma</span><span class="food-qty">2 fatias</span></div>
+      <div class="food-item"><span>Queijo mussarela</span><span class="food-qty">2 fatias</span></div>
+      <div class="food-item"><span>Ovos mexidos / Carne moída / Patê de frango</span><span class="food-qty">2 ovos / 80g</span></div>
+      <div class="food-item"><span>Fruta (laranja/maçã/pêra/mamão)</span><span class="food-qty">1 unid / 150g</span></div>
+      <div style="font-size:10px;color:var(--muted);margin-top:6px;">Sub 1: Iogurte + Whey + Castanhas + Fruta · Sub 2: Tapiovo + Fruta · Sub 3: Crepioca + Fruta</div>
     </div>
   </div>
   <div class="meal-card"><div class="meal-header"><div class="meal-time">20:00</div><div class="meal-name">Jantar</div><div class="meal-kcal">20h–22h</div></div>
     <div class="meal-body">
-      <div class="food-item"><span>Shake: Leite + Água + Abacate + Whey</span><span class="food-qty">base</span></div>
-      <div style="font-size:10px;color:var(--muted);margin-top:6px;">Sub 1: Arroz+Feijão+Proteína · Sub 2: Purê+Proteína · Sub 3: Wrap Rap10 · Sub 4: Hambúrguer caseiro · Sub 5: Bolinho proteico</div>
+      <div class="food-item"><span>Shake: Leite desnatado + Água + Abacate 150g + Whey 30g</span><span class="food-qty">base</span></div>
+      <div style="font-size:10px;color:var(--muted);margin-top:6px;">Sub 1: Arroz 100g + Feijão 100g + Proteína + Vegetais<br>Sub 2: Purê 250g + Proteína + Vegetais<br>Sub 3: Wrap Rap10 com frango + queijo + salada<br>Sub 4: Hambúrguer caseiro de patinho + queijo<br>Sub 5: Bolinho de frango proteico com mussarela</div>
     </div>
   </div>
 </div>
@@ -423,12 +442,8 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
 <div id="projecao" class="section">
   <div class="card">
     <div class="card-title"><div class="dot" style="background:var(--accent)"></div>Projeção Corpo — 6 Meses</div>
-    <div class="proj-row"><div class="proj-month">M1</div><div><div style="font-size:12px;font-weight:600;">104–105 kg</div><div style="font-size:10px;color:var(--muted);">BF ~24–25%</div></div><div style="font-size:11px;color:var(--muted);">Adaptação</div><div style="font-size:10px;color:var(--muted);">Hábito</div><div class="proj-bar-wrap"><div class="proj-bar" style="width:15%"></div></div></div>
-    <div class="proj-row"><div class="proj-month">M2</div><div><div style="font-size:12px;font-weight:600;">101–102 kg</div><div style="font-size:10px;color:var(--muted);">BF ~22–23%</div></div><div style="font-size:11px;color:var(--muted);">Ritmo</div><div style="font-size:10px;color:var(--muted);">Déficit</div><div class="proj-bar-wrap"><div class="proj-bar" style="width:30%"></div></div></div>
-    <div class="proj-row"><div class="proj-month">M3</div><div><div style="font-size:12px;font-weight:600;">98–99 kg</div><div style="font-size:10px;color:var(--muted);">BF ~20–21%</div></div><div style="font-size:11px;color:var(--muted);">Definição</div><div style="font-size:10px;color:var(--muted);">Sinais</div><div class="proj-bar-wrap"><div class="proj-bar" style="width:47%"></div></div></div>
-    <div class="proj-row"><div class="proj-month">M4</div><div><div style="font-size:12px;font-weight:600;">95–96 kg</div><div style="font-size:10px;color:var(--muted);">BF ~17–18%</div></div><div style="font-size:11px;color:var(--muted);">Visível</div><div style="font-size:10px;color:var(--muted);">Músculos</div><div class="proj-bar-wrap"><div class="proj-bar" style="width:63%"></div></div></div>
-    <div class="proj-row"><div class="proj-month">M5</div><div><div style="font-size:12px;font-weight:600;">92–93 kg</div><div style="font-size:10px;color:var(--muted);">BF ~14–15%</div></div><div style="font-size:11px;color:var(--muted);">Vascular</div><div style="font-size:10px;color:var(--muted);">Foco</div><div class="proj-bar-wrap"><div class="proj-bar" style="width:80%"></div></div></div>
-    <div class="proj-row" style="border:1px solid var(--accent);"><div class="proj-month" style="color:var(--accent);">M6</div><div><div style="font-size:13px;font-weight:700;color:var(--accent);">89–91 kg ✓</div><div style="font-size:10px;color:var(--green);">BF ~11–13% ✓</div></div><div style="font-size:11px;color:var(--accent);font-weight:600;">META</div><div style="font-size:10px;color:var(--accent);">Abdômen</div><div class="proj-bar-wrap"><div class="proj-bar" style="width:100%"></div></div></div>
+    <div id="proj-status" style="margin-bottom:12px;"></div>
+    <div id="proj-rows-corpo"></div>
   </div>
   <div class="card">
     <div class="card-title"><div class="dot" style="background:var(--teal)"></div>Projeção Corrida — 10km Floripa &#127880;</div>
@@ -443,7 +458,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
 <div class="footer">EK · Life in Peace Project · v3 Mai/2026<br><span style="color:#222">Pouco todo dia. Sempre.</span></div>
 
 <script>
-function show(id,btn){document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));document.getElementById(id).classList.add('active');btn.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});if(id==='track')renderTrack();}
+function show(id,btn){document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));document.getElementById(id).classList.add('active');btn.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});if(id==='track')renderTrack();if(id==='projecao')renderProjecao();}
 const KEY='ek_life_v3';
 function loadData(){try{return JSON.parse(localStorage.getItem(KEY))||{pesos:{},tasks:{},pontos:{}};}catch(e){return{pesos:{},tasks:{},pontos:{}};}}
 function saveData(d){localStorage.setItem(KEY,JSON.stringify(d));}
@@ -456,7 +471,7 @@ function isTestoDay(s){const d=dowNum(s);return d===1||d===4;}
 function weekStart(s){const d=new Date(s+'T12:00:00');const diff=d.getDate()-d.getDay()+(d.getDay()===0?-6:1);return new Date(d.setDate(diff)).toISOString().slice(0,10);}
 function fmtDate(s){const[y,m,dy]=s.split('-');return dy+'/'+m;}
 function fmtLong(s){const dias=['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];const meses=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];const d=new Date(s+'T12:00:00');return{main:dias[d.getDay()]+', '+d.getDate()+' '+meses[d.getMonth()],isToday:s===todayStr()};}
-function getDayLabels(s){const dow=dowNum(s);const map={1:{treino:'💪 Pernas + Regenerativo',cardio:'🏃 Regenerativo Floripa 🎈'},2:{treino:'💪 Peito + Tríceps + Abs',cardio:null},3:{treino:null,cardio:'🏃 Corrida Intervalado 🎈'},4:{treino:'💪 Costas + Bíceps',cardio:null},5:{treino:'💪 Ombro + Braços',cardio:'🏃 Corrida Fartlek 🎈'},6:{treino:'💪 Bônus (opcional)',cardio:'🏃 Cardio Leve 🎈'},0:{treino:null,cardio:'🏃 Corrida Longa 🎈'}};return map[dow]||{treino:'💪 Musculação',cardio:'🏃 Cardio'};}
+function getDayLabels(s){const dow=dowNum(s);const map={1:{treino:null,cardio:'🏃 Cardio da Planilha · 10km Floripa 🎈'},2:{treino:'💪 Peito + Tríceps + Abs',cardio:null},3:{treino:'💪 Pernas Posterior Pesado',cardio:'🏃 Cardio da Planilha · 10km Floripa 🎈'},4:{treino:'💪 Costas + Bíceps',cardio:null},5:{treino:'💪 Ombro + Braços',cardio:'🏃 Cardio da Planilha · 10km Floripa 🎈'},6:{treino:'💪 Bônus (opcional)',cardio:'🏃 Cardio da Planilha · 10km Floripa 🎈'},0:{treino:null,cardio:'🏃 Cardio da Planilha · 10km Floripa 🎈'}};return map[dow]||{treino:'💪 Musculação',cardio:'🏃 Cardio'};}
 function changeDay(n){const next=addDays(currentDay,n);if(next>todayStr())return;currentDay=next;renderTrack();}
 
 function renderTrack(){
@@ -533,29 +548,131 @@ function renderChartDash(data){
   ctx.fillStyle='#444';ctx.font='8px DM Mono,monospace';ctx.textAlign='center';[0,6,13,20,27].forEach(i=>{if(i<days)ctx.fillText(dates[i],xS(i),H-pad.b+11);});
 }
 
+
+let pesoChartData={entries:[],xS:null,yS:null,vals:[],labels:[]};
+
 function renderChartPeso(data){
   const canvas=document.getElementById('chart-peso');const emptyMsg=document.getElementById('peso-empty');
   const entries=Object.entries(data.pesos).sort((a,b)=>a[0].localeCompare(b[0]));
-  if(!entries.length){canvas.style.display='none';emptyMsg.style.display='block';document.getElementById('peso-delta').textContent='';return;}
-  canvas.style.display='block';emptyMsg.style.display='none';
+  const tabelaWrap=document.getElementById('peso-tabela-wrap');
+  if(!entries.length){canvas.style.display='none';emptyMsg.style.display='block';document.getElementById('peso-delta').textContent='';if(tabelaWrap)tabelaWrap.style.display='none';return;}
+  canvas.style.display='block';emptyMsg.style.display='none';if(tabelaWrap)tabelaWrap.style.display='block';
   if(entries.length>=2){const delta=(entries[entries.length-1][1]-entries[0][1]).toFixed(1);const col=delta<=0?'#30d158':'#ff3b30';document.getElementById('peso-delta').innerHTML='<span style="color:'+col+'">'+(delta>0?'+':'')+delta+'kg</span>';}
   else document.getElementById('peso-delta').textContent=entries[0][1]+'kg';
-  const dpr=window.devicePixelRatio||1;const W=canvas.offsetWidth||300;const H=140;
+  const dpr=window.devicePixelRatio||1;const W=canvas.offsetWidth||300;const H=160;
   canvas.width=W*dpr;canvas.height=H*dpr;canvas.style.width=W+'px';canvas.style.height=H+'px';
   const ctx=canvas.getContext('2d');ctx.scale(dpr,dpr);
   const vals=entries.map(e=>e[1]);const labels=entries.map(e=>fmtDate(e[0]));
   const minV=Math.min(...vals,90)-1;const maxV=Math.max(...vals,108)+1;
   const pad={t:10,r:8,b:26,l:32};const cW=W-pad.l-pad.r;const cH=H-pad.t-pad.b;
-  const xS=i=>pad.l+(i/Math.max(vals.length-1,1))*cW;const yS=v=>pad.t+cH-((v-minV)/(maxV-minV))*cH;
+  const xSc=i=>pad.l+(i/Math.max(vals.length-1,1))*cW;
+  const ySc=v=>pad.t+cH-((v-minV)/(maxV-minV))*cH;
+  pesoChartData={entries,xS:xSc,vals,labels};
   ctx.strokeStyle='#1e1e1e';ctx.lineWidth=1;for(let g=0;g<=4;g++){const y=pad.t+(g/4)*cH;ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(pad.l+cW,y);ctx.stroke();ctx.fillStyle='#444';ctx.font='9px DM Mono,monospace';ctx.textAlign='right';ctx.fillText((maxV-(g/4)*(maxV-minV)).toFixed(0),pad.l-3,y+3);}
-  const yM=yS(90);ctx.strokeStyle='#e8ff0044';ctx.setLineDash([4,4]);ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(pad.l,yM);ctx.lineTo(pad.l+cW,yM);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle='#e8ff0088';ctx.font='8px DM Mono,monospace';ctx.textAlign='left';ctx.fillText('90kg',pad.l+2,yM-2);
-  if(vals.length===1){ctx.fillStyle='#e8ff00';ctx.beginPath();ctx.arc(xS(0),yS(vals[0]),4,0,Math.PI*2);ctx.fill();}
+  const yM=ySc(90);ctx.strokeStyle='#e8ff0044';ctx.setLineDash([4,4]);ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(pad.l,yM);ctx.lineTo(pad.l+cW,yM);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle='#e8ff0088';ctx.font='8px DM Mono,monospace';ctx.textAlign='left';ctx.fillText('90kg',pad.l+2,yM-2);
+  if(vals.length===1){ctx.fillStyle='#e8ff00';ctx.beginPath();ctx.arc(xSc(0),ySc(vals[0]),4,0,Math.PI*2);ctx.fill();}
   else{const gr=ctx.createLinearGradient(0,pad.t,0,pad.t+cH);gr.addColorStop(0,'#e8ff0030');gr.addColorStop(1,'#e8ff0000');
-    ctx.beginPath();ctx.moveTo(xS(0),yS(vals[0]));for(let i=1;i<vals.length;i++){const x0=xS(i-1),y0=yS(vals[i-1]),x1=xS(i),y1=yS(vals[i]),cx=(x0+x1)/2;ctx.bezierCurveTo(cx,y0,cx,y1,x1,y1);}ctx.lineTo(xS(vals.length-1),pad.t+cH);ctx.lineTo(xS(0),pad.t+cH);ctx.closePath();ctx.fillStyle=gr;ctx.fill();
-    ctx.beginPath();ctx.moveTo(xS(0),yS(vals[0]));for(let i=1;i<vals.length;i++){const x0=xS(i-1),y0=yS(vals[i-1]),x1=xS(i),y1=yS(vals[i]),cx=(x0+x1)/2;ctx.bezierCurveTo(cx,y0,cx,y1,x1,y1);}ctx.strokeStyle='#e8ff00';ctx.lineWidth=2;ctx.stroke();}
+    ctx.beginPath();ctx.moveTo(xSc(0),ySc(vals[0]));for(let i=1;i<vals.length;i++){const x0=xSc(i-1),y0=ySc(vals[i-1]),x1=xSc(i),y1=ySc(vals[i]),cx=(x0+x1)/2;ctx.bezierCurveTo(cx,y0,cx,y1,x1,y1);}ctx.lineTo(xSc(vals.length-1),pad.t+cH);ctx.lineTo(xSc(0),pad.t+cH);ctx.closePath();ctx.fillStyle=gr;ctx.fill();
+    ctx.beginPath();ctx.moveTo(xSc(0),ySc(vals[0]));for(let i=1;i<vals.length;i++){const x0=xSc(i-1),y0=ySc(vals[i-1]),x1=xSc(i),y1=ySc(vals[i]),cx=(x0+x1)/2;ctx.bezierCurveTo(cx,y0,cx,y1,x1,y1);}ctx.strokeStyle='#e8ff00';ctx.lineWidth=2;ctx.stroke();}
   const si=new Set([0,vals.length-1]);if(vals.length>4){const st=Math.ceil(vals.length/4);for(let i=st;i<vals.length-1;i+=st)si.add(i);}else for(let i=0;i<vals.length;i++)si.add(i);
-  si.forEach(i=>{ctx.fillStyle='#e8ff00';ctx.beginPath();ctx.arc(xS(i),yS(vals[i]),3,0,Math.PI*2);ctx.fill();ctx.fillStyle='#888';ctx.font='8px DM Mono,monospace';ctx.textAlign='center';ctx.fillText(labels[i],xS(i),H-pad.b+10);});
+  si.forEach(i=>{ctx.fillStyle='#e8ff00';ctx.beginPath();ctx.arc(xSc(i),ySc(vals[i]),3.5,0,Math.PI*2);ctx.fill();ctx.fillStyle='#888';ctx.font='8px DM Mono,monospace';ctx.textAlign='center';ctx.fillText(labels[i],xSc(i),H-pad.b+10);});
+  canvas.onmousemove=canvas.ontouchmove=function(e){handlePesoHover(e);};
+  canvas.onmouseleave=function(){document.getElementById('peso-tooltip').style.display='none';};
+  canvas.onclick=function(e){handlePesoHover(e);};
+  renderTabelaPeso(data);
 }
+
+function handlePesoHover(e){
+  const{xS,vals,labels,entries}=pesoChartData;
+  if(!vals||!vals.length)return;
+  const canvas=document.getElementById('chart-peso');
+  const rect=canvas.getBoundingClientRect();
+  const clientX=e.touches?e.touches[0].clientX:e.clientX;
+  const x=(clientX-rect.left)*(canvas.offsetWidth/rect.width);
+  let best=0,bestDist=Infinity;
+  for(let i=0;i<vals.length;i++){const px=xS(i);const d=Math.abs(px-x);if(d<bestDist){bestDist=d;best=i;}}
+  if(bestDist>50)return;
+  const tip=document.getElementById('peso-tooltip');
+  const[,m,dy]=entries[best][0].split('-');
+  tip.textContent=dy+'/'+m+' · '+vals[best]+'kg';
+  tip.style.display='block';
+  const px=xS(best);const W=canvas.offsetWidth;
+  tip.style.left=(px+8>W-110?px-110:px+8)+'px';
+  tip.style.top='6px';
+}
+
+function toggleTabela(){
+  const t=document.getElementById('peso-tabela');const btn=document.getElementById('btn-tabela');
+  if(t.style.display==='none'){t.style.display='block';btn.textContent='▲ fechar';}
+  else{t.style.display='none';btn.textContent='▼ ver tabela';}
+}
+
+function renderTabelaPeso(data){
+  const el=document.getElementById('peso-tabela');if(!el)return;
+  const entries=Object.entries(data.pesos).sort((a,b)=>b[0].localeCompare(a[0]));
+  if(!entries.length)return;
+  const dias=['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+  let html='<table style="width:100%;border-collapse:collapse;font-size:12px;">';
+  html+='<tr><th style="text-align:left;padding:5px 0;color:var(--muted);font-weight:500;font-size:10px;border-bottom:1px solid var(--border);">Data</th><th style="text-align:right;padding:5px 0;color:var(--muted);font-weight:500;font-size:10px;border-bottom:1px solid var(--border);">Peso</th><th style="text-align:right;padding:5px 0;color:var(--muted);font-weight:500;font-size:10px;border-bottom:1px solid var(--border);">Variação</th></tr>';
+  entries.forEach(([date,peso],i)=>{
+    const prev=entries[i+1];const delta=prev?((peso-prev[1]).toFixed(1)):null;
+    const[y,m,dy]=date.split('-');const dow=dias[new Date(date+'T12:00:00').getDay()];
+    const col=delta===null?'var(--muted)':parseFloat(delta)<=0?'var(--green)':'var(--red)';
+    html+=`<tr><td style="padding:7px 0;border-bottom:1px solid #1a1a1a;color:var(--muted);">${dow} ${dy}/${m}</td><td style="padding:7px 0;border-bottom:1px solid #1a1a1a;text-align:right;font-family:'DM Mono',monospace;color:var(--accent);">${peso}kg</td><td style="padding:7px 0;border-bottom:1px solid #1a1a1a;text-align:right;font-family:'DM Mono',monospace;color:${col};">${delta!==null?(parseFloat(delta)>0?'+':'')+delta+'kg':'—'}</td></tr>`;
+  });
+  html+='</table>';el.innerHTML=html;
+}
+
+const PROJ=[
+  {mes:'M1',label:'Mai/26',min:104,max:105,bf:'24–25%',fase:'Adaptação'},
+  {mes:'M2',label:'Jun/26',min:101,max:102,bf:'22–23%',fase:'Ritmo'},
+  {mes:'M3',label:'Jul/26',min:98,max:99,bf:'20–21%',fase:'Definição'},
+  {mes:'M4',label:'Ago/26',min:95,max:96,bf:'17–18%',fase:'Visível'},
+  {mes:'M5',label:'Set/26',min:92,max:93,bf:'14–15%',fase:'Vascular'},
+  {mes:'M6',label:'Out/26',min:89,max:91,bf:'11–13%',fase:'META ✓'},
+];
+const START_DATE='2026-05-08';
+
+function renderProjecao(){
+  const data=loadData();
+  const entries=Object.entries(data.pesos).sort((a,b)=>a[0].localeCompare(b[0]));
+  const pesoAtual=entries.length?entries[entries.length-1][1]:107.5;
+  const pesoInicial=entries.length?entries[0][1]:107.5;
+  const startMs=new Date(START_DATE+'T12:00:00').getTime();
+  const hojeMs=new Date(todayStr()+'T12:00:00').getTime();
+  const mesAtual=Math.min(5,Math.floor(Math.max(0,(hojeMs-startMs))/(1000*60*60*24*30)));
+  const statusEl=document.getElementById('proj-status');
+  if(statusEl){
+    const perdeu=(pesoInicial-pesoAtual);
+    const falta=(pesoAtual-90).toFixed(1);
+    const colP=perdeu>=0?'var(--green)':'var(--red)';
+    statusEl.innerHTML=`<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:4px;">
+      <div style="background:var(--surface2);border-radius:6px;padding:10px;text-align:center;"><div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--accent);">${pesoAtual}kg</div><div style="font-size:9px;color:var(--muted);">PESO ATUAL</div></div>
+      <div style="background:var(--surface2);border-radius:6px;padding:10px;text-align:center;"><div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:${colP};">${perdeu>=0?'-':'+'  }${Math.abs(perdeu).toFixed(1)}kg</div><div style="font-size:9px;color:var(--muted);">PERDIDO</div></div>
+      <div style="background:var(--surface2);border-radius:6px;padding:10px;text-align:center;"><div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--orange);">${falta}kg</div><div style="font-size:9px;color:var(--muted);">PARA META</div></div>
+    </div>`;
+  }
+  const rowsEl=document.getElementById('proj-rows-corpo');if(!rowsEl)return;
+  rowsEl.innerHTML='';
+  PROJ.forEach((p,i)=>{
+    const isCurrent=i===mesAtual;const isPast=i<mesAtual;
+    let statusHtml='';
+    if(isCurrent){
+      if(pesoAtual<=p.max&&pesoAtual>=p.min){statusHtml=`<div style="font-size:11px;font-weight:600;color:var(--green);">✓ No alvo</div>`;}
+      else if(pesoAtual>p.max){statusHtml=`<div style="font-size:11px;font-weight:600;color:var(--orange);">+${(pesoAtual-p.max).toFixed(1)}kg acima</div>`;}
+      else{statusHtml=`<div style="font-size:11px;font-weight:600;color:var(--teal);">${(p.min-pesoAtual).toFixed(1)}kg abaixo</div>`;}
+    } else if(isPast){statusHtml='<div style="font-size:10px;color:var(--green);">✓ concluído</div>';}
+    else{statusHtml='<div style="font-size:10px;color:var(--muted);">—</div>';}
+    const barW=isPast?100:isCurrent?55:0;
+    const mCol=isCurrent?'var(--accent)':isPast?'var(--green)':'var(--muted)';
+    const row=document.createElement('div');
+    row.className='proj-row';
+    if(isCurrent)row.style.cssText='border:1px solid var(--accent);border-radius:6px;margin-bottom:5px;padding:9px 11px;';
+    row.innerHTML=`<div class="proj-month" style="color:${mCol};">${p.mes}</div><div><div style="font-size:12px;font-weight:600;color:${isCurrent?'var(--accent)':'var(--text)'};">${p.min}–${p.max}kg</div><div style="font-size:10px;color:var(--muted);">BF ~${p.bf} · ${p.label}</div></div><div>${p.fase}</div><div>${statusHtml}</div><div class="proj-bar-wrap"><div class="proj-bar" style="width:${barW}%;${isPast?'background:var(--green);':''}"></div></div>`;
+    rowsEl.appendChild(row);
+  });
+}
+
 
 const HABITOS=[{key:'sono',label:'😴 Sono 22h',color:'#40e0d0'},{key:'acorda',label:'🌅 Acorda 5h',color:'#40e0d0'},{key:'treino',label:'🏋️ Treino',color:'#30d158'},{key:'cardio',label:'🏃 Cardio',color:'#30d158'},{key:'violino',label:'🎻 Violino',color:'#bf5af2'},{key:'estudo',label:'📚 Nutrição',color:'#0a84ff'},{key:'leitura',label:'📖 Leitura',color:'#0a84ff'},{key:'duolingo',label:'🦜 Inglês',color:'#58cc02'},{key:'dieta',label:'🍽️ Dieta',color:'#ff9f0a'},{key:'naltrex',label:'💊 Medicação',color:'#ff9f0a'},{key:'wpp',label:'💬 WhatsApp',color:'#555'}];
 function renderHabitosGrid(data){
