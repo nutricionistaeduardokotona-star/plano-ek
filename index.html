@@ -139,7 +139,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
     <div class="routine-block"><div class="routine-time">11:00</div><div class="routine-dot" style="background:var(--accent2)"></div><div class="routine-content"><div class="routine-title">Primeiro Paciente</div><div class="routine-sub">Atendimentos até 19h. Sem agenda às 10h — limite mantido.</div><span class="routine-tag" style="background:#1a0800;color:var(--accent2);border:1px solid #3a1500;">👨‍⚕️ clínica</span></div></div>
     <div class="routine-block"><div class="routine-time">19:00</div><div class="routine-dot" style="background:var(--green)"></div><div class="routine-content"><div class="routine-title">Jantar + Família + Gatos</div><div class="routine-sub">WhatsApp mãe e irmãos. Sem trabalho. Presença real.</div><span class="routine-tag" style="background:#0a1a0a;color:var(--green);border:1px solid #1a3a1a;">🐱 presença</span></div></div>
     <div class="routine-block"><div class="routine-time">20:00</div><div class="routine-dot" style="background:var(--muted)"></div><div class="routine-content"><div class="routine-title">Leitura / Série / Descanso Real</div><div class="routine-sub">Não é tempo morto. É recarga. Você merece isso.</div><span class="routine-tag" style="background:#1a1a1a;color:var(--muted);border:1px solid #333;">🌙 recarrega</span></div></div>
-    <div class="routine-block"><div class="routine-time">22:00</div><div class="routine-dot" style="background:var(--accent)"></div><div class="routine-content"><div class="routine-title">Dorme</div><div class="routine-sub">Sem tela. Sem culpa. O dia foi suficiente.</div><span class="routine-tag" style="background:#1a1a00;color:var(--accent);border:1px solid #333300;">😴 22h</span></div></div>
+    <div class="routine-block"><div class="routine-time">22:00</div><div class="routine-dot" style="background:var(--accent)"></div><div class="routine-content"><div class="routine-title">Dorme — 7h de sono</div><div class="routine-sub">Meta: 7h mínimas. Sem tela, sem culpa. O dia foi suficiente.</div><span class="routine-tag" style="background:#1a1a00;color:var(--accent);border:1px solid #333300;">😴 7h</span></div></div>
   </div>
 
   <div class="card">
@@ -182,8 +182,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
     </div>
     <div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:9px;" id="tasks-label">Registrar</div>
 
-    <div class="track-task" id="task-sono"><div class="task-left"><div class="task-icon">&#128564;</div><div><div class="task-name">Dormiu &#224;s 22h</div><div class="task-pts">+3 pts</div></div></div><button class="task-btn" id="btn-sono" onclick="toggleTask('sono',3)">&#10003;</button></div>
-    <div class="track-task" id="task-acorda"><div class="task-left"><div class="task-icon">&#127749;</div><div><div class="task-name">Acordou &#224;s 5h</div><div class="task-pts">+2 pts</div></div></div><button class="task-btn" id="btn-acorda" onclick="toggleTask('acorda',2)">&#10003;</button></div>
+    <div class="track-task" id="task-sono"><div class="task-left"><div class="task-icon">😴</div><div><div class="task-name">7h de sono</div><div class="task-pts">+3 pts</div></div></div><button class="task-btn" id="btn-sono" onclick="toggleTask('sono',3)">✓</button></div>
 
     <div class="track-task" id="task-peso">
       <div class="task-left"><div class="task-icon">&#9878;&#65039;</div><div><div class="task-name">Peso em jejum</div><div class="task-pts">+2 pts</div></div></div>
@@ -489,7 +488,7 @@ function renderTrack(){
   const testoDiv=document.getElementById('task-testo');
   if(isTestoDay(s)){testoDiv.style.display='flex';document.getElementById('testo-dia-label').textContent=dowNum(s)===1?'SEG':'QUI';}else testoDiv.style.display='none';
   const dt=data.tasks[s]||{};
-  ['sono','acorda','cardio','treino','dieta','testo','violino','estudo','leitura','duolingo','wpp','naltrex'].forEach(k=>{
+  ['sono','cardio','treino','dieta','testo','violino','estudo','leitura','duolingo','wpp','naltrex'].forEach(k=>{
     const btn=document.getElementById('btn-'+k);const row=document.getElementById('task-'+k);
     if(!btn||!row)return;
     if(dt[k]){btn.classList.add('done');row.classList.add('done-row');}else{btn.classList.remove('done');row.classList.remove('done-row');}
@@ -674,7 +673,7 @@ function renderProjecao(){
 }
 
 
-const HABITOS=[{key:'sono',label:'😴 Sono 22h',color:'#40e0d0'},{key:'acorda',label:'🌅 Acorda 5h',color:'#40e0d0'},{key:'treino',label:'🏋️ Treino',color:'#30d158'},{key:'cardio',label:'🏃 Cardio',color:'#30d158'},{key:'violino',label:'🎻 Violino',color:'#bf5af2'},{key:'estudo',label:'📚 Nutrição',color:'#0a84ff'},{key:'leitura',label:'📖 Leitura',color:'#0a84ff'},{key:'duolingo',label:'🦜 Inglês',color:'#58cc02'},{key:'dieta',label:'🍽️ Dieta',color:'#ff9f0a'},{key:'naltrex',label:'💊 Medicação',color:'#ff9f0a'},{key:'wpp',label:'💬 WhatsApp',color:'#555'}];
+const HABITOS=[{key:'sono',label:'😴 7h sono',color:'#40e0d0'},{key:'treino',label:'🏋️ Treino',color:'#30d158'},{key:'cardio',label:'🏃 Cardio',color:'#30d158'},{key:'violino',label:'🎻 Violino',color:'#bf5af2'},{key:'estudo',label:'📚 Nutrição',color:'#0a84ff'},{key:'leitura',label:'📖 Leitura',color:'#0a84ff'},{key:'duolingo',label:'🦜 Inglês',color:'#58cc02'},{key:'dieta',label:'🍽️ Dieta',color:'#ff9f0a'},{key:'naltrex',label:'💊 Medicação',color:'#ff9f0a'},{key:'wpp',label:'💬 WhatsApp',color:'#555'}];
 function renderHabitosGrid(data){
   const t=todayStr();const el=document.getElementById('habitos-grid');el.innerHTML='';
   HABITOS.forEach(h=>{
