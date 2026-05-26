@@ -641,28 +641,34 @@ function getDiasDoMes(ym){const[y,m]=ym.split('-');const diasNoMes=new Date(pars
 function renderHabitosGrid(data){
   const el=document.getElementById('habitos-grid');const tabsEl=document.getElementById('mes-tabs');
   if(!el||!tabsEl)return;
-  const meses=getMesesDisponiveis(data);
+  // coleta todos os meses com qualquer dado
+  const mesesSet=new Set();
   const hoje=todayStr();const[hy,hm]=hoje.split('-');const mesHoje=hy+'-'+hm;
-  if(!meses.includes(mesHoje))meses.unshift(mesHoje);
+  mesesSet.add(mesHoje);
+  Object.keys(data.tasks||{}).forEach(d=>{if(d&&d.length>=7){const[y,m]=d.split('-');if(y&&m)mesesSet.add(y+'-'+m);}});
+  Object.keys(data.pontos||{}).forEach(d=>{if(d&&d.length>=7&&(data.pontos[d]||0)>0){const[y,m]=d.split('-');if(y&&m)mesesSet.add(y+'-'+m);}});
+  const meses=Array.from(mesesSet).sort().reverse();
   if(!mesSelecionado||!meses.includes(mesSelecionado))mesSelecionado=meses[0];
   // tabs
   tabsEl.innerHTML='';
   meses.forEach(ym=>{
     const btn=document.createElement('button');
     btn.textContent=fmtMesLabel(ym);
-    btn.style.cssText='background:'+(ym===mesSelecionado?'var(--accent)':'var(--surface2)')+';border:1px solid '+(ym===mesSelecionado?'var(--accent)':'var(--border)')+';color:'+(ym===mesSelecionado?'#000':'var(--muted)')+';padding:5px 10px;border-radius:4px;font-size:10px;cursor:pointer;white-space:nowrap;font-family:DM Mono,monospace;font-weight:'+(ym===mesSelecionado?'700':'400')+';';
+    const isActive=ym===mesSelecionado;
+    btn.style.cssText='background:'+(isActive?'#e8ff00':'#181818')+';border:1px solid '+(isActive?'#e8ff00':'#222')+';color:'+(isActive?'#000':'#666')+';padding:5px 12px;border-radius:4px;font-size:11px;cursor:pointer;white-space:nowrap;font-family:DM Mono,monospace;font-weight:'+(isActive?'700':'400')+';flex-shrink:0;';
     btn.onclick=()=>{mesSelecionado=ym;renderHabitosGrid(data);};
     tabsEl.appendChild(btn);
   });
-  // calcular % do mês selecionado
+  // barras do mês selecionado
   const dias=getDiasDoMes(mesSelecionado);
   const totalDias=dias.length;
   el.innerHTML='';
   HABITOS.forEach(h=>{
     let count=0;dias.forEach(d=>{if(data.tasks[d]&&data.tasks[d][h.key])count++;});
     const pct=Math.round((count/totalDias)*100);
-    const row=document.createElement('div');row.style.cssText='display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid #1a1a1a;';
-    row.innerHTML='<div style="font-size:11px;width:110px;flex-shrink:0;">'+h.label+'</div><div style="flex:1;height:6px;background:#1a1a1a;border-radius:3px;overflow:hidden;"><div style="height:100%;width:'+pct+'%;background:'+h.color+';border-radius:3px;transition:width 0.4s;"></div></div><div style="font-family:DM Mono,monospace;font-size:10px;color:'+h.color+';width:30px;text-align:right;">'+pct+'%</div>';
+    const row=document.createElement('div');
+    row.style.cssText='display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid #1a1a1a;';
+    row.innerHTML='<div style="font-size:11px;width:100px;flex-shrink:0;color:#f0f0f0;">'+h.label+'</div><div style="flex:1;height:6px;background:#1a1a1a;border-radius:3px;overflow:hidden;"><div style="height:100%;width:'+pct+'%;background:'+h.color+';border-radius:3px;transition:width 0.5s;"></div></div><div style="font-family:DM Mono,monospace;font-size:10px;color:'+h.color+';width:32px;text-align:right;">'+pct+'%</div>';
     el.appendChild(row);
   });
   renderHistoricoMensal(data,meses);
@@ -671,34 +677,52 @@ function renderHabitosGrid(data){
 function renderHistoricoMensal(data,meses){
   const canvas=document.getElementById('chart-habitos-hist');if(!canvas)return;
   const MAX_PTS=22;
-  // pegar últimos 6 meses com dados
-  const mesesComDados=meses.slice(0,6).reverse();
-  if(!mesesComDados.length)return;
-  const medias=mesesComDados.map(ym=>{
+  const mesesParaExibir=meses.slice(0,6).reverse();
+  if(!mesesParaExibir.length)return;
+  // calcula média de aproveitamento de cada mês
+  const medias=mesesParaExibir.map(ym=>{
     const dias=getDiasDoMes(ym);
     let soma=0,count=0;
-    dias.forEach(d=>{const pts=Math.min(data.pontos[d]||0,MAX_PTS);if(pts>0){soma+=Math.round((pts/MAX_PTS)*100);count++;}});
+    dias.forEach(d=>{
+      const pts=Math.min(data.pontos[d]||0,MAX_PTS);
+      if(pts>0){soma+=Math.round((pts/MAX_PTS)*100);count++;}
+    });
     return count?Math.round(soma/count):0;
   });
-  const labels=mesesComDados.map(fmtMesLabel);
-  const dpr=window.devicePixelRatio||1;const W=canvas.offsetWidth||300;const H=90;
-  canvas.width=W*dpr;canvas.height=H*dpr;canvas.style.width=W+'px';canvas.style.height=H+'px';
+  const labels=mesesParaExibir.map(fmtMesLabel);
+  const dpr=window.devicePixelRatio||1;
+  const W=canvas.offsetWidth||300;const H=90;
+  canvas.width=W*dpr;canvas.height=H*dpr;
+  canvas.style.width=W+'px';canvas.style.height=H+'px';
   const ctx=canvas.getContext('2d');ctx.scale(dpr,dpr);
-  const pad={t:8,r:8,b:22,l:30};const cW=W-pad.l-pad.r;const cH=H-pad.t-pad.b;
-  const barW=Math.max(8,Math.floor(cW/mesesComDados.length)-4);
-  const xS=i=>pad.l+(i/(mesesComDados.length-1||1))*cW;
-  // barras
-  mesesComDados.forEach((ym,i)=>{
-    const v=medias[i];const x=pad.l+i*(cW/(mesesComDados.length||1));const barH=Math.max(2,(v/100)*cH);
-    const isSelected=ym===mesSelecionado;
-    ctx.fillStyle=isSelected?'var(--accent)':'#333';
-    // parse color
-    ctx.fillStyle=isSelected?'#e8ff00':'#2a2a2a';
-    ctx.fillRect(x+(cW/mesesComDados.length-barW)/2,pad.t+cH-barH,barW,barH);
+  ctx.clearRect(0,0,W,H);
+  const n=mesesParaExibir.length;
+  const pad={t:16,r:8,b:22,l:8};
+  const cW=W-pad.l-pad.r;const cH=H-pad.t-pad.b;
+  const slotW=cW/n;const barW=Math.max(10,Math.min(32,slotW*0.55));
+  mesesParaExibir.forEach((ym,i)=>{
+    const v=medias[i];
+    const barH=v>0?Math.max(3,Math.round((v/100)*cH)):0;
+    const x=pad.l+i*slotW+slotW/2;
+    const isActive=ym===mesSelecionado;
+    // barra
+    ctx.fillStyle=isActive?'#e8ff00':'#2a2a2a';
+    if(barH>0)ctx.fillRect(x-barW/2,pad.t+cH-barH,barW,barH);
+    // fundo vazio
+    ctx.fillStyle='#1a1a1a';
+    if(barH<cH)ctx.fillRect(x-barW/2,pad.t,barW,cH-barH);
     // valor
-    if(v>0){ctx.fillStyle=isSelected?'#e8ff00':'#555';ctx.font='9px DM Mono,monospace';ctx.textAlign='center';ctx.fillText(v+'%',x+(cW/mesesComDados.length)/2,pad.t+cH-barH-3);}
-    // label
-    ctx.fillStyle='#444';ctx.font='8px DM Mono,monospace';ctx.textAlign='center';ctx.fillText(labels[i],x+(cW/mesesComDados.length)/2,H-pad.b+12);
+    if(v>0){
+      ctx.fillStyle=isActive?'#e8ff00':'#555';
+      ctx.font='bold 9px DM Mono,monospace';
+      ctx.textAlign='center';
+      ctx.fillText(v+'%',x,pad.t+cH-barH-4);
+    }
+    // label mês
+    ctx.fillStyle=isActive?'#e8ff00':'#444';
+    ctx.font=(isActive?'bold ':'')+' 8px DM Mono,monospace';
+    ctx.textAlign='center';
+    ctx.fillText(labels[i],x,H-pad.b+12);
   });
 }
 
