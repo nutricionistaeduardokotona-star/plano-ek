@@ -186,7 +186,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
 </div>
 
 <!-- TRACK -->
-<div id="track" class="section">
+<div id="track" class="section active">
   <div class="card">
     <div class="date-nav">
       <button class="date-nav-btn" id="btn-prev" onclick="changeDay(-1)">&#8249;</button>
@@ -573,7 +573,11 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
         <button onclick="registrarAplicacaoTG()" style="flex:1;background:var(--accent);color:#000;border:none;padding:10px;border-radius:6px;font-weight:700;font-size:12px;cursor:pointer;">✓ Registrar aplicação</button>
         <button onclick="ajustarEstoqueTG()" style="background:var(--surface);border:1px solid var(--border);color:var(--muted);padding:10px 14px;border-radius:6px;font-size:11px;cursor:pointer;">+ Compra</button>
       </div>
-      <div id="tg-historico" style="margin-top:10px;font-size:10px;color:var(--muted);"></div>
+      <!-- Histórico editável -->
+      <div style="margin-top:12px;border-top:1px solid var(--border);padding-top:10px;">
+        <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">Histórico de aplicações</div>
+        <div id="tg-historico"></div>
+      </div>
     </div>
 
     <div style="background:#00101a;border:1px solid #003040;border-radius:6px;padding:10px;font-size:11px;color:#66aaff;">
@@ -1032,11 +1036,47 @@ function renderTG(){
   if(el('tg-usado'))el('tg-usado').textContent=usado.toFixed(1);
   if(el('tg-restante')){el('tg-restante').textContent=restante.toFixed(1);el('tg-restante').style.color=restante<10?'var(--red)':restante<20?'var(--orange)':'var(--green)';}
   if(el('tg-barra')){el('tg-barra').style.width=pct+'%';el('tg-barra').style.background=pct>80?'var(--red)':pct>50?'var(--orange)':'var(--green)';}
-  if(el('tg-historico')){
-    const ult=tg.aplicacoes.slice(-4).reverse();
-    el('tg-historico').innerHTML=ult.length?'Últimas: '+ult.map(a=>{const[,m,d]=a.data.split('-');return d+'/'+m+' ('+a.dose+'mg)';}).join(' · '):'Nenhuma aplicação ainda.';
-  }
+
+  // histórico editável
+  const hist=el('tg-historico');if(!hist)return;
+  if(!tg.aplicacoes.length){hist.innerHTML='<div style="font-size:11px;color:var(--muted);">Nenhuma aplicação registrada.</div>';return;}
+  const dias=['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+  let html='<table style="width:100%;border-collapse:collapse;">';
+  html+='<tr><th style="text-align:left;font-size:10px;color:var(--muted);padding:4px 0;font-weight:500;border-bottom:1px solid var(--border);">Data</th><th style="text-align:center;font-size:10px;color:var(--muted);padding:4px 0;font-weight:500;border-bottom:1px solid var(--border);">Dose</th><th style="text-align:right;font-size:10px;color:var(--muted);padding:4px 0;font-weight:500;border-bottom:1px solid var(--border);">Ações</th></tr>';
+  tg.aplicacoes.slice().reverse().forEach((a,iRev)=>{
+    const i=tg.aplicacoes.length-1-iRev;
+    const[y,m,d]=a.data.split('-');
+    const dow=dias[new Date(a.data+'T12:00:00').getDay()];
+    html+=`<tr>
+      <td style="padding:8px 0;border-bottom:1px solid #1a1a1a;font-size:12px;color:var(--muted);">${dow} ${d}/${m}</td>
+      <td style="padding:8px 0;border-bottom:1px solid #1a1a1a;text-align:center;font-family:'DM Mono',monospace;font-size:12px;color:var(--teal);">${a.dose}mg</td>
+      <td style="padding:8px 0;border-bottom:1px solid #1a1a1a;text-align:right;">
+        <button onclick="editarAplicacaoTG(${i})" style="background:transparent;border:1px solid var(--border);color:var(--muted);font-size:10px;padding:3px 8px;border-radius:4px;cursor:pointer;margin-right:4px;">✏️</button>
+        <button onclick="excluirAplicacaoTG(${i})" style="background:transparent;border:1px solid #3a1a1a;color:var(--red);font-size:10px;padding:3px 8px;border-radius:4px;cursor:pointer;">✕</button>
+      </td>
+    </tr>`;
+  });
+  html+='</table>';
+  hist.innerHTML=html;
 }
+function editarAplicacaoTG(i){
+  const tg=loadTG();
+  const atual=tg.aplicacoes[i];
+  const novaData=prompt('Data da aplicação (AAAA-MM-DD):',atual.data);
+  if(!novaData)return;
+  const novaDose=parseFloat(prompt('Dose (mg):',atual.dose));
+  if(isNaN(novaDose)||novaDose<=0)return;
+  tg.aplicacoes[i]={data:novaData,dose:novaDose};
+  saveTG(tg);renderTG();
+}
+
+function excluirAplicacaoTG(i){
+  if(!confirm('Excluir esta aplicação?'))return;
+  const tg=loadTG();
+  tg.aplicacoes.splice(i,1);
+  saveTG(tg);renderTG();
+}
+
 function ajustarDoseTG(delta){const tg=loadTG();tg.dose=Math.max(0.5,Math.min(15,+(tg.dose+delta).toFixed(1)));saveTG(tg);renderTG();}
 function registrarAplicacaoTG(){
   const tg=loadTG();
@@ -1053,7 +1093,12 @@ function ajustarEstoqueTG(){
   const tg=loadTG();tg.comprado+=val;saveTG(tg);renderTG();
 }
 
-document.addEventListener('DOMContentLoaded',()=>{setHeaderH();setTimeout(setHeaderH,400);renderTrack();});
+document.addEventListener('DOMContentLoaded',()=>{
+  setHeaderH();
+  setTimeout(setHeaderH,400);
+  // aguarda o browser pintar o DOM antes de renderizar os gráficos
+  setTimeout(renderTrack, 50);
+});
 </script>
 </body>
 </html>
