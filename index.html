@@ -259,8 +259,22 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
     <div class="track-task" id="task-estudo"><div class="task-left"><div class="task-icon">📚</div><div><div class="task-name">Estudo de Nutrição</div><div class="task-pts">+2 pts</div></div></div><button class="task-btn" id="btn-estudo" onclick="toggleTask('estudo',2)">✓</button></div>
     <div class="track-task" id="task-leitura"><div class="task-left"><div class="task-icon">📖</div><div><div class="task-name">Leitura</div><div class="task-pts">+2 pts</div></div></div><button class="task-btn" id="btn-leitura" onclick="toggleTask('leitura',2)">✓</button></div>
     <div class="track-task" id="task-duolingo"><div class="task-left"><div class="task-icon">🦜</div><div><div class="task-name">Duolingo — Inglês</div><div class="task-pts">+2 pts</div></div></div><button class="task-btn" id="btn-duolingo" onclick="toggleTask('duolingo',2)">✓</button></div>
-    <div class="track-task" id="task-naltrex" style="display:none;"><div class="task-left"><div class="task-icon">💉</div><div><div class="task-name">Tirzepatida 2,5mg</div><div class="task-pts">+2 pts · <span style="color:var(--accent)">SEXTA</span></div></div></div><button class="task-btn" id="btn-naltrex" onclick="toggleTask('naltrex',2)">✓</button></div>
+
+    <!-- Testosterona — seg/qui -->
     <div class="track-task" id="task-testo" style="display:none;"><div class="task-left"><div class="task-icon">💉</div><div><div class="task-name">Aplicação Testosterona</div><div class="task-pts">+2 pts · <span style="color:var(--accent)" id="testo-dia-label">SEG</span></div></div></div><button class="task-btn" id="btn-testo" onclick="toggleTask('testo',2)">✓</button></div>
+
+    <!-- Tirzepatida — sexta -->
+    <div class="track-task" id="task-naltrex" style="display:none;"><div class="task-left"><div class="task-icon">💉</div><div><div class="task-name">Tirzepatida 2,5mg</div><div class="task-pts">+2 pts · <span style="color:var(--teal)">SEXTA</span></div></div></div><button class="task-btn" id="btn-naltrex" onclick="toggleTask('naltrex',2)">✓</button></div>
+
+    <!-- Check-ins segunda -->
+    <div id="checkins-bloco" style="display:none;">
+      <div style="font-size:9px;color:var(--teal);text-transform:uppercase;letter-spacing:1px;margin:14px 0 8px;font-weight:600;">Check-ins — Segunda</div>
+      <div class="track-task" id="task-ci1"><div class="task-left"><div class="task-icon">✅</div><div><div class="task-name">Lote 1 — 10 check-ins</div><div class="task-pts">+2 pts</div></div></div><button class="task-btn" id="btn-ci1" onclick="toggleTask('ci1',2)">✓</button></div>
+      <div class="track-task" id="task-ci2"><div class="task-left"><div class="task-icon">✅</div><div><div class="task-name">Lote 2 — 10 check-ins</div><div class="task-pts">+2 pts</div></div></div><button class="task-btn" id="btn-ci2" onclick="toggleTask('ci2',2)">✓</button></div>
+      <div class="track-task" id="task-ci3"><div class="task-left"><div class="task-icon">✅</div><div><div class="task-name">Lote 3 — 10 check-ins</div><div class="task-pts">+2 pts</div></div></div><button class="task-btn" id="btn-ci3" onclick="toggleTask('ci3',2)">✓</button></div>
+      <div class="track-task" id="task-ci4"><div class="task-left"><div class="task-icon">✅</div><div><div class="task-name">Lote 4 — 10 check-ins</div><div class="task-pts">+2 pts</div></div></div><button class="task-btn" id="btn-ci4" onclick="toggleTask('ci4',2)">✓</button></div>
+      <div class="track-task" id="task-followup"><div class="task-left"><div class="task-icon">📩</div><div><div class="task-name">Mensagem quem não fez check-in</div><div class="task-pts">+1 pt</div></div></div><button class="task-btn" id="btn-followup" onclick="toggleTask('followup',1)">✓</button></div>
+    </div>
   </div>
 
   <div class="card">
@@ -604,12 +618,13 @@ function fmtLong(s){const dias=['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];cons
 function getDayLabels(s){const dow=dowNum(s);const map={1:{treino:'🦵 Pernas Leve',cardio:'🏃 Cardio Moderado'},2:{treino:'💪 Peito + Tríceps + Abs',cardio:'🏃 Cardio da Planilha 🎈'},3:{treino:'💪 Pernas Posterior Pesado',cardio:'🏃 Cardio Leve · 🎻 Aula 20h'},4:{treino:'💪 Costas + Bíceps',cardio:'🏃 Cardio da Planilha 🎈'},5:{treino:'💪 Ombros + Braços + Abs',cardio:'🏃 Cardio Leve'},6:{treino:'💪 Bônus (opcional)',cardio:'🏃 Cardio da Planilha 🎈'},0:{treino:null,cardio:'🏃 Longão (opcional)'}};return map[dow]||{treino:'💪 Musculação',cardio:'🏃 Cardio'};}
 function changeDay(n){const next=addDays(currentDay,n);if(next>todayStr())return;currentDay=next;renderTrack();}
 
+function isTGDay(s){return dowNum(s)===5;}
+
 function renderTrack(){
   const data=loadData();const s=currentDay;const t=todayStr();
   const{main,isToday}=fmtLong(s);
   document.getElementById('track-date-main').textContent=isToday?'Hoje':main;
   document.getElementById('track-date-sub').textContent=isToday?main:fmtDate(s);
-  document.getElementById('tasks-label').textContent=isToday?'Registrar agora':'Editando: '+main;
   document.getElementById('btn-prev').disabled=false;
   document.getElementById('btn-next').disabled=s>=t;
   const labels=getDayLabels(s);
@@ -617,12 +632,13 @@ function renderTrack(){
   if(labels.treino){trT.style.display='flex';document.getElementById('treino-label').textContent=labels.treino;}else trT.style.display='none';
   if(labels.cardio){caT.style.display='flex';document.getElementById('cardio-label').textContent=labels.cardio;}else caT.style.display='none';
   const testoDiv=document.getElementById('task-testo');
-  function isTGDay(s){return dowNum(s)===5;}
   if(isTestoDay(s)){testoDiv.style.display='flex';document.getElementById('testo-dia-label').textContent=dowNum(s)===1?'SEG':'QUI';}else testoDiv.style.display='none';
   const tgDiv=document.getElementById('task-naltrex');
   if(tgDiv){tgDiv.style.display=isTGDay(s)?'flex':'none';}
+  const checkinsBloco=document.getElementById('checkins-bloco');
+  if(checkinsBloco){checkinsBloco.style.display=dowNum(s)===1?'block':'none';}
   const dt=data.tasks[s]||{};
-  ['sono','cardio','treino','dieta','testo','violino','estudo','leitura','duolingo','wpp','naltrex'].forEach(k=>{
+  ['sono','cardio','treino','dieta','testo','violino','estudo','leitura','duolingo','wpp','naltrex','ci1','ci2','ci3','ci4','followup'].forEach(k=>{
     const btn=document.getElementById('btn-'+k);const row=document.getElementById('task-'+k);
     if(!btn||!row)return;
     if(dt[k]){btn.classList.add('done');row.classList.add('done-row');}else{btn.classList.remove('done');row.classList.remove('done-row');}
@@ -1037,7 +1053,7 @@ function ajustarEstoqueTG(){
   const tg=loadTG();tg.comprado+=val;saveTG(tg);renderTG();
 }
 
-document.addEventListener('DOMContentLoaded',()=>{setHeaderH();setTimeout(setHeaderH,400);renderTrack();renderTG();});
+document.addEventListener('DOMContentLoaded',()=>{setHeaderH();setTimeout(setHeaderH,400);renderTrack();});
 </script>
 </body>
 </html>
