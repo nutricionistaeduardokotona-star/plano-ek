@@ -97,12 +97,12 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
 
 <div class="header">
   <div class="header-top">
-    <div><div class="logo">EK<span>·</span>LIFE</div><div class="logo-sub">LIFE IN PEACE PROJECT · MAI/2026</div></div>
+    <div><div class="logo">EK<span>·</span>LIFE</div><div class="logo-sub">LIFE IN PEACE PROJECT · JUN/2026</div></div>
     <div class="badge" id="header-badge">107,5 KG</div>
   </div>
   <div class="stats-bar">
-    <div class="stat-item"><div class="stat-val" id="header-peso">107,5</div><div class="stat-label">Peso</div></div>
-    <div class="stat-item"><div class="stat-val" style="color:#ff4d00;">~26%</div><div class="stat-label">BF Est.</div></div>
+    <div class="stat-item"><div class="stat-val" style="color:var(--muted);font-size:13px;">107,5</div><div class="stat-label">Peso inicial</div></div>
+    <div class="stat-item"><div class="stat-val" id="header-peso" style="color:var(--accent);">107,5</div><div class="stat-label">Peso atual</div></div>
     <div class="stat-item"><div class="stat-val">90kg</div><div class="stat-label">Meta corpo</div></div>
     <div class="stat-item"><div class="stat-val" style="color:var(--teal);">SET</div><div class="stat-label">5km Floripa</div></div>
   </div>
@@ -121,7 +121,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
 <div id="vida" class="section">
   <div class="card" style="background:linear-gradient(135deg,#111 0%,#0d1a0d 100%);border-color:#1a2e1a;">
     <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--accent);letter-spacing:2px;margin-bottom:6px;">Life in Peace Project</div>
-    <div style="font-size:12px;color:var(--muted);line-height:1.8;">Você construiu tudo sozinho. Carro, consultório, método, pacientes.<br>O que falta não é mais esforço — é <span style="color:var(--accent);">paz para existir enquanto constrói.</span></div>
+    <div style="font-size:12px;color:var(--muted);line-height:1.8;">Foco total até zerar as dívidas.<br><span style="color:var(--accent);">Quando chegar lá, reabro a lista e decido o que volta.</span></div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px;">
       <div style="background:#0a1a0a;border:1px solid #1a3a1a;border-radius:6px;padding:10px;text-align:center;"><div style="font-family:'Bebas Neue',sans-serif;font-size:17px;color:var(--green);">Eduardo Novo</div><div style="font-size:10px;color:var(--muted);">Pouco todo dia ✓</div></div>
       <div style="background:#1a0a0a;border:1px solid #3a1a1a;border-radius:6px;padding:10px;text-align:center;"><div style="font-family:'Bebas Neue',sans-serif;font-size:17px;color:var(--red);opacity:0.5;text-decoration:line-through;">Eduardo Antigo</div><div style="font-size:10px;color:var(--muted);">Tudo ou nada ✗</div></div>
@@ -129,32 +129,41 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
   </div>
 
   <div class="card">
-    <div class="card-title"><div class="dot" style="background:var(--teal)"></div>Rotina de Paz — Dias Úteis</div>
-    <div class="routine-block"><div class="routine-time">6:30</div><div class="routine-dot" style="background:var(--blue)"></div><div class="routine-content"><div class="routine-title">Acorda + Café + Aula de Nutrição</div><div class="routine-sub">Café assistindo aula de nutrição. Sem celular.</div><span class="routine-tag" style="background:#00101a;color:var(--blue);border:1px solid #003040;">📚 nutri</span></div></div>
-    <div class="routine-block"><div class="routine-time">8:00</div><div class="routine-dot" style="background:var(--green)"></div><div class="routine-content"><div class="routine-title">Treino + Cardio — 2h</div><div class="routine-sub">Conforme o dia da semana. Banho ao final.</div><span class="routine-tag" style="background:#0a1a0a;color:var(--green);border:1px solid #1a3a1a;">🏋️ corpo</span></div></div>
-    <div class="routine-block"><div class="routine-time">10:00</div><div class="routine-dot" style="background:var(--orange)"></div><div class="routine-content"><div class="routine-title">Me arrumar para o trabalho</div><div class="routine-sub">Banho, suplementos, pronto para o dia.</div><span class="routine-tag" style="background:#1a0e00;color:var(--orange);border:1px solid #3a2a00;">🍽️ nutri</span></div></div>
-    <div class="routine-block"><div class="routine-time">10:30</div><div class="routine-dot" style="background:var(--teal)"></div><div class="routine-content"><div class="routine-title">🎻 Violino — 20min</div><div class="routine-sub">Consultório. Mesmo 10min vale.</div><span class="routine-tag" style="background:#001a1a;color:var(--teal);border:1px solid #003a3a;">🎻 alma</span></div></div>
-    <div class="routine-block"><div class="routine-time">10:30</div><div class="routine-dot" style="background:var(--purple)"></div><div class="routine-content"><div class="routine-title">WhatsApp Pacientes — 1h30</div><div class="routine-sub">Bloco fechado. Pacientes, família, pendências. Dia 28: notas fiscais aqui.</div><span class="routine-tag" style="background:#12001a;color:var(--purple);border:1px solid #2a003a;">💬 foco</span></div></div>
-    <div class="routine-block"><div class="routine-time">12:00</div><div class="routine-dot" style="background:var(--accent2)"></div><div class="routine-content"><div class="routine-title">Primeiro Paciente</div><div class="routine-sub">Ter–Sex: até 4 pacientes (12h · 13h30 · 15h · 17h). Segundas: sem atendimentos.</div><span class="routine-tag" style="background:#1a0800;color:var(--accent2);border:1px solid #3a1500;">👨‍⚕️ clínica</span></div></div>
-    <div class="routine-block"><div class="routine-time">19:30</div><div class="routine-dot" style="background:var(--orange)"></div><div class="routine-content"><div class="routine-title">Jantar</div><div class="routine-sub">Refeição tranquila. Sem trabalho.</div><span class="routine-tag" style="background:#1a0e00;color:var(--orange);border:1px solid #3a2a00;">🍽️ paz</span></div></div>
-    <div class="routine-block"><div class="routine-time">20:00</div><div class="routine-dot" style="background:var(--blue)"></div><div class="routine-content"><div class="routine-title">🎯 Criação — Curso / Mentoria Kairos</div><div class="routine-sub">Estudar, produzir curso de compulsão, conteúdo. 2h30 de criação.</div><span class="routine-tag" style="background:#00101a;color:var(--blue);border:1px solid #003040;">🚀 kairos</span></div></div>
-    <div class="routine-block"><div class="routine-time">22:30</div><div class="routine-dot" style="background:var(--muted)"></div><div class="routine-content"><div class="routine-title">Desacelerar</div><div class="routine-sub">Sem telas de trabalho. Música, leitura leve, gatos.</div><span class="routine-tag" style="background:#1a1a1a;color:var(--muted);border:1px solid #333;">🌙 paz</span></div></div>
-    <div class="routine-block"><div class="routine-time">23:00</div><div class="routine-dot" style="background:var(--accent)"></div><div class="routine-content"><div class="routine-title">Dorme — 7h de sono</div><div class="routine-sub">Acorda às 6h30. Sem tela, sem culpa. O dia foi suficiente.</div><span class="routine-tag" style="background:#1a1a00;color:var(--accent);border:1px solid #333300;">😴 7h</span></div></div>
+    <div class="card-title"><div class="dot" style="background:var(--red)"></div>Segunda — Check-ins (Prioridade Máxima)</div>
+    <div style="background:#1a0800;border:1px solid #3a1500;border-radius:6px;padding:11px;margin-bottom:10px;font-size:12px;color:#ff9966;">Segunda é sagrada para check-ins — nada entra na frente disso.</div>
+    <div class="routine-block"><div class="routine-time">6:00</div><div class="routine-dot" style="background:var(--green)"></div><div class="routine-content"><div class="routine-title">Acordar + Comer + Musculação + Cardio + Banho + Café</div><div class="routine-sub">Sono: dormir às 22h, acordar às 6h — 8h de sono é o pilar.</div><span class="routine-tag" style="background:#0a1a0a;color:var(--green);border:1px solid #1a3a1a;">🏋️ corpo</span></div></div>
+    <div class="routine-block"><div class="routine-time">8:30</div><div class="routine-dot" style="background:var(--purple)"></div><div class="routine-content"><div class="routine-title">WhatsApp — vendas e dúvidas</div><div class="routine-sub">Só no bloco definido. Fora disso não abre.</div><span class="routine-tag" style="background:#12001a;color:var(--purple);border:1px solid #2a003a;">💬 foco</span></div></div>
+    <div class="routine-block"><div class="routine-time">10:30</div><div class="routine-dot" style="background:var(--blue)"></div><div class="routine-content"><div class="routine-title">Estudos de Nutrição</div><div class="routine-sub">Artigo, livro técnico, conteúdo.</div><span class="routine-tag" style="background:#00101a;color:var(--blue);border:1px solid #003040;">📚 nutri</span></div></div>
+    <div class="routine-block"><div class="routine-time">12:00</div><div class="routine-dot" style="background:var(--accent)"></div><div class="routine-content"><div class="routine-title">🔒 Análise de check-ins e ajustes de dieta</div><div class="routine-sub">Prioridade máxima, acima de tudo. Bloco bloqueado até 19h.</div><span class="routine-tag" style="background:#1a1a00;color:var(--accent);border:1px solid #333300;">✅ check-ins</span></div></div>
+    <div class="routine-block"><div class="routine-time">19:00</div><div class="routine-dot" style="background:var(--orange)"></div><div class="routine-content"><div class="routine-title">Jantar + Gatos + Descomprime</div><div class="routine-sub">19h às 20h é descanso real — sem tela de trabalho.</div><span class="routine-tag" style="background:#1a0e00;color:var(--orange);border:1px solid #3a2a00;">🐱 paz</span></div></div>
+    <div class="routine-block"><div class="routine-time">20:00</div><div class="routine-dot" style="background:var(--muted)"></div><div class="routine-content"><div class="routine-title">Leitura ou tempo livre real</div><div class="routine-sub">Sem trabalho.</div><span class="routine-tag" style="background:#1a1a1a;color:var(--muted);border:1px solid #333;">🌙 livre</span></div></div>
+    <div class="routine-block"><div class="routine-time">22:00</div><div class="routine-dot" style="background:var(--accent)"></div><div class="routine-content"><div class="routine-title">Dorme — 8h de sono</div><div class="routine-sub">Acorda às 6h. Pilar de tudo.</div><span class="routine-tag" style="background:#1a1a00;color:var(--accent);border:1px solid #333300;">😴 22h</span></div></div>
   </div>
 
   <div class="card">
-    <div class="card-title"><div class="dot" style="background:var(--red)"></div>Segunda — Dia de Check-ins</div>
-    <div style="background:#1a0800;border:1px solid #3a1500;border-radius:6px;padding:11px;margin-bottom:10px;font-size:12px;color:#ff9966;">Segunda não tem atendimentos. Foco total nos check-ins após o violino.</div>
-    <div class="routine-block"><div class="routine-time">10:30</div><div class="routine-dot" style="background:var(--green)"></div><div class="routine-content"><div class="routine-title">Check-ins dos pacientes</div><div class="routine-sub">4 lotes de 10. A cada lote concluído → check no Track. Enviar mensagem para quem não fez.</div></div></div>
+    <div class="card-title"><div class="dot" style="background:var(--blue)"></div>Terça — Follow-up + Leads + Mentoria</div>
+    <div class="routine-block"><div class="routine-time">6:00</div><div class="routine-dot" style="background:var(--green)"></div><div class="routine-content"><div class="routine-title">Acordar + Comer + Musculação + Cardio + Banho + Café</div><div class="routine-sub"></div><span class="routine-tag" style="background:#0a1a0a;color:var(--green);border:1px solid #1a3a1a;">🏋️ corpo</span></div></div>
+    <div class="routine-block"><div class="routine-time">8:30</div><div class="routine-dot" style="background:var(--purple)"></div><div class="routine-content"><div class="routine-title">WhatsApp — vendas e dúvidas</div><div class="routine-sub">Só no bloco definido.</div><span class="routine-tag" style="background:#12001a;color:var(--purple);border:1px solid #2a003a;">💬 foco</span></div></div>
+    <div class="routine-block"><div class="routine-time">10:30</div><div class="routine-dot" style="background:var(--blue)"></div><div class="routine-content"><div class="routine-title">Produção de conteúdo</div><div class="routine-sub"></div><span class="routine-tag" style="background:#00101a;color:var(--blue);border:1px solid #003040;">🎯 conteúdo</span></div></div>
+    <div class="routine-block"><div class="routine-time">12:00</div><div class="routine-dot" style="background:var(--teal)"></div><div class="routine-content"><div class="routine-title">Follow-up de pacientes antigos + Leads + Mentoria Kairos</div><div class="routine-sub">Bloco até 20h.</div><span class="routine-tag" style="background:#001a1a;color:var(--teal);border:1px solid #003a3a;">🚀 kairos</span></div></div>
+    <div class="routine-block"><div class="routine-time">20:00</div><div class="routine-dot" style="background:var(--muted)"></div><div class="routine-content"><div class="routine-title">Tempo livre real</div><div class="routine-sub"></div><span class="routine-tag" style="background:#1a1a1a;color:var(--muted);border:1px solid #333;">🌙 livre</span></div></div>
+    <div class="routine-block"><div class="routine-time">22:00</div><div class="routine-dot" style="background:var(--accent)"></div><div class="routine-content"><div class="routine-title">Dorme</div><div class="routine-sub"></div><span class="routine-tag" style="background:#1a1a00;color:var(--accent);border:1px solid #333300;">😴 22h</span></div></div>
   </div>
 
   <div class="card">
-    <div class="card-title"><div class="dot" style="background:var(--orange)"></div>Fim de Semana — Paz Real</div>
-    <div style="background:#1a0e00;border:1px solid #3a2000;border-radius:6px;padding:11px;margin-bottom:10px;font-size:12px;color:var(--orange);">Fim de semana não é dia de recuperar o que atrasou. É dia de recarregar.</div>
-    <div class="routine-block"><div class="routine-time">4:30</div><div class="routine-dot" style="background:var(--accent)"></div><div class="routine-content"><div class="routine-title">Acorda natural + Gatos</div><div class="routine-sub">Sem pressão.</div></div></div>
-    <div class="routine-block"><div class="routine-time">6:00</div><div class="routine-dot" style="background:var(--green)"></div><div class="routine-content"><div class="routine-title">Treino bônus / Longão</div><div class="routine-sub">Sábado: bônus opcional, sem cardio. Domingo: longão com o Higor.</div></div></div>
-    <div class="routine-block"><div class="routine-time">8:00</div><div class="routine-dot" style="background:var(--teal)"></div><div class="routine-content"><div class="routine-title">🎻 Violino sem pressa</div><div class="routine-sub">Melhor dia para praticar mais. Sem obrigação de duração.</div></div></div>
-    <div class="routine-block"><div class="routine-time">10:00</div><div class="routine-dot" style="background:var(--muted)"></div><div class="routine-content"><div class="routine-title">Livre — sem agenda</div><div class="routine-sub">Passear, ler, descansar, estar. Isso não é perda de tempo.</div></div></div>
+    <div class="card-title"><div class="dot" style="background:var(--green)"></div>Quarta, Quinta e Sexta — Consultas</div>
+    <div class="routine-block"><div class="routine-time">6:00</div><div class="routine-dot" style="background:var(--green)"></div><div class="routine-content"><div class="routine-title">Acordar + Comer + Musculação + Cardio + Banho + Café</div><div class="routine-sub"></div><span class="routine-tag" style="background:#0a1a0a;color:var(--green);border:1px solid #1a3a1a;">🏋️ corpo</span></div></div>
+    <div class="routine-block"><div class="routine-time">8:30</div><div class="routine-dot" style="background:var(--purple)"></div><div class="routine-content"><div class="routine-title">WhatsApp — vendas e dúvidas</div><div class="routine-sub">Só no bloco definido.</div><span class="routine-tag" style="background:#12001a;color:var(--purple);border:1px solid #2a003a;">💬 foco</span></div></div>
+    <div class="routine-block"><div class="routine-time">10:30</div><div class="routine-dot" style="background:var(--blue)"></div><div class="routine-content"><div class="routine-title">Estudos de nutrição ou produção de conteúdo</div><div class="routine-sub">Alternando.</div><span class="routine-tag" style="background:#00101a;color:var(--blue);border:1px solid #003040;">📚 nutri</span></div></div>
+    <div class="routine-block"><div class="routine-time">12:00</div><div class="routine-dot" style="background:var(--accent2)"></div><div class="routine-content"><div class="routine-title">Consultas</div><div class="routine-sub">Máx 7 slots/dia · 3 reservados para reagendamento.</div><span class="routine-tag" style="background:#1a0800;color:var(--accent2);border:1px solid #3a1500;">👨‍⚕️ clínica</span></div></div>
+    <div class="routine-block"><div class="routine-time">19:00</div><div class="routine-dot" style="background:var(--orange)"></div><div class="routine-content"><div class="routine-title">Jantar + Gatos + Descomprime</div><div class="routine-sub">19h às 20h é descanso real — sem tela de trabalho.</div><span class="routine-tag" style="background:#1a0e00;color:var(--orange);border:1px solid #3a2a00;">🐱 paz</span></div></div>
+    <div class="routine-block"><div class="routine-time">20:00</div><div class="routine-dot" style="background:var(--muted)"></div><div class="routine-content"><div class="routine-title">Tempo livre / dieta complexa se necessário</div><div class="routine-sub"></div><span class="routine-tag" style="background:#1a1a1a;color:var(--muted);border:1px solid #333;">🌙 livre</span></div></div>
+    <div class="routine-block"><div class="routine-time">22:00</div><div class="routine-dot" style="background:var(--accent)"></div><div class="routine-content"><div class="routine-title">Dorme</div><div class="routine-sub"></div><span class="routine-tag" style="background:#1a1a00;color:var(--accent);border:1px solid #333300;">😴 22h</span></div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><div class="dot" style="background:var(--orange)"></div>Sábado e Domingo — Livres</div>
+    <div style="background:#1a0e00;border:1px solid #3a2000;border-radius:6px;padding:11px;font-size:12px;color:var(--orange);">Livres. Sem regra de produtividade. Sem culpa.</div>
   </div>
 
   <div class="card">
@@ -163,24 +172,29 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
       🏃 <span style="color:var(--text);">90–93kg com 10–13% de gordura</span><br>
       💰 <span style="color:var(--text);">Quitar dívidas — faturar 25k–30k e guardar 10k–15k/mês</span><br>
       🎓 <span style="color:var(--text);">Criar curso de compulsão alimentar</span><br>
-      🚀 <span style="color:var(--text);">Foco na mentoria Kairos</span><br>
-      📖 <span style="color:var(--text);">Leitura diária — 30min</span><br>
-      🎻 <span style="color:var(--text);">Dominar o violino — tocar uma música inteira</span>
+      🚀 <span style="color:var(--text);">Foco na mentoria Kairos</span>
     </div>
   </div>
 
   <div class="card">
-    <div class="card-title"><div class="dot" style="background:var(--green)"></div>Regras de Paz</div>
+    <div class="card-title"><div class="dot" style="background:var(--green)"></div>Regras Inegociáveis</div>
     <div style="font-size:13px;line-height:2.2;color:var(--muted);">
-      ✓ <span style="color:var(--text);">Fazer pouco todo dia vale mais que tudo em nenhum</span><br>
-      ✓ <span style="color:var(--text);">10min de violino conta. Sempre.</span><br>
-      ✓ <span style="color:var(--text);">Estudo das 5h é sagrado — não negocia</span><br>
-      ✓ <span style="color:var(--text);">WhatsApp tem horário (9h). Pode esperar.</span><br>
-      ✓ <span style="color:var(--text);">Fim de semana é seu. Não é do trabalho atrasado.</span><br>
-      ✓ <span style="color:var(--text);">Toda quarta às 20h: aula de violino — preservada sempre</span><br>
+      ✓ <span style="color:var(--text);">Segunda é sagrada para check-ins — nada entra na frente</span><br>
+      ✓ <span style="color:var(--text);">19h às 20h é descanso real — sem tela de trabalho</span><br>
+      ✓ <span style="color:var(--text);">Sábado e domingo são livres — sem culpa</span><br>
+      ✓ <span style="color:var(--text);">WhatsApp de vendas apenas no bloco — fora disso não abre</span><br>
+      ✓ <span style="color:var(--text);">Sono: dormir às 22h, acordar às 6h — 8h é o pilar</span><br>
       ✗ <span style="color:var(--red);">Tentar fazer tudo em um dia só</span><br>
-      ✗ <span style="color:var(--red);">Se culpar por não ter completado a lista</span><br>
-      ✗ <span style="color:var(--red);">Trabalhar no domingo para recuperar atraso</span>
+      ✗ <span style="color:var(--red);">Trabalhar no fim de semana para recuperar atraso</span>
+    </div>
+  </div>
+
+  <div class="card" style="border-color:#1a3a1a;">
+    <div class="card-title"><div class="dot" style="background:var(--muted)"></div>Pausado — Volta quando as dívidas zerarem</div>
+    <div style="font-size:13px;line-height:2.2;color:#333;">
+      <s>🎻 Violino</s><br>
+      <s>🦜 Duolingo</s><br>
+      <s>📖 Leitura de desenvolvimento pessoal</s>
     </div>
   </div>
 </div>
@@ -255,10 +269,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
     <!-- TAREFAS BÔNUS -->
     <div style="font-size:9px;color:var(--orange);text-transform:uppercase;letter-spacing:1px;margin:14px 0 8px;font-weight:600;">Bônus — cada um conta</div>
 
-    <div class="track-task" id="task-violino"><div class="task-left"><div class="task-icon">🎻</div><div><div class="task-name">Violino (mín. 10min)</div><div class="task-pts">+3 pts</div></div></div><button class="task-btn" id="btn-violino" onclick="toggleTask('violino',3)">✓</button></div>
     <div class="track-task" id="task-estudo"><div class="task-left"><div class="task-icon">📚</div><div><div class="task-name">Estudo de Nutrição</div><div class="task-pts">+2 pts</div></div></div><button class="task-btn" id="btn-estudo" onclick="toggleTask('estudo',2)">✓</button></div>
-    <div class="track-task" id="task-leitura"><div class="task-left"><div class="task-icon">📖</div><div><div class="task-name">Leitura</div><div class="task-pts">+2 pts</div></div></div><button class="task-btn" id="btn-leitura" onclick="toggleTask('leitura',2)">✓</button></div>
-    <div class="track-task" id="task-duolingo"><div class="task-left"><div class="task-icon">🦜</div><div><div class="task-name">Duolingo — Inglês</div><div class="task-pts">+2 pts</div></div></div><button class="task-btn" id="btn-duolingo" onclick="toggleTask('duolingo',2)">✓</button></div>
 
     <!-- Testosterona — seg/qui -->
     <div class="track-task" id="task-testo" style="display:none;"><div class="task-left"><div class="task-icon">💉</div><div><div class="task-name">Aplicação Testosterona</div><div class="task-pts">+2 pts · <span style="color:var(--accent)" id="testo-dia-label">SEG</span></div></div></div><button class="task-btn" id="btn-testo" onclick="toggleTask('testo',2)">✓</button></div>
@@ -594,12 +605,11 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
     <div id="proj-rows-corpo"></div>
   </div>
   <div class="card">
-    <div class="card-title"><div class="dot" style="background:var(--teal)"></div>Projeção Corrida — 10km Floripa &#127880;</div>
-    <div class="proj-row"><div class="proj-month" style="color:var(--teal);">M1</div><div><div style="font-size:12px;font-weight:600;">Base aeróbica</div></div><div style="font-size:11px;color:var(--muted);">Zona 2</div><div style="font-size:10px;color:var(--muted);">Consistência</div><div class="proj-bar-wrap"><div class="proj-bar" style="width:20%;background:var(--teal)"></div></div></div>
-    <div class="proj-row"><div class="proj-month" style="color:var(--teal);">M2</div><div><div style="font-size:12px;font-weight:600;">Fartlek fácil</div></div><div style="font-size:11px;color:var(--muted);">Intervalos</div><div style="font-size:10px;color:var(--muted);">Velocidade</div><div class="proj-bar-wrap"><div class="proj-bar" style="width:40%;background:var(--teal)"></div></div></div>
-    <div class="proj-row"><div class="proj-month" style="color:var(--teal);">M3</div><div><div style="font-size:12px;font-weight:600;">7km contínuos</div></div><div style="font-size:11px;color:var(--muted);">Endurance</div><div style="font-size:10px;color:var(--muted);">Ritmo</div><div class="proj-bar-wrap"><div class="proj-bar" style="width:60%;background:var(--teal)"></div></div></div>
-    <div class="proj-row"><div class="proj-month" style="color:var(--teal);">M4</div><div><div style="font-size:12px;font-weight:600;">8–9km</div></div><div style="font-size:11px;color:var(--muted);">Pré-prova</div><div style="font-size:10px;color:var(--muted);">Polimento</div><div class="proj-bar-wrap"><div class="proj-bar" style="width:80%;background:var(--teal)"></div></div></div>
-    <div class="proj-row" style="border:1px solid var(--teal);"><div class="proj-month" style="color:var(--teal);">SET</div><div><div style="font-size:13px;font-weight:700;color:var(--teal);">10km ✓ &#127880;</div><div style="font-size:10px;color:var(--green);">Floripa</div></div><div style="font-size:11px;color:var(--teal);font-weight:600;">META</div><div style="font-size:10px;color:var(--teal);">RD</div><div class="proj-bar-wrap"><div class="proj-bar" style="width:100%;background:var(--teal)"></div></div></div>
+    <div class="card-title"><div class="dot" style="background:var(--teal)"></div>Projeção Corrida — 5km Floripa 🎈</div>
+    <div class="proj-row"><div class="proj-month" style="color:var(--teal);">M1</div><div><div style="font-size:12px;font-weight:600;">Base aeróbica</div></div><div style="font-size:11px;color:var(--muted);">Zona 2</div><div style="font-size:10px;color:var(--muted);">Consistência</div><div class="proj-bar-wrap"><div class="proj-bar" style="width:25%;background:var(--teal)"></div></div></div>
+    <div class="proj-row"><div class="proj-month" style="color:var(--teal);">M2</div><div><div style="font-size:12px;font-weight:600;">3km contínuos</div></div><div style="font-size:11px;color:var(--muted);">Ritmo leve</div><div style="font-size:10px;color:var(--muted);">Cadência</div><div class="proj-bar-wrap"><div class="proj-bar" style="width:50%;background:var(--teal)"></div></div></div>
+    <div class="proj-row"><div class="proj-month" style="color:var(--teal);">M3</div><div><div style="font-size:12px;font-weight:600;">4km contínuos</div></div><div style="font-size:11px;color:var(--muted);">Intervalos</div><div style="font-size:10px;color:var(--muted);">Velocidade</div><div class="proj-bar-wrap"><div class="proj-bar" style="width:75%;background:var(--teal)"></div></div></div>
+    <div class="proj-row" style="border:1px solid var(--teal);"><div class="proj-month" style="color:var(--teal);">SET</div><div><div style="font-size:13px;font-weight:700;color:var(--teal);">5km ✓ 🎈</div><div style="font-size:10px;color:var(--green);">Floripa</div></div><div style="font-size:11px;color:var(--teal);font-weight:600;">META</div><div style="font-size:10px;color:var(--teal);">RD</div><div class="proj-bar-wrap"><div class="proj-bar" style="width:100%;background:var(--teal)"></div></div></div>
   </div>
 </div>
 
@@ -642,7 +652,7 @@ function renderTrack(){
   const checkinsBloco=document.getElementById('checkins-bloco');
   if(checkinsBloco){checkinsBloco.style.display=dowNum(s)===1?'block':'none';}
   const dt=data.tasks[s]||{};
-  ['sono','cardio','treino','dieta','testo','violino','estudo','leitura','duolingo','wpp','naltrex','ci1','ci2','ci3','ci4','followup'].forEach(k=>{
+  ['sono','cardio','treino','dieta','testo','estudo','wpp','naltrex','ci1','ci2','ci3','ci4','followup'].forEach(k=>{
     const btn=document.getElementById('btn-'+k);const row=document.getElementById('task-'+k);
     if(!btn||!row)return;
     if(dt[k]){btn.classList.add('done');row.classList.add('done-row');}else{btn.classList.remove('done');row.classList.remove('done-row');}
@@ -944,10 +954,11 @@ function renderProjecao(){
     const perdeu=(pesoInicial-pesoAtual);
     const falta=(pesoAtual-90).toFixed(1);
     const colP=perdeu>=0?'var(--green)':'var(--red)';
-    statusEl.innerHTML=`<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:4px;">
-      <div style="background:var(--surface2);border-radius:6px;padding:10px;text-align:center;"><div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--accent);">${pesoAtual}kg</div><div style="font-size:9px;color:var(--muted);">PESO ATUAL</div></div>
-      <div style="background:var(--surface2);border-radius:6px;padding:10px;text-align:center;"><div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:${colP};">${perdeu>=0?'-':'+'  }${Math.abs(perdeu).toFixed(1)}kg</div><div style="font-size:9px;color:var(--muted);">PERDIDO</div></div>
-      <div style="background:var(--surface2);border-radius:6px;padding:10px;text-align:center;"><div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--orange);">${falta}kg</div><div style="font-size:9px;color:var(--muted);">PARA META</div></div>
+    statusEl.innerHTML=`<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-bottom:4px;">
+      <div style="background:var(--surface2);border-radius:6px;padding:10px;text-align:center;"><div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--muted);">${pesoInicial}kg</div><div style="font-size:9px;color:var(--muted);">INICIAL</div></div>
+      <div style="background:var(--surface2);border-radius:6px;padding:10px;text-align:center;"><div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--accent);">${pesoAtual}kg</div><div style="font-size:9px;color:var(--muted);">ATUAL</div></div>
+      <div style="background:var(--surface2);border-radius:6px;padding:10px;text-align:center;"><div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:${colP};">${perdeu>=0?'-':'+'  }${Math.abs(perdeu).toFixed(1)}kg</div><div style="font-size:9px;color:var(--muted);">PERDIDO</div></div>
+      <div style="background:var(--surface2);border-radius:6px;padding:10px;text-align:center;"><div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--orange);">${falta}kg</div><div style="font-size:9px;color:var(--muted);">P/ META</div></div>
     </div>`;
   }
   const rowsEl=document.getElementById('proj-rows-corpo');if(!rowsEl)return;
@@ -978,12 +989,7 @@ const HABITOS=[
   {key:'treino',label:'🏋️ Treino',color:'#30d158',base:true},
   {key:'cardio',label:'🏃 Cardio',color:'#30d158',base:true},
   {key:'wpp',label:'💬 WhatsApp',color:'#555',base:true},
-  {key:'tirzepatida',label:'💉 Tirzepatida',color:'#bf5af2',base:false},
-  {key:'violino',label:'🎻 Violino',color:'#bf5af2',base:false},
   {key:'estudo',label:'📚 Nutrição',color:'#0a84ff',base:false},
-  {key:'leitura',label:'📖 Leitura',color:'#0a84ff',base:false},
-  {key:'duolingo',label:'🦜 Inglês',color:'#58cc02',base:false},
-  {key:'wpp',label:'💬 WhatsApp',color:'#555',base:false},
 ];
 function renderHabitosGrid(data){
   const t=todayStr();const el=document.getElementById('habitos-grid');el.innerHTML='';
